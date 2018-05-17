@@ -1,7 +1,7 @@
 #ifndef __LINUX_CACHE_H
 #define __LINUX_CACHE_H
 
-#include <linux/config.h>
+#include "config.h"
 #include <asm/cache.h>
 
 #ifndef L1_CACHE_ALIGN

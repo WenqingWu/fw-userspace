@@ -3,7 +3,7 @@
 
 #include <linux/netfilter.h>
 #include <linux/netfilter_ipv4.h>
-#include <net/snmp.h>
+#include "include/net/snmp.h"
 #include <net/ip.h>
 #include <net/protocol.h>
 #include <net/route.h>

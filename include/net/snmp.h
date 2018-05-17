@@ -21,7 +21,7 @@
 #ifndef _SNMP_H
 #define _SNMP_H
 
-#include <linux/cache.h>
+#include "../linux/cache.h"
  
 /*
  *	We use all unsigned longs. Linux will soon be so reliable that even these
