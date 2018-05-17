@@ -24,11 +24,13 @@ int okfn_sample(struct sk_buff *skb)
 
 int main()
 {
-    struct sk_buff *skb;
+    struct sk_buff *skb = (struct sk_buff *)malloc(sizeof(struct sk_buff));
 //    struct net_device *dev1;
 //   struct net_device *dev2;
-    
     int ret;
+    char *packet = "0x6a8d01e7080045003e234500008011"
+    
+    memcpy(skb, packet, sizeof(struct sk_buff));
 
     /*call NF_IP_PRE_ROUTING, just like done in ip_input.c*/
     ret = NF_HOOK(PF_INET, NF_IP_PRE_ROUTING, skb, NULL, NULL,
