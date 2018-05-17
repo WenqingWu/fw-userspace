@@ -1,0 +1,1 @@
+#define CONFIG_SCSI_MAC53C94 1

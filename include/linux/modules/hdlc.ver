@@ -1,0 +1,6 @@
+#define __ver_hdlc_netif_rx	62f12a5c
+#define hdlc_netif_rx	_set_ver(hdlc_netif_rx)
+#define __ver_register_hdlc_device	19b16424
+#define register_hdlc_device	_set_ver(register_hdlc_device)
+#define __ver_unregister_hdlc_device	1378b498
+#define unregister_hdlc_device	_set_ver(unregister_hdlc_device)

@@ -1,0 +1,1 @@
+#define CONFIG_PMAC_BACKLIGHT 1

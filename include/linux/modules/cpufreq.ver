@@ -1,0 +1,14 @@
+#define __ver_cpufreq_register_notifier	adaa2657
+#define cpufreq_register_notifier	_set_ver(cpufreq_register_notifier)
+#define __ver_cpufreq_unregister_notifier	3b3016d3
+#define cpufreq_unregister_notifier	_set_ver(cpufreq_unregister_notifier)
+#define __ver_cpufreq_set_policy	12962fdb
+#define cpufreq_set_policy	_set_ver(cpufreq_set_policy)
+#define __ver_cpufreq_notify_transition	974516e6
+#define cpufreq_notify_transition	_set_ver(cpufreq_notify_transition)
+#define __ver_cpufreq_register	9f99ccfb
+#define cpufreq_register	_set_ver(cpufreq_register)
+#define __ver_cpufreq_unregister	cf4ba771
+#define cpufreq_unregister	_set_ver(cpufreq_unregister)
+#define __ver_cpufreq_restore	e39890df
+#define cpufreq_restore	_set_ver(cpufreq_restore)

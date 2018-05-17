@@ -1,0 +1,1 @@
+#define CONFIG_HERMES 1

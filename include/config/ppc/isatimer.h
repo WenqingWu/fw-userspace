@@ -1,0 +1,1 @@
+#define CONFIG_PPC_ISATIMER 1

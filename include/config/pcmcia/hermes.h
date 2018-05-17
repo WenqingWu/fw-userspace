@@ -1,0 +1,1 @@
+#define CONFIG_PCMCIA_HERMES 1

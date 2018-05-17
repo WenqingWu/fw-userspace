@@ -1,0 +1,1 @@
+#define CONFIG_SCSI_QLOGIC_ISP 1

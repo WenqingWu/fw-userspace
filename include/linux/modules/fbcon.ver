@@ -1,0 +1,10 @@
+#define __ver_fb_display	348ef396
+#define fb_display	_set_ver(fb_display)
+#define __ver_fbcon_redraw_bmove	f624c61d
+#define fbcon_redraw_bmove	_set_ver(fbcon_redraw_bmove)
+#define __ver_fbcon_redraw_clear	bd588176
+#define fbcon_redraw_clear	_set_ver(fbcon_redraw_clear)
+#define __ver_fbcon_dummy	607df0c0
+#define fbcon_dummy	_set_ver(fbcon_dummy)
+#define __ver_fb_con	00fa7f08
+#define fb_con	_set_ver(fb_con)

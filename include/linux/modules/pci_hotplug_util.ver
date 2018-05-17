@@ -1,0 +1,14 @@
+#define __ver_pci_visit_dev	1f35ff96
+#define pci_visit_dev	_set_ver(pci_visit_dev)
+#define __ver_pci_read_config_byte_nodev	cf4ac61b
+#define pci_read_config_byte_nodev	_set_ver(pci_read_config_byte_nodev)
+#define __ver_pci_read_config_word_nodev	365f891a
+#define pci_read_config_word_nodev	_set_ver(pci_read_config_word_nodev)
+#define __ver_pci_read_config_dword_nodev	c466427f
+#define pci_read_config_dword_nodev	_set_ver(pci_read_config_dword_nodev)
+#define __ver_pci_write_config_byte_nodev	adb14b47
+#define pci_write_config_byte_nodev	_set_ver(pci_write_config_byte_nodev)
+#define __ver_pci_write_config_word_nodev	bb92e1ce
+#define pci_write_config_word_nodev	_set_ver(pci_write_config_word_nodev)
+#define __ver_pci_write_config_dword_nodev	96f5d9c3
+#define pci_write_config_dword_nodev	_set_ver(pci_write_config_dword_nodev)

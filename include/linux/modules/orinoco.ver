@@ -1,0 +1,12 @@
+#define __ver_alloc_orinocodev	f1405b78
+#define alloc_orinocodev	_set_ver(alloc_orinocodev)
+#define __ver_orinoco_shutdown	b1c88edb
+#define orinoco_shutdown	_set_ver(orinoco_shutdown)
+#define __ver_orinoco_reset	46c06e94
+#define orinoco_reset	_set_ver(orinoco_reset)
+#define __ver_orinoco_proc_dev_init	56c98931
+#define orinoco_proc_dev_init	_set_ver(orinoco_proc_dev_init)
+#define __ver_orinoco_proc_dev_cleanup	53c3a998
+#define orinoco_proc_dev_cleanup	_set_ver(orinoco_proc_dev_cleanup)
+#define __ver_orinoco_interrupt	f9224cf1
+#define orinoco_interrupt	_set_ver(orinoco_interrupt)

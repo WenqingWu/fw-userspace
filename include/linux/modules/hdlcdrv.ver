@@ -1,0 +1,10 @@
+#define __ver_hdlcdrv_receiver	94b35c68
+#define hdlcdrv_receiver	_set_ver(hdlcdrv_receiver)
+#define __ver_hdlcdrv_transmitter	4dfc8f18
+#define hdlcdrv_transmitter	_set_ver(hdlcdrv_transmitter)
+#define __ver_hdlcdrv_arbitrate	8374e9a1
+#define hdlcdrv_arbitrate	_set_ver(hdlcdrv_arbitrate)
+#define __ver_hdlcdrv_register_hdlcdrv	40a13ce6
+#define hdlcdrv_register_hdlcdrv	_set_ver(hdlcdrv_register_hdlcdrv)
+#define __ver_hdlcdrv_unregister_hdlcdrv	423b7b89
+#define hdlcdrv_unregister_hdlcdrv	_set_ver(hdlcdrv_unregister_hdlcdrv)

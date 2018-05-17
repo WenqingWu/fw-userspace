@@ -1,0 +1,1 @@
+#define CONFIG_DE4X5 1

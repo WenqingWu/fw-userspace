@@ -1,0 +1,12 @@
+#define __ver_init_etherdev	600bc234
+#define init_etherdev	_set_ver(init_etherdev)
+#define __ver_alloc_etherdev	e4d27df0
+#define alloc_etherdev	_set_ver(alloc_etherdev)
+#define __ver_ether_setup	14bcbb4c
+#define ether_setup	_set_ver(ether_setup)
+#define __ver_ltalk_setup	1a586fcc
+#define ltalk_setup	_set_ver(ltalk_setup)
+#define __ver_register_netdev	93009ebc
+#define register_netdev	_set_ver(register_netdev)
+#define __ver_unregister_netdev	2d4002f4
+#define unregister_netdev	_set_ver(unregister_netdev)

@@ -1,0 +1,1 @@
+#define CONFIG_MD_RAID1 1

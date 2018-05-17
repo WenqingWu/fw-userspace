@@ -1,0 +1,10 @@
+#define __ver_arpt_register_table	d0c52ba7
+#define arpt_register_table	_set_ver(arpt_register_table)
+#define __ver_arpt_unregister_table	fc115241
+#define arpt_unregister_table	_set_ver(arpt_unregister_table)
+#define __ver_arpt_do_table	dfbcb94c
+#define arpt_do_table	_set_ver(arpt_do_table)
+#define __ver_arpt_register_target	1bc2b68d
+#define arpt_register_target	_set_ver(arpt_register_target)
+#define __ver_arpt_unregister_target	c196eaac
+#define arpt_unregister_target	_set_ver(arpt_unregister_target)

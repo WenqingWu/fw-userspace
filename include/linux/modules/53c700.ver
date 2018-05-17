@@ -1,0 +1,6 @@
+#define __ver_NCR_700_detect	0022a367
+#define NCR_700_detect	_set_ver(NCR_700_detect)
+#define __ver_NCR_700_release	9ac0db80
+#define NCR_700_release	_set_ver(NCR_700_release)
+#define __ver_NCR_700_intr	de600bf7
+#define NCR_700_intr	_set_ver(NCR_700_intr)

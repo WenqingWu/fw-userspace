@@ -1,0 +1,8 @@
+#define __ver_attach_capi_interface	5448a06e
+#define attach_capi_interface	_set_ver(attach_capi_interface)
+#define __ver_detach_capi_interface	83c71232
+#define detach_capi_interface	_set_ver(detach_capi_interface)
+#define __ver_attach_capi_driver	edefe2a0
+#define attach_capi_driver	_set_ver(attach_capi_driver)
+#define __ver_detach_capi_driver	c144047f
+#define detach_capi_driver	_set_ver(detach_capi_driver)

@@ -1,0 +1,2 @@
+#define __ver_rtc_lock	6f67f475
+#define rtc_lock	_set_ver(rtc_lock)

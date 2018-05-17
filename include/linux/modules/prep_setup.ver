@@ -1,0 +1,4 @@
+#define __ver_ppc_cs4232_dma	c97bc26a
+#define ppc_cs4232_dma	_set_ver(ppc_cs4232_dma)
+#define __ver_ppc_cs4232_dma2	3c364c12
+#define ppc_cs4232_dma2	_set_ver(ppc_cs4232_dma2)

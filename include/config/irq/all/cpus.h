@@ -1,0 +1,1 @@
+#define CONFIG_IRQ_ALL_CPUS 1

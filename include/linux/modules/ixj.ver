@@ -1,0 +1,6 @@
+#define __ver_ixj_register	723a2fcf
+#define ixj_register	_set_ver(ixj_register)
+#define __ver_ixj_unregister	9452e529
+#define ixj_unregister	_set_ver(ixj_unregister)
+#define __ver_ixj_pcmcia_probe	2b8ef439
+#define ixj_pcmcia_probe	_set_ver(ixj_pcmcia_probe)

@@ -1,0 +1,12 @@
+#define __ver_video_register_device	8d870082
+#define video_register_device	_set_ver(video_register_device)
+#define __ver_video_unregister_device	632c327c
+#define video_unregister_device	_set_ver(video_unregister_device)
+#define __ver_video_devdata	24f77cc1
+#define video_devdata	_set_ver(video_devdata)
+#define __ver_video_usercopy	9b9c0a3b
+#define video_usercopy	_set_ver(video_usercopy)
+#define __ver_video_exclusive_open	f9443ca5
+#define video_exclusive_open	_set_ver(video_exclusive_open)
+#define __ver_video_exclusive_release	d3f3bfbb
+#define video_exclusive_release	_set_ver(video_exclusive_release)

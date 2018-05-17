@@ -1,0 +1,1 @@
+#define CONFIG_FB_VOODOO1 1

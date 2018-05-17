@@ -1,0 +1,16 @@
+#define __ver_register_cl2llc_client	14c15a9f
+#define register_cl2llc_client	_set_ver(register_cl2llc_client)
+#define __ver_unregister_cl2llc_client	6beb790e
+#define unregister_cl2llc_client	_set_ver(unregister_cl2llc_client)
+#define __ver_llc_data_request	bf140635
+#define llc_data_request	_set_ver(llc_data_request)
+#define __ver_llc_unit_data_request	8d414aa3
+#define llc_unit_data_request	_set_ver(llc_unit_data_request)
+#define __ver_llc_test_request	71e6165e
+#define llc_test_request	_set_ver(llc_test_request)
+#define __ver_llc_xid_request	8135cdb3
+#define llc_xid_request	_set_ver(llc_xid_request)
+#define __ver_llc_mac_data_indicate	c68f7d83
+#define llc_mac_data_indicate	_set_ver(llc_mac_data_indicate)
+#define __ver_llc_cancel_timers	2759c426
+#define llc_cancel_timers	_set_ver(llc_cancel_timers)

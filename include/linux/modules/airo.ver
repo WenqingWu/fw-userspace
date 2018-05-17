@@ -1,0 +1,6 @@
+#define __ver_stop_airo_card	a2551267
+#define stop_airo_card	_set_ver(stop_airo_card)
+#define __ver_init_airo_card	a0089f39
+#define init_airo_card	_set_ver(init_airo_card)
+#define __ver_reset_airo_card	6fe71be0
+#define reset_airo_card	_set_ver(reset_airo_card)

@@ -1,0 +1,14 @@
+#define __ver_fbcon_afb	bdb4d4f1
+#define fbcon_afb	_set_ver(fbcon_afb)
+#define __ver_fbcon_afb_setup	cec7b981
+#define fbcon_afb_setup	_set_ver(fbcon_afb_setup)
+#define __ver_fbcon_afb_bmove	47291b23
+#define fbcon_afb_bmove	_set_ver(fbcon_afb_bmove)
+#define __ver_fbcon_afb_clear	940a27a8
+#define fbcon_afb_clear	_set_ver(fbcon_afb_clear)
+#define __ver_fbcon_afb_putc	cedda656
+#define fbcon_afb_putc	_set_ver(fbcon_afb_putc)
+#define __ver_fbcon_afb_putcs	1f04cf01
+#define fbcon_afb_putcs	_set_ver(fbcon_afb_putcs)
+#define __ver_fbcon_afb_revc	62268271
+#define fbcon_afb_revc	_set_ver(fbcon_afb_revc)

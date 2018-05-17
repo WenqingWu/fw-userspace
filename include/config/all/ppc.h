@@ -1,0 +1,1 @@
+#define CONFIG_ALL_PPC 1

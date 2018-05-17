@@ -1,0 +1,1 @@
+#define CONFIG_BOOTX_TEXT 1

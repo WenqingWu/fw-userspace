@@ -1,0 +1,1 @@
+#define CONFIG_PLX_HERMES 1

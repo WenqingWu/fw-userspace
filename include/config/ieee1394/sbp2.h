@@ -1,0 +1,1 @@
+#define CONFIG_IEEE1394_SBP2 1

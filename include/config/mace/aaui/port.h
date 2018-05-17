@@ -1,0 +1,1 @@
+#undef  CONFIG_MACE_AAUI_PORT

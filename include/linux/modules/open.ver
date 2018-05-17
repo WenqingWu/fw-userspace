@@ -1,0 +1,2 @@
+#define __ver_generic_file_open	5de5f8be
+#define generic_file_open	_set_ver(generic_file_open)

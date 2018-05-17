@@ -1,0 +1,14 @@
+#define __ver_fbcon_vga	5a958223
+#define fbcon_vga	_set_ver(fbcon_vga)
+#define __ver_fbcon_vga_setup	a10f6374
+#define fbcon_vga_setup	_set_ver(fbcon_vga_setup)
+#define __ver_fbcon_vga_bmove	bbd318b0
+#define fbcon_vga_bmove	_set_ver(fbcon_vga_bmove)
+#define __ver_fbcon_vga_clear	028ad844
+#define fbcon_vga_clear	_set_ver(fbcon_vga_clear)
+#define __ver_fbcon_vga_putc	3227a5c5
+#define fbcon_vga_putc	_set_ver(fbcon_vga_putc)
+#define __ver_fbcon_vga_putcs	cceb3acd
+#define fbcon_vga_putcs	_set_ver(fbcon_vga_putcs)
+#define __ver_fbcon_vga_revc	d8554598
+#define fbcon_vga_revc	_set_ver(fbcon_vga_revc)

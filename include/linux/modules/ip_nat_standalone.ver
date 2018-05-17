@@ -1,0 +1,16 @@
+#define __ver_ip_nat_setup_info	a78559e2
+#define ip_nat_setup_info	_set_ver(ip_nat_setup_info)
+#define __ver_ip_nat_protocol_register	d4893db4
+#define ip_nat_protocol_register	_set_ver(ip_nat_protocol_register)
+#define __ver_ip_nat_protocol_unregister	1fa12698
+#define ip_nat_protocol_unregister	_set_ver(ip_nat_protocol_unregister)
+#define __ver_ip_nat_helper_register	3129b375
+#define ip_nat_helper_register	_set_ver(ip_nat_helper_register)
+#define __ver_ip_nat_helper_unregister	48bfcbd1
+#define ip_nat_helper_unregister	_set_ver(ip_nat_helper_unregister)
+#define __ver_ip_nat_cheat_check	1e4e73a8
+#define ip_nat_cheat_check	_set_ver(ip_nat_cheat_check)
+#define __ver_ip_nat_mangle_tcp_packet	2bf0c665
+#define ip_nat_mangle_tcp_packet	_set_ver(ip_nat_mangle_tcp_packet)
+#define __ver_ip_nat_used_tuple	6439560b
+#define ip_nat_used_tuple	_set_ver(ip_nat_used_tuple)

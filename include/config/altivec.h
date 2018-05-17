@@ -1,0 +1,1 @@
+#define CONFIG_ALTIVEC 1

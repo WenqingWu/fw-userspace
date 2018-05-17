@@ -1,0 +1,4 @@
+#define __ver_rrm_command	86387e79
+#define rrm_command	_set_ver(rrm_command)
+#define __ver_rrm_close	43cc51ea
+#define rrm_close	_set_ver(rrm_close)

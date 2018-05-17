@@ -1,0 +1,2 @@
+#define __ver_mii_phy_probe	f6e89aee
+#define mii_phy_probe	_set_ver(mii_phy_probe)

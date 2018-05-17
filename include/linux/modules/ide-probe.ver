@@ -1,0 +1,4 @@
+#define __ver_export_ide_init_queue	4d8b124c
+#define export_ide_init_queue	_set_ver(export_ide_init_queue)
+#define __ver_export_probe_for_drive	fc0d5296
+#define export_probe_for_drive	_set_ver(export_probe_for_drive)

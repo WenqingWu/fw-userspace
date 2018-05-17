@@ -1,0 +1,6 @@
+#define __ver_matrox_mystique	011d6768
+#define matrox_mystique	_set_ver(matrox_mystique)
+#define __ver_DAC1064_global_init	7c08fe68
+#define DAC1064_global_init	_set_ver(DAC1064_global_init)
+#define __ver_DAC1064_global_restore	30261a93
+#define DAC1064_global_restore	_set_ver(DAC1064_global_restore)

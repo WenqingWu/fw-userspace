@@ -1,0 +1,1 @@
+#define CONFIG_ADB_CUDA 1

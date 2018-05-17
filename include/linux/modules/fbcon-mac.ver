@@ -1,0 +1,14 @@
+#define __ver_fbcon_mac	eb364c8d
+#define fbcon_mac	_set_ver(fbcon_mac)
+#define __ver_fbcon_mac_setup	ff61ddc3
+#define fbcon_mac_setup	_set_ver(fbcon_mac_setup)
+#define __ver_fbcon_mac_bmove	97d6712c
+#define fbcon_mac_bmove	_set_ver(fbcon_mac_bmove)
+#define __ver_fbcon_mac_clear	271d0568
+#define fbcon_mac_clear	_set_ver(fbcon_mac_clear)
+#define __ver_fbcon_mac_putc	1e22cc59
+#define fbcon_mac_putc	_set_ver(fbcon_mac_putc)
+#define __ver_fbcon_mac_putcs	2361d119
+#define fbcon_mac_putcs	_set_ver(fbcon_mac_putcs)
+#define __ver_fbcon_mac_revc	ead72ed0
+#define fbcon_mac_revc	_set_ver(fbcon_mac_revc)

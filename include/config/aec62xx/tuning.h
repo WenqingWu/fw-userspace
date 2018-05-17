@@ -1,0 +1,1 @@
+#undef  CONFIG_AEC62XX_TUNING

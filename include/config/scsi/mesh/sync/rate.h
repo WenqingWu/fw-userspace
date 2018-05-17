@@ -1,0 +1,1 @@
+#define CONFIG_SCSI_MESH_SYNC_RATE (5)

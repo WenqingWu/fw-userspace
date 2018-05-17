@@ -1,0 +1,1 @@
+#define CONFIG_FONT_SUN12x22 1

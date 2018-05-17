@@ -1,0 +1,2 @@
+#define __ver_mac_hid_mouse_emulate_buttons	371dde90
+#define mac_hid_mouse_emulate_buttons	_set_ver(mac_hid_mouse_emulate_buttons)

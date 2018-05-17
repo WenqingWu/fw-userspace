@@ -1,0 +1,1 @@
+#define CONFIG_AIRO_CS 1

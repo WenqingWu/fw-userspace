@@ -1,0 +1,4 @@
+#define __ver_set_selection	7f4435f5
+#define set_selection	_set_ver(set_selection)
+#define __ver_paste_selection	acc105cf
+#define paste_selection	_set_ver(paste_selection)
