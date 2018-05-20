@@ -15,28 +15,28 @@
  * Andi Kleen - Fix a few bad bugs and races.
  */
 
-#include <linux/config.h>
+#include "include/linux/config.h"
 #if defined(CONFIG_FILTER)
 
-#include <linux/module.h>
-#include <linux/types.h>
-#include <linux/sched.h>
-#include <linux/mm.h>
-#include <linux/fcntl.h>
-#include <linux/socket.h>
-#include <linux/in.h>
-#include <linux/inet.h>
-#include <linux/netdevice.h>
-#include <linux/if_packet.h>
-#include <net/ip.h>
-#include <net/protocol.h>
-#include <linux/skbuff.h>
-#include <net/sock.h>
-#include <linux/errno.h>
-#include <linux/timer.h>
-#include <asm/system.h>
-#include <asm/uaccess.h>
-#include <linux/filter.h>
+#include "include/linux/module.h"
+#include "include/linux/types.h"
+#include "include/linux/sched.h"
+#include "include/linux/mm.h"
+#include "include/linux/fcntl.h"
+#include "include/linux/socket.h"
+#include "include/linux/in.h"
+#include "include/linux/inet.h"
+#include "include/linux/netdevice.h"
+#include "include/linux/if_packet.h"
+#include "include/net/ip.h"
+#include "include/net/protocol.h"
+#include "include/linux/skbuff.h"
+#include "include/net/sock.h"
+#include "include/linux/errno.h"
+#include "include/linux/timer.h"
+#include "include/asm/system.h"
+#include "include/asm/uaccess.h"
+#include "include/linux/filter.h"
 
 /* No hurry in this branch */
 

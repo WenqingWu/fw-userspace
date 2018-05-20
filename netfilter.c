@@ -9,24 +9,24 @@
  * February 2000: Modified by James Morris to have 1 queue per protocol.
  * 15-Mar-2000:   Added NF_REPEAT --RR.
  */
-#include <linux/config.h>
-#include <linux/netfilter.h>
-#include <net/protocol.h>
-#include <linux/init.h>
-#include <linux/skbuff.h>
-#include <linux/wait.h>
-#include <linux/module.h>
-#include <linux/interrupt.h>
-#include <linux/if.h>
-#include <linux/netdevice.h>
-#include <linux/brlock.h>
-#include <linux/inetdevice.h>
-#include <net/sock.h>
-#include <net/route.h>
-#include <linux/ip.h>
+#include "include/linux/config.h"
+#include "include/linux/netfilter.h"
+#include "include/net/protocol.h"
+#include "include/linux/init.h"
+#include "include/linux/skbuff.h"
+#include "include/linux/wait.h"
+#include "include/linux/module.h"
+#include "include/linux/interrupt.h"
+#include "include/linux/if.h"
+#include "include/linux/netdevice.h"
+#include "include/linux/brlock.h"
+#include "include/linux/inetdevice.h"
+#include "include/net/sock.h"
+#include "include/net/route.h"
+#include "include/linux/ip.h"
 
 #define __KERNEL_SYSCALLS__
-#include <linux/unistd.h>
+#include "include/linux/unistd.h"
 
 /* In this code, we can be waiting indefinitely for userspace to
  * service a packet if a hook returns NF_QUEUE.  We could keep a count

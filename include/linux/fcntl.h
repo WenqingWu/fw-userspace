@@ -1,7 +1,7 @@
 #ifndef _LINUX_FCNTL_H
 #define _LINUX_FCNTL_H
 
-#include <asm/fcntl.h>
+#include "../asm/fcntl.h"
 
 #define F_SETLEASE	(F_LINUX_SPECIFIC_BASE+0)
 #define F_GETLEASE	(F_LINUX_SPECIFIC_BASE+1)
