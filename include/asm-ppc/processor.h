@@ -11,11 +11,11 @@
  */
 #define current_text_addr() ({ __label__ _l; _l: &&_l;})
 
-#include <linux/config.h>
+#include "../linux/config.h"
 
-#include <asm/ptrace.h>
-#include <asm/types.h>
-#include <asm/mpc8xx.h>
+#include "ptrace.h"
+#include "types.h"
+#include "mpc8xx.h"
 
 /* Machine State Register (MSR) Fields */
 

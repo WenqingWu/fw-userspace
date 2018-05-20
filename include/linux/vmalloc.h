@@ -1,12 +1,12 @@
 #ifndef __LINUX_VMALLOC_H
 #define __LINUX_VMALLOC_H
 
-#include <linux/sched.h>
-#include <linux/mm.h>
-#include <linux/spinlock.h>
+#include "sched.h"
+#include "mm.h"
+#include "spinlock.h"
 
-#include <linux/highmem.h>	/* several arch define VMALLOC_END via PKMAP_BASE */
-#include <asm/pgtable.h>
+#include "highmem.h"	/* several arch define VMALLOC_END via PKMAP_BASE */
+#include "../asm/pgtable.h"
 
 /* bits in vm_struct->flags */
 #define VM_IOREMAP	0x00000001	/* ioremap() and friends */

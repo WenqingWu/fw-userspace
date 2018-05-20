@@ -1,8 +1,8 @@
 #ifndef _LINUX_PROC_FS_H
 #define _LINUX_PROC_FS_H
 
-#include <linux/config.h>
-#include <linux/slab.h>
+#include "config.h"
+#include "slab.h"
 
 /*
  * The proc filesystem constants/structures

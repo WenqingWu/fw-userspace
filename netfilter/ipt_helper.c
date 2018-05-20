@@ -7,12 +7,12 @@
  *   19 Mar 2002 Harald Welte <laforge@gnumonks.org>:
  *   		 - Port to newnat infrastructure
  */
-#include <linux/module.h>
-#include <linux/skbuff.h>
-#include <linux/netfilter_ipv4/ip_conntrack.h>
-#include <linux/netfilter_ipv4/ip_conntrack_helper.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
-#include <linux/netfilter_ipv4/ipt_helper.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_helper.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
+#include "../include/linux/netfilter_ipv4/ipt_helper.h"
 
 MODULE_LICENSE("GPL");
 

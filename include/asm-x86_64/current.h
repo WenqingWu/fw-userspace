@@ -4,7 +4,7 @@
 #if !defined(__ASSEMBLY__) 
 struct task_struct;
 
-#include <asm/pda.h>
+#include "pda.h"
 
 static inline struct task_struct *get_current(void) 
 { 

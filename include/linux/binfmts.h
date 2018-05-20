@@ -1,8 +1,8 @@
 #ifndef _LINUX_BINFMTS_H
 #define _LINUX_BINFMTS_H
 
-#include <linux/ptrace.h>
-#include <linux/capability.h>
+#include "ptrace.h"
+#include "capability.h"
 
 /*
  * MAX_ARG_PAGES defines the number of pages allocated for arguments

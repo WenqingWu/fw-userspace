@@ -43,19 +43,19 @@
  * 2000-08-06: Convert to new helper API (Harald Welte).
  *
  */
-#include <linux/config.h>
-#include <linux/module.h>
-#include <linux/types.h>
-#include <linux/kernel.h>
-#include <linux/netfilter_ipv4.h>
-#include <linux/netfilter_ipv4/ip_nat.h>
-#include <linux/netfilter_ipv4/ip_nat_helper.h>
-#include <linux/brlock.h>
-#include <linux/types.h>
-#include <linux/ip.h>
-#include <net/udp.h>
-#include <asm/uaccess.h>
-#include <asm/checksum.h>
+#include "../include/linux/config.h"
+#include "../include/linux/module.h"
+#include "../include/linux/types.h"
+#include "../include/linux/kernel.h"
+#include "../include/linux/netfilter_ipv4.h"
+#include "../include/linux/netfilter_ipv4/ip_nat.h"
+#include "../include/linux/netfilter_ipv4/ip_nat_helper.h"
+#include "../include/linux/brlock.h"
+#include "../include/linux/types.h"
+#include "../include/linux/ip.h"
+#include "../include/net/udp.h"
+#include "../include/asm/uaccess.h"
+#include "../include/asm/checksum.h"
 
 
 

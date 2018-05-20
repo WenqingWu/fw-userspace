@@ -2,17 +2,17 @@
  * This is a module which is used for rejecting packets.
  * Added support for customized reject packets (Jozsef Kadlecsik).
  */
-#include <linux/config.h>
-#include <linux/module.h>
-#include <linux/skbuff.h>
-#include <linux/ip.h>
-#include <net/icmp.h>
-#include <net/ip.h>
-#include <net/tcp.h>
+#include "../include/linux/config.h"
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/ip.h"
+#include "../include/net/icmp.h"
+#include "../include/net/ip.h"
+#include "../include/net/tcp.h"
 struct in_device;
-#include <net/route.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
-#include <linux/netfilter_ipv4/ipt_REJECT.h>
+#include "../include/net/route.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
+#include "../include/linux/netfilter_ipv4/ipt_REJECT.h"
 
 #if 0
 #define DEBUGP printk

@@ -6,15 +6,15 @@
  *  Copyright (C) 1994-1998  Linus Torvalds & authors
  */
 
-#include <linux/config.h>
-#include <linux/init.h>
-#include <linux/ioport.h>
-#include <linux/hdreg.h>
-#include <linux/hdsmart.h>
-#include <linux/blkdev.h>
-#include <linux/proc_fs.h>
-#include <linux/devfs_fs_kernel.h>
-#include <asm/hdreg.h>
+#include "config.h"
+#include "init.h"
+#include "ioport.h"
+#include "hdreg.h"
+#include "hdsmart.h"
+#include "blkdev.h"
+#include "proc_fs.h"
+#include "devfs_fs_kernel.h"
+#include "../asm/hdreg.h"
 
 /*
  * This is the multiple IDE interface driver, as evolved from hd.c.
@@ -176,7 +176,7 @@ typedef unsigned char	byte;	/* used everywhere */
 #define IDE_MAJOR_NAME	"hd"	/* the same for all i/f; see also genhd.c */
 #define MAJOR_NAME	IDE_MAJOR_NAME
 #define PARTN_BITS	6	/* number of minor dev bits for partitions */
-#define PARTN_MASK	((1<<PARTN_BITS)-1)	/* a useful bit mask */
+#define PARTN_MASK	((1"../<PARTN_BITS)-1)	/* a useful bit mask *"
 #define MAX_DRIVES	2	/* per interface; 2 assumed by lots of code */
 #define CASCADE_DRIVES	8	/* per interface; 8|2 assumed by lots of code */
 #define SECTOR_SIZE	512
@@ -298,7 +298,7 @@ void ide_setup_ports(	hw_regs_t *hw,
 			ide_ack_intr_t *ack_intr,
 			int irq);
 
-#include <asm/ide.h>
+#include "../asm/ide.h"
 
 /*
  * If the arch-dependant ide.h did not declare/define any OUT_BYTE
@@ -769,7 +769,7 @@ extern int noautodma;
  */
 #define IDE_DRIVER		/* Toggle some magic bits in blk.h */
 #define LOCAL_END_REQUEST	/* Don't generate end_request in blk.h */
-#include <linux/blk.h>
+#include "blk.h"
 
 void ide_end_request(byte uptodate, ide_hwgroup_t *hwgroup);
 

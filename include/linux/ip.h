@@ -16,7 +16,7 @@
  */
 #ifndef _LINUX_IP_H
 #define _LINUX_IP_H
-#include <asm/byteorder.h>
+#include "../asm/byteorder.h"
 
 /* SOL_IP socket options */
 

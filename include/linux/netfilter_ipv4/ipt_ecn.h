@@ -8,7 +8,7 @@
 */
 #ifndef _IPT_ECN_H
 #define _IPT_ECN_H
-#include <linux/netfilter_ipv4/ipt_dscp.h>
+#include "ipt_dscp.h"
 
 #define IPT_ECN_IP_MASK	(~IPT_DSCP_MASK)
 

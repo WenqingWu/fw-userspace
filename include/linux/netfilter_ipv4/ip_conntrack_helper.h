@@ -1,7 +1,7 @@
 /* IP connection tracking helpers. */
 #ifndef _IP_CONNTRACK_HELPER_H
 #define _IP_CONNTRACK_HELPER_H
-#include <linux/netfilter_ipv4/ip_conntrack.h>
+#include "ip_conntrack.h"
 
 struct module;
 

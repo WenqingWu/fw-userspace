@@ -5,7 +5,7 @@
  * Copyright 1992, Linus Torvalds.
  */
 
-#include <linux/config.h>
+#include "../linux/config.h"
 
 /*
  * These have to be done with inline assembly: that way the bit-setting

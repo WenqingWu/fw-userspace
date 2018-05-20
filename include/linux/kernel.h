@@ -8,11 +8,11 @@
 #ifdef __KERNEL__
 
 #include <stdarg.h>
-#include <linux/linkage.h>
-#include <linux/stddef.h>
-#include <linux/types.h>
-#include <linux/compiler.h>
-#include <asm/byteorder.h>
+#include "linkage.h"
+#include "stddef.h"
+#include "types.h"
+#include "compiler.h"
+#include "../asm/byteorder.h"
 
 /* Optimization barrier */
 /* The "volatile" is due to gcc bugs */

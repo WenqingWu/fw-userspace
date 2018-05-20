@@ -12,12 +12,12 @@
  * the end. For more details see Documentation/x86_64/mm.txt
  */
 #ifndef __ASSEMBLY__
-#include <asm/processor.h>
-#include <asm/fixmap.h>
-#include <asm/bitops.h>
-#include <asm/pda.h>
-#include <linux/threads.h>
-#include <linux/config.h>
+#include "processor.h"
+#include "fixmap.h"
+#include "bitops.h"
+#include "pda.h"
+#include "../linux/threads.h"
+#include "../linux/config.h"
 
 extern pgd_t level3_kernel_pgt[512];
 extern pgd_t level3_physmem_pgt[512];

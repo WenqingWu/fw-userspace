@@ -1,6 +1,34 @@
 {
     "files.associations": {
         "protocol.h": "c",
-        "netfilter.h": "c"
-    }
+        "netfilter.h": "c",
+        "init.h": "c",
+        "netfilter_ipv4.h": "c",
+        "config.h": "c",
+        "types.h": "c",
+        "posix_types.h": "c",
+        "module.h": "c",
+        "arp_tables.h": "c",
+        "if_arp.h": "c",
+        "if.h": "c",
+        "version.h": "c",
+        "kmod.h": "c",
+        "sysctl.h": "c",
+        "tcp.h": "c",
+        "tcp_ecn.h": "c",
+        "lockhelp.h": "c",
+        "interrupt.h": "c",
+        "ip_conntrack_helper.h": "c",
+        "ip_conntrack.h": "c",
+        "ip_conntrack_icmp.h": "c",
+        "ip_nat.h": "c",
+        "ip_conntrack_protocol.h": "c",
+        "udp.h": "c",
+        "listhelp.h": "c",
+        "*.ver": "c",
+        "ip_nat_core.h": "c",
+        "list.h": "c",
+        "icmp.h": "c"
+    },
+    "C_Cpp.dimInactiveRegions": false
 }

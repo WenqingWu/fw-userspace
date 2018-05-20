@@ -18,7 +18,7 @@
 #ifndef _LINUX_IN_H
 #define _LINUX_IN_H
 
-#include <linux/types.h>
+#include "types.h"
 
 /* Standard well-defined IP protocols.  */
 enum {
@@ -175,7 +175,7 @@ struct sockaddr_in {
 
 
 /* <asm/byteorder.h> contains the htonl type stuff.. */
-#include <asm/byteorder.h> 
+#include "../asm/byteorder.h"
 
 #ifdef __KERNEL__
 /* Some random defines to make it easier in the kernel.. */

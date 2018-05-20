@@ -2,8 +2,8 @@
 #ifndef _ARP_H
 #define _ARP_H
 
-#include <linux/if_arp.h>
-#include <net/neighbour.h>
+#include "../linux/if_arp.h"
+#include "neighbour.h"
 
 extern struct neigh_table arp_tbl;
 

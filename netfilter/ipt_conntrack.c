@@ -2,11 +2,11 @@
  * Superset of Rusty's minimalistic state match.
  * GPL (C) 2001  Marc Boucher (marc@mbsi.ca).
  */
-#include <linux/module.h>
-#include <linux/skbuff.h>
-#include <linux/netfilter_ipv4/ip_conntrack.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
-#include <linux/netfilter_ipv4/ipt_conntrack.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
+#include "../include/linux/netfilter_ipv4/ipt_conntrack.h"
 
 static int
 match(const struct sk_buff *skb,

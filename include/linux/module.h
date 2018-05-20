@@ -7,9 +7,9 @@
 #ifndef _LINUX_MODULE_H
 #define _LINUX_MODULE_H
 
-#include <linux/config.h>
-#include <linux/spinlock.h>
-#include <linux/list.h>
+#include "config.h"
+#include "spinlock.h"
+#include "list.h"
 
 #ifdef __GENKSYMS__
 #  define _set_ver(sym) sym
@@ -22,7 +22,7 @@
 # endif
 #endif /* __GENKSYMS__ */
 
-#include <asm/atomic.h>
+#include "../asm/atomic.h"
 
 /* Don't need to bring in all of uaccess.h just for this decl.  */
 struct exception_table_entry;

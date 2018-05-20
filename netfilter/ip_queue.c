@@ -12,22 +12,22 @@
  * 2002-06-25: Code cleanup.
  *
  */
-#include <linux/module.h>
-#include <linux/skbuff.h>
-#include <linux/init.h>
-#include <linux/ip.h>
-#include <linux/notifier.h>
-#include <linux/netdevice.h>
-#include <linux/netfilter.h>
-#include <linux/netfilter_ipv4/ip_queue.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
-#include <linux/netlink.h>
-#include <linux/spinlock.h>
-#include <linux/brlock.h>
-#include <linux/sysctl.h>
-#include <linux/proc_fs.h>
-#include <net/sock.h>
-#include <net/route.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/init.h"
+#include "../include/linux/ip.h"
+#include "../include/linux/notifier.h"
+#include "../include/linux/netdevice.h"
+#include "../include/linux/netfilter.h"
+#include "../include/linux/netfilter_ipv4/ip_queue.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
+#include "../include/linux/netlink.h"
+#include "../include/linux/spinlock.h"
+#include "../include/linux/brlock.h"
+#include "../include/linux/sysctl.h"
+#include "../include/linux/proc_fs.h"
+#include "../include/net/sock.h"
+#include "../include/net/route.h"
 
 #define IPQ_QMAX_DEFAULT 1024
 #define IPQ_PROC_FS_NAME "ip_queue"

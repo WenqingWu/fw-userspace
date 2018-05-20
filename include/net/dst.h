@@ -8,8 +8,8 @@
 #ifndef _NET_DST_H
 #define _NET_DST_H
 
-#include <linux/config.h>
-#include <net/neighbour.h>
+#include "../linux/config.h"
+#include "neighbour.h"
 
 /*
  * 0 - no debugging messages

@@ -1,8 +1,8 @@
 #ifndef __LINUX_CACHE_H
 #define __LINUX_CACHE_H
 
-#include <linux/config.h>
-#include <asm/cache.h>
+#include "config.h"
+#include "../asm/cache.h"
 
 #ifndef L1_CACHE_ALIGN
 #define L1_CACHE_ALIGN(x) (((x)+(L1_CACHE_BYTES-1))&~(L1_CACHE_BYTES-1))

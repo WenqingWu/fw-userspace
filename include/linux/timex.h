@@ -51,7 +51,7 @@
 #ifndef _LINUX_TIMEX_H
 #define _LINUX_TIMEX_H
 
-#include <asm/param.h>
+#include "../asm/param.h"
 
 /*
  * The following defines establish the engineering parameters of the PLL
@@ -149,7 +149,7 @@
 /*
  * Pick up the architecture specific timex specifications
  */
-#include <asm/timex.h>
+#include "../asm/timex.h"
 
 /* LATCH is used in the interval timer and ftape setup. */
 #define LATCH  ((CLOCK_TICK_RATE + HZ/2) / HZ)	/* For divider */

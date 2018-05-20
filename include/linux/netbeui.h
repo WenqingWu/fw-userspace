@@ -1,7 +1,7 @@
 #ifndef _LINUX_NETBEUI_H
 #define _LINUX_NETBEUI_H
 
-#include <linux/if.h>
+#include "if.h"
 
 #define NB_NAME_LEN	20	/* Set this properly from the full docs when
 				   I get them */

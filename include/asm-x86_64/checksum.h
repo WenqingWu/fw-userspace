@@ -7,9 +7,9 @@
  * with some code from asm-i386/checksum.h
  */ 
 
-#include <linux/compiler.h>
-#include <asm/uaccess.h>
-#include <asm/byteorder.h>
+#include "../linux/compiler.h"
+#include "uaccess.h"
+#include "byteorder.h"
 
 /** 
  * csum_fold - Fold and invert a 32bit checksum.

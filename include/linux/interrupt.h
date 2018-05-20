@@ -2,14 +2,14 @@
 #ifndef _LINUX_INTERRUPT_H
 #define _LINUX_INTERRUPT_H
 
-#include <linux/config.h>
-#include <linux/kernel.h>
-#include <linux/smp.h>
-#include <linux/cache.h>
+#include "config.h"
+#include "kernel.h"
+#include "smp.h"
+#include "cache.h"
 
-#include <asm/bitops.h>
-#include <asm/atomic.h>
-#include <asm/ptrace.h>
+#include "../asm/bitops.h"
+#include "../asm/atomic.h"
+#include "../asm/ptrace.h"
 
 struct irqaction {
 	void (*handler)(int, void *, struct pt_regs *);
@@ -42,8 +42,8 @@ enum {
 	ISICOM_BH
 };
 
-#include <asm/hardirq.h>
-#include <asm/softirq.h>
+#include "../asm/hardirq.h"
+#include "../asm/softirq.h"
 
 
 

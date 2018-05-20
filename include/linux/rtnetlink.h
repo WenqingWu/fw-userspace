@@ -1,7 +1,7 @@
 #ifndef __LINUX_RTNETLINK_H
 #define __LINUX_RTNETLINK_H
 
-#include <linux/netlink.h>
+#include "netlink.h"
 
 #define RTNL_DEBUG 1
 

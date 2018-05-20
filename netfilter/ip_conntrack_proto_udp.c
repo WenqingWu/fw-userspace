@@ -1,10 +1,10 @@
-#include <linux/types.h>
-#include <linux/sched.h>
-#include <linux/timer.h>
-#include <linux/netfilter.h>
-#include <linux/in.h>
-#include <linux/udp.h>
-#include <linux/netfilter_ipv4/ip_conntrack_protocol.h>
+#include "../include/linux/types.h"
+#include "../include/linux/sched.h"
+#include "../include/linux/timer.h"
+#include "../include/linux/netfilter.h"
+#include "../include/linux/in.h"
+#include "../include/linux/udp.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_protocol.h"
 
 #define UDP_TIMEOUT (30*HZ)
 #define UDP_STREAM_TIMEOUT (180*HZ)

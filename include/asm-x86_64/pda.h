@@ -1,11 +1,11 @@
 #ifndef X86_64_PDA_H
 #define X86_64_PDA_H
 
-#include <linux/stddef.h>
+#include "../linux/stddef.h"
 #ifndef ASM_OFFSET_H
 #include <asm/offset.h>
 #endif
-#include <linux/cache.h>
+#include "../linux/cache.h"
 
 /* Per processor datastructure. %gs points to it while the kernel runs */ 
 /* To use a new field with the *_pda macros it needs to be added to tools/offset.c */

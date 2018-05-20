@@ -25,18 +25,18 @@
 #ifndef _LINUX_NETDEVICE_H
 #define _LINUX_NETDEVICE_H
 
-#include <linux/if.h>
-#include <linux/if_ether.h>
-#include <linux/if_packet.h>
+#include "if.h"
+#include "if_ether.h"
+#include "if_packet.h"
 
-#include <asm/atomic.h>
-#include <asm/cache.h>
-#include <asm/byteorder.h>
+#include "../asm/atomic.h"
+#include "../asm/cache.h"
+#include "../asm/byteorder.h"
 
 #ifdef __KERNEL__
-#include <linux/config.h>
+#include "config.h"
 #ifdef CONFIG_NET_PROFILE
-#include <net/profile.h>
+#include "../net/profile.h"
 #endif
 
 struct divert_blk;
@@ -143,8 +143,8 @@ enum {
 
 extern const char *if_port_text[];
 
-#include <linux/cache.h>
-#include <linux/skbuff.h>
+#include "cache.h"
+#include "skbuff.h"
 
 struct neighbour;
 struct neigh_parms;
@@ -452,8 +452,8 @@ struct packet_type
 };
 
 
-#include <linux/interrupt.h>
-#include <linux/notifier.h>
+#include "interrupt.h"
+#include "notifier.h"
 
 extern struct net_device		loopback_dev;		/* The loopback */
 extern struct net_device		*dev_base;		/* All devices */

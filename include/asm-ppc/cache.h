@@ -8,8 +8,8 @@
 #ifndef __ARCH_PPC_CACHE_H
 #define __ARCH_PPC_CACHE_H
 
-#include <linux/config.h>
-#include <asm/processor.h>
+#include "../linux/config.h"
+#include "processor.h"
 
 /* bytes per L1 cache line */
 #if defined(CONFIG_8xx) || defined(CONFIG_403GCX)

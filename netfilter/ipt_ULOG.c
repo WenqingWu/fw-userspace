@@ -34,23 +34,23 @@
  * ipt_ULOG.c,v 1.21 2002/08/29 10:54:34 laforge Exp
  */
 
-#include <linux/module.h>
-#include <linux/version.h>
-#include <linux/config.h>
-#include <linux/spinlock.h>
-#include <linux/socket.h>
-#include <linux/skbuff.h>
-#include <linux/kernel.h>
-#include <linux/timer.h>
-#include <linux/netlink.h>
-#include <linux/netdevice.h>
-#include <linux/mm.h>
-#include <linux/socket.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
-#include <linux/netfilter_ipv4/ipt_ULOG.h>
-#include <linux/netfilter_ipv4/lockhelp.h>
-#include <net/sock.h>
-#include <linux/bitops.h>
+#include "../include/linux/module.h"
+#include "../include/linux/version.h"
+#include "../include/linux/config.h"
+#include "../include/linux/spinlock.h"
+#include "../include/linux/socket.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/kernel.h"
+#include "../include/linux/timer.h"
+#include "../include/linux/netlink.h"
+#include "../include/linux/netdevice.h"
+#include "../include/linux/mm.h"
+#include "../include/linux/socket.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
+#include "../include/linux/netfilter_ipv4/ipt_ULOG.h"
+#include "../include/linux/netfilter_ipv4/lockhelp.h"
+#include "../include/net/sock.h"
+#include "../include/linux/bitops.h"
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Harald Welte <laforge@gnumonks.org>");

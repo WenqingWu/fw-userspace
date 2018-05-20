@@ -5,14 +5,14 @@
 #ifndef _PPC_PGTABLE_H
 #define _PPC_PGTABLE_H
 
-#include <linux/config.h>
+#include "../linux/config.h"
 
 #ifndef __ASSEMBLY__
-#include <linux/sched.h>
-#include <linux/threads.h>
-#include <asm/processor.h>		/* For TASK_SIZE */
-#include <asm/mmu.h>
-#include <asm/page.h>
+#include "../linux/sched.h"
+#include "../linux/threads.h"
+#include "processor.h"		/* For TASK_SIZE */
+#include "mmu.h"
+#include "page.h"
 
 #if defined(CONFIG_4xx)
 extern void local_flush_tlb_all(void);

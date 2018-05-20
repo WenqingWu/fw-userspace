@@ -24,12 +24,12 @@
 /* Cancel timers, when they are not required. */
 #undef TCP_CLEAR_TIMERS
 
-#include <linux/config.h>
-#include <linux/tcp.h>
-#include <linux/slab.h>
-#include <linux/cache.h>
-#include <net/checksum.h>
-#include <net/sock.h>
+#include "../linux/config.h"
+#include "../linux/tcp.h"
+#include "../linux/slab.h"
+#include "../linux/cache.h"
+#include "checksum.h"
+#include "sock.h"
 
 /* This is for all connections with a full identity, no wildcards.
  * New scheme, half the table is for TIME_WAIT, the other half is
@@ -1035,7 +1035,7 @@ struct tcp_skb_cb {
 		     skb=skb->next)
 
 
-#include <net/tcp_ecn.h>
+#include "tcp_ecn.h"
 
 
 /*

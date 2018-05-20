@@ -6,9 +6,9 @@
 #define _PPC_UACCESS_H
 
 #ifndef __ASSEMBLY__
-#include <linux/sched.h>
-#include <linux/errno.h>
-#include <asm/processor.h>
+#include "../linux/sched.h"
+#include "../linux/errno.h"
+#include "processor.h"
 
 #define VERIFY_READ	0
 #define VERIFY_WRITE	1

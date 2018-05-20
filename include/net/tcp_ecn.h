@@ -1,7 +1,7 @@
 #ifndef _NET_TCP_ECN_H_
 #define _NET_TCP_ECN_H_ 1
 
-#include <net/inet_ecn.h>
+#include "inet_ecn.h"
 
 #define TCP_HP_BITS (~(TCP_RESERVED_BITS|TCP_FLAG_PSH))
 

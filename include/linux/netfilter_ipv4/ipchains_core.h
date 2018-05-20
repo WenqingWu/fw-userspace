@@ -23,11 +23,11 @@
 #define _IP_FWCHAINS_H
 
 #ifdef __KERNEL__
-#include <linux/icmp.h>
-#include <linux/in.h>
-#include <linux/ip.h>
-#include <linux/tcp.h>
-#include <linux/udp.h>
+#include "../icmp.h"
+#include "../in.h"
+#include "../ip.h"
+#include "../tcp.h"
+#include "../udp.h"
 #endif /* __KERNEL__ */
 #define IP_FW_MAX_LABEL_LENGTH 8
 typedef char ip_chainlabel[IP_FW_MAX_LABEL_LENGTH+1];

@@ -1,7 +1,7 @@
 #ifndef __LINUX_UIO_H
 #define __LINUX_UIO_H
 
-#include <linux/types.h>
+#include "types.h"
 
 /*
  *	Berkeley style UIO structures	-	Alan Cox 1994.

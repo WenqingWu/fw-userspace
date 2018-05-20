@@ -17,8 +17,8 @@
 #ifndef _LINUX_TCP_H
 #define _LINUX_TCP_H
 
-#include <linux/types.h>
-#include <asm/byteorder.h>
+#include "types.h"
+#include "../asm/byteorder.h"
 
 struct tcphdr {
 	__u16	source;

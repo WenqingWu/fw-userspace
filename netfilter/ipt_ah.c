@@ -1,9 +1,9 @@
 /* Kernel module to match AH parameters. */
-#include <linux/module.h>
-#include <linux/skbuff.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
 
-#include <linux/netfilter_ipv4/ipt_ah.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
+#include "../include/linux/netfilter_ipv4/ipt_ah.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
 
 EXPORT_NO_SYMBOLS;
 MODULE_LICENSE("GPL");

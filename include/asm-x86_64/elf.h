@@ -5,8 +5,8 @@
  * ELF register definitions..
  */
 
-#include <asm/ptrace.h>
-#include <asm/user.h>
+#include "ptrace.h"
+#include "user.h"
 
 typedef unsigned long elf_greg_t;
 

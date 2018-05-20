@@ -24,10 +24,10 @@
 #ifndef _PROTOCOL_H
 #define _PROTOCOL_H
 
-#include <linux/config.h>
-#include <linux/in6.h>
+#include "../linux/config.h"
+#include "../linux/in6.h"
 #if defined(CONFIG_IPV6) || defined (CONFIG_IPV6_MODULE)
-#include <linux/ipv6.h>
+#include "../linux/ipv6.h"
 #endif
 
 #define MAX_INET_PROTOS	32		/* Must be a power of 2		*/

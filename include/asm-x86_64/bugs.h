@@ -10,11 +10,11 @@
  *	void check_bugs(void);
  */
 
-#include <linux/config.h>
-#include <asm/processor.h>
-#include <asm/i387.h>
-#include <asm/msr.h>
-#include <asm/pda.h>
+#include "../linux/config.h"
+#include "processor.h"
+#include "i387.h"
+#include "msr.h"
+#include "pda.h"
 
 static inline void check_fpu(void)
 {

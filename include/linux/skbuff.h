@@ -14,17 +14,17 @@
 #ifndef _LINUX_SKBUFF_H
 #define _LINUX_SKBUFF_H
 
-#include <linux/config.h>
-#include <linux/kernel.h>
-#include <linux/sched.h>
-#include <linux/time.h>
-#include <linux/cache.h>
+#include "config.h"
+#include "kernel.h"
+#include "sched.h"
+#include "time.h"
+#include "cache.h"
 
-#include <asm/atomic.h>
-#include <asm/types.h>
-#include <linux/spinlock.h>
-#include <linux/mm.h>
-#include <linux/highmem.h>
+#include "../asm/atomic.h"
+#include "../asm/types.h"
+#include "spinlock.h"
+#include "mm.h"
+#include "highmem.h"
 
 #define HAVE_ALLOC_SKB		/* For the drivers to know */
 #define HAVE_ALIGNABLE_SKB	/* Ditto 8)		   */

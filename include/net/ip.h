@@ -22,21 +22,21 @@
 #ifndef _IP_H
 #define _IP_H
 
-#include <linux/config.h>
-#include <linux/types.h>
-#include <linux/socket.h>
-#include <linux/ip.h>
-#include <linux/netdevice.h>
-#include <linux/inetdevice.h>
-#include <linux/in_route.h>
-#include <net/route.h>
-#include <net/arp.h>
+#include "../linux/config.h"
+#include "../linux/types.h"
+#include "../linux/socket.h"
+#include "../linux/ip.h"
+#include "../linux/netdevice.h"
+#include "../linux/inetdevice.h"
+#include "../linux/in_route.h"
+#include "route.h"
+#include "arp.h"
 
 #ifndef _SNMP_H
-#include <net/snmp.h>
+#include "snmp.h"
 #endif
 
-#include <net/sock.h>	/* struct sock */
+#include "sock.h"	/* struct sock */
 
 struct inet_skb_parm
 {

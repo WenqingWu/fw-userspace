@@ -1,7 +1,7 @@
 #ifndef _ASM_X86_64_VSYSCALL_H_
 #define _ASM_X86_64_VSYSCALL_H_
 
-#include <linux/time.h>
+#include "../linux/time.h"
 
 enum vsyscall_num {
 	__NR_vgettimeofday,

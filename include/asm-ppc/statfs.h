@@ -6,7 +6,7 @@
 
 #ifndef __KERNEL_STRICT_NAMES
 
-#include <linux/types.h>
+#include "../linux/types.h"
 
 typedef __kernel_fsid_t	fsid_t;
 

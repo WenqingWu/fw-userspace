@@ -18,11 +18,11 @@
 #ifndef _ICMP_H
 #define	_ICMP_H
 
-#include <linux/icmp.h>
-#include <linux/skbuff.h>
+#include "../linux/icmp.h"
+#include "../linux/skbuff.h"
 
-#include <net/sock.h>
-#include <net/protocol.h>
+#include "sock.h"
+#include "protocol.h"
 
 struct icmp_err {
   int		errno;

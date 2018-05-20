@@ -16,13 +16,13 @@
 #define _IPTABLES_H
 
 #ifdef __KERNEL__
-#include <linux/if.h>
-#include <linux/types.h>
-#include <linux/in.h>
-#include <linux/ip.h>
-#include <linux/skbuff.h>
+#include "../if.h"
+#include "../types.h"
+#include "../in.h"
+#include "../ip.h"
+#include "../skbuff.h"
 #endif
-#include <linux/netfilter_ipv4.h>
+#include "../netfilter_ipv4.h"
 
 #define IPT_FUNCTION_MAXNAMELEN 30
 #define IPT_TABLE_MAXNAMELEN 32
@@ -336,7 +336,7 @@ ipt_get_target(struct ipt_entry *e)
  */
 #ifdef __KERNEL__
 
-#include <linux/init.h>
+#include "../init.h"
 extern void ipt_init(void) __init;
 
 struct ipt_match

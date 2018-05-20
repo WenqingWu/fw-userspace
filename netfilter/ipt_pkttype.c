@@ -1,10 +1,10 @@
-#include <linux/module.h>
-#include <linux/skbuff.h>
-#include <linux/if_ether.h>
-#include <linux/if_packet.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/if_ether.h"
+#include "../include/linux/if_packet.h"
 
-#include <linux/netfilter_ipv4/ipt_pkttype.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
+#include "../include/linux/netfilter_ipv4/ipt_pkttype.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
 
 MODULE_LICENSE("GPL");
 

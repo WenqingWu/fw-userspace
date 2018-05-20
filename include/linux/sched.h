@@ -1,31 +1,31 @@
 #ifndef _LINUX_SCHED_H
 #define _LINUX_SCHED_H
 
-#include <asm/param.h>	/* for HZ */
+#include "../asm/param.h"	/* for HZ */
 
 extern unsigned long event;
 
-#include <linux/config.h>
-#include <linux/binfmts.h>
-#include <linux/threads.h>
-#include <linux/kernel.h>
-#include <linux/types.h>
-#include <linux/times.h>
-#include <linux/timex.h>
-#include <linux/rbtree.h>
+#include "config.h"
+#include "binfmts.h"
+#include "threads.h"
+#include "kernel.h"
+#include "types.h"
+#include "times.h"
+#include "timex.h"
+#include "rbtree.h"
 
-#include <asm/system.h>
-#include <asm/semaphore.h>
-#include <asm/page.h>
-#include <asm/ptrace.h>
-#include <asm/mmu.h>
+#include "../asm/system.h"
+#include "../asm/semaphore.h"
+#include "../asm/page.h"
+#include "../asm/ptrace.h"
+#include "../asm/mmu.h"
 
-#include <linux/smp.h>
-#include <linux/tty.h>
-#include <linux/sem.h>
-#include <linux/signal.h>
-#include <linux/securebits.h>
-#include <linux/fs_struct.h>
+#include "smp.h"
+#include "tty.h"
+#include "sem.h"
+#include "signal.h"
+#include "securebits.h"
+#include "fs_struct.h"
 
 struct exec_domain;
 
@@ -76,15 +76,15 @@ extern unsigned long avenrun[];		/* Load averages */
 extern int nr_running, nr_threads;
 extern int last_pid;
 
-#include <linux/fs.h>
-#include <linux/time.h>
-#include <linux/param.h>
-#include <linux/resource.h>
+#include "fs.h"
+#include "time.h"
+#include "param.h"
+#include "resource.h"
 #ifdef __KERNEL__
-#include <linux/timer.h>
+#include "timer.h"
 #endif
 
-#include <asm/processor.h>
+#include "../asm/processor.h"
 
 #define TASK_RUNNING		0
 #define TASK_INTERRUPTIBLE	1

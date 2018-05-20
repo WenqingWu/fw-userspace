@@ -1,13 +1,13 @@
 /* Kernel module to match suspect packets. */
-#include <linux/module.h>
-#include <linux/skbuff.h>
-#include <linux/ip.h>
-#include <linux/udp.h>
-#include <linux/tcp.h>
-#include <linux/icmp.h>
-#include <net/checksum.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/ip.h"
+#include "../include/linux/udp.h"
+#include "../include/linux/tcp.h"
+#include "../include/linux/icmp.h"
+#include "../include/net/checksum.h"
 
-#include <linux/netfilter_ipv4/ip_tables.h>
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
 
 #define limpk(format, args...)						 \
 do {									 \

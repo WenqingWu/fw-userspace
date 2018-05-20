@@ -24,14 +24,14 @@
 #ifndef _ROUTE_H
 #define _ROUTE_H
 
-#include <linux/config.h>
-#include <net/dst.h>
-#include <net/inetpeer.h>
-#include <linux/in_route.h>
-#include <linux/rtnetlink.h>
-#include <linux/route.h>
-#include <linux/ip.h>
-#include <linux/cache.h>
+#include "../linux/config.h"
+#include "dst.h"
+#include "inetpeer.h"
+#include "../linux/in_route.h"
+#include "../linux/rtnetlink.h"
+#include "../linux/route.h"
+#include "../linux/ip.h"
+#include "../linux/cache.h"
 
 #ifndef __KERNEL__
 #warning This file is not supposed to be used outside of kernel.

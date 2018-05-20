@@ -1,6 +1,6 @@
 #ifndef _IPT_MULTIPORT_H
 #define _IPT_MULTIPORT_H
-#include <linux/netfilter_ipv4/ip_tables.h>
+#include "ip_tables.h"
 
 enum ipt_multiport_flags
 {

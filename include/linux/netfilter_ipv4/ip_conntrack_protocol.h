@@ -1,7 +1,7 @@
 /* Header for use in defining a given protocol for connection tracking. */
 #ifndef _IP_CONNTRACK_PROTOCOL_H
 #define _IP_CONNTRACK_PROTOCOL_H
-#include <linux/netfilter_ipv4/ip_conntrack.h>
+#include "../netfilter_ipv4/ip_conntrack.h"
 
 struct ip_conntrack_protocol
 {

@@ -2,7 +2,7 @@
 #define _IP_NAT_HELPER_H
 /* NAT protocol helper routines. */
 
-#include <linux/netfilter_ipv4/ip_conntrack.h>
+#include "ip_conntrack.h"
 
 struct sk_buff;
 

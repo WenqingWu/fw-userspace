@@ -12,10 +12,10 @@
 #ifndef __ASM_X86_64_I387_H
 #define __ASM_X86_64_I387_H
 
-#include <linux/sched.h>
-#include <asm/processor.h>
-#include <asm/sigcontext.h>
-#include <asm/user.h>
+#include "../linux/sched.h"
+#include "processor.h"
+#include "sigcontext.h"
+#include "user.h"
 
 extern void init_fpu(void);
 int save_i387( struct _fpstate *buf);

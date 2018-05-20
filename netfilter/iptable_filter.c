@@ -3,8 +3,8 @@
  *
  * Copyright (C) 1999 Paul `Rusty' Russell & Michael J. Neuling
  */
-#include <linux/module.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
+#include "../include/linux/module.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
 
 #define FILTER_VALID_HOOKS ((1 << NF_IP_LOCAL_IN) | (1 << NF_IP_FORWARD) | (1 << NF_IP_LOCAL_OUT))
 

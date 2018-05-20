@@ -1,8 +1,8 @@
 #ifndef __ASM_IO_APIC_H
 #define __ASM_IO_APIC_H
 
-#include <linux/config.h>
-#include <asm/types.h>
+#include "../linux/config.h"
+#include "types.h"
 
 /*
  * Intel IO-APIC support for SMP and UP systems.

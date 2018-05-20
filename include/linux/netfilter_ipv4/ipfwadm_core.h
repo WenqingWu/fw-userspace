@@ -56,11 +56,11 @@
  */
 
 #ifdef __KERNEL__
-#include <linux/icmp.h>
-#include <linux/in.h>
-#include <linux/ip.h>
-#include <linux/tcp.h>
-#include <linux/udp.h>
+#include "../icmp.h"
+#include "../in.h"
+#include "../ip.h"
+#include "../tcp.h"
+#include "../udp.h"
 #endif
 
 struct ip_fw

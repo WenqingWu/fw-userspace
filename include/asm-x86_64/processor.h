@@ -7,16 +7,16 @@
 #ifndef __ASM_X86_64_PROCESSOR_H
 #define __ASM_X86_64_PROCESSOR_H
 
-#include <asm/segment.h>
-#include <asm/page.h>
-#include <asm/types.h>
-#include <asm/sigcontext.h>
-#include <asm/cpufeature.h>
-#include <linux/config.h>
-#include <linux/threads.h>
-#include <asm/msr.h>
-#include <asm/current.h>
-#include <asm/system.h>
+#include "segment.h"
+#include "page.h"
+#include "types.h"
+#include "sigcontext.h"
+#include "cpufeature.h"
+#include "../linux/config.h"
+#include "../linux/threads.h"
+#include "msr.h"
+#include "current.h"
+#include "system.h"
 
 #define TF_MASK		0x00000100
 #define IF_MASK		0x00000200

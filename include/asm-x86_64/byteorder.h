@@ -1,7 +1,7 @@
 #ifndef _X86_64_BYTEORDER_H
 #define _X86_64_BYTEORDER_H
 
-#include <asm/types.h>
+#include "types.h"
 
 #ifdef __GNUC__
 

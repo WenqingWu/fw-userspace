@@ -1,7 +1,7 @@
 #ifndef _LINUX_RESOURCE_H
 #define _LINUX_RESOURCE_H
 
-#include <linux/time.h>
+#include "time.h"
 
 /*
  * Resource control/accounting header file for linux
@@ -53,6 +53,6 @@ struct rlimit {
  * Due to binary compatibility, the actual resource numbers
  * may be different for different linux versions..
  */
-#include <asm/resource.h>
+#include "../asm/resource.h"
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef __LINUX_SPINLOCK_H
 #define __LINUX_SPINLOCK_H
 
-#include <linux/config.h>
+#include "config.h"
 
 /*
  * These are the generic versions of the spinlocks and read-write
@@ -37,7 +37,7 @@
 
 /* Must define these before including other files, inline functions need them */
 
-#include <linux/stringify.h>
+#include "stringify.h"
 
 #define LOCK_SECTION_NAME			\
 	".text.lock." __stringify(KBUILD_BASENAME)
@@ -53,7 +53,7 @@
 	".previous\n\t"
 
 #ifdef CONFIG_SMP
-#include <asm/spinlock.h>
+#include "../asm/spinlock.h"
 
 #elif !defined(spin_lock_init) /* !SMP and spin_lock_init not previously
                                   defined (e.g. by including asm/spinlock.h */
@@ -110,7 +110,7 @@ typedef struct {
 } spinlock_t;
 #define SPIN_LOCK_UNLOCKED (spinlock_t) { 0, 25, __BASE_FILE__ }
 
-#include <linux/kernel.h>
+#include "kernel.h"
 
 #define spin_lock_init(x)	do { (x)->lock = 0; } while (0)
 #define spin_is_locked(lock)	(test_bit(0,(lock)))
@@ -153,12 +153,12 @@ typedef struct {
 
 /* "lock on reference count zero" */
 #ifndef ATOMIC_DEC_AND_LOCK
-#include <asm/atomic.h>
+#include "../asm/atomic.h"
 extern int atomic_dec_and_lock(atomic_t *atomic, spinlock_t *lock);
 #endif
 
 #ifdef CONFIG_SMP
-#include <linux/cache.h>
+#include "cache.h"
 
 typedef union {
     spinlock_t lock;

@@ -5,8 +5,9 @@
  * (C)1998 Rusty Russell -- This code is GPL.
  */
 
-#include <linux/config.h>
-#include <linux/netfilter.h>
+#include "config.h"
+#include "netfilter.h"
+#include "kernel.h"
 
 /* IP Cache bits. */
 /* Src IP address. */

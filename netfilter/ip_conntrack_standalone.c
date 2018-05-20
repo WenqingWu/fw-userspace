@@ -7,25 +7,25 @@
 /* (c) 1999 Paul `Rusty' Russell.  Licenced under the GNU General
    Public Licence. */
 
-#include <linux/types.h>
-#include <linux/ip.h>
-#include <linux/netfilter.h>
-#include <linux/netfilter_ipv4.h>
-#include <linux/module.h>
-#include <linux/skbuff.h>
-#include <linux/proc_fs.h>
-#include <linux/version.h>
-#include <linux/brlock.h>
-#include <net/checksum.h>
+#include "../include/linux/types.h"
+#include "../include/linux/ip.h"
+#include "../include/linux/netfilter.h"
+#include "../include/linux/netfilter_ipv4.h"
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/proc_fs.h"
+#include "../include/linux/version.h"
+#include "../include/linux/brlock.h"
+#include "../include/net/checksum.h"
 
 #define ASSERT_READ_LOCK(x) MUST_BE_READ_LOCKED(&ip_conntrack_lock)
 #define ASSERT_WRITE_LOCK(x) MUST_BE_WRITE_LOCKED(&ip_conntrack_lock)
 
-#include <linux/netfilter_ipv4/ip_conntrack.h>
-#include <linux/netfilter_ipv4/ip_conntrack_protocol.h>
-#include <linux/netfilter_ipv4/ip_conntrack_core.h>
-#include <linux/netfilter_ipv4/ip_conntrack_helper.h>
-#include <linux/netfilter_ipv4/listhelp.h>
+#include "../include/linux/netfilter_ipv4/ip_conntrack.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_protocol.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_core.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_helper.h"
+#include "../include/linux/netfilter_ipv4/listhelp.h"
 
 #if 0
 #define DEBUGP printk

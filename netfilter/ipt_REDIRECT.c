@@ -1,16 +1,16 @@
 /* Redirect.  Simple mapping which alters dst to a local IP address. */
-#include <linux/types.h>
-#include <linux/ip.h>
-#include <linux/timer.h>
-#include <linux/module.h>
-#include <linux/netfilter.h>
-#include <linux/netdevice.h>
-#include <linux/if.h>
-#include <linux/inetdevice.h>
-#include <net/protocol.h>
-#include <net/checksum.h>
-#include <linux/netfilter_ipv4.h>
-#include <linux/netfilter_ipv4/ip_nat_rule.h>
+#include "../include/linux/types.h"
+#include "../include/linux/ip.h"
+#include "../include/linux/timer.h"
+#include "../include/linux/module.h"
+#include "../include/linux/netfilter.h"
+#include "../include/linux/netdevice.h"
+#include "../include/linux/if.h"
+#include "../include/linux/inetdevice.h"
+#include "../include/net/protocol.h"
+#include "../include/net/checksum.h"
+#include "../include/linux/netfilter_ipv4.h"
+#include "../include/linux/netfilter_ipv4/ip_nat_rule.h"
 
 #if 0
 #define DEBUGP printk

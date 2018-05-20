@@ -1,19 +1,19 @@
 /* Kernel module to control the rate
  *
- * Jérôme de Vivie   <devivie@info.enserb.u-bordeaux.fr>
- * Hervé Eychenne   <eychenne@info.enserb.u-bordeaux.fr>
+ * Jï¿½rï¿½me de Vivie   <devivie@info.enserb.u-bordeaux.fr>
+ * Hervï¿½ Eychenne   <eychenne@info.enserb.u-bordeaux.fr>
  *
  * 2 September 1999: Changed from the target RATE to the match
  *                   `limit', removed logging.  Did I mention that
  *                   Alexey is a fucking genius?
  *                   Rusty Russell (rusty@rustcorp.com.au).  */
-#include <linux/module.h>
-#include <linux/skbuff.h>
-#include <linux/spinlock.h>
-#include <linux/interrupt.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/spinlock.h"
+#include "../include/linux/interrupt.h"
 
-#include <linux/netfilter_ipv4/ip_tables.h>
-#include <linux/netfilter_ipv4/ipt_limit.h>
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
+#include "../include/linux/netfilter_ipv4/ipt_limit.h"
 
 /* The algorithm used is the Simple Token Bucket Filter (TBF)
  * see net/sched/sch_tbf.c in the linux source tree

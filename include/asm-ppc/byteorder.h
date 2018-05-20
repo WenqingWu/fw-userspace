@@ -4,7 +4,7 @@
 #ifndef _PPC_BYTEORDER_H
 #define _PPC_BYTEORDER_H
 
-#include <asm/types.h>
+#include "types.h"
 
 #ifdef __GNUC__
 #ifdef __KERNEL__
@@ -101,6 +101,6 @@ static __inline__ __const__ __u32 ___arch__swab32(__u32 value)
 
 #endif /* __GNUC__ */
 
-#include <linux/byteorder/big_endian.h>
+#include "../linux/byteorder/big_endian.h"
 
 #endif /* _PPC_BYTEORDER_H */

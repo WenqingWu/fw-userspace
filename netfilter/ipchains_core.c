@@ -66,38 +66,38 @@
  *
  * This software is provided ``AS IS'' without any warranties of any kind.  */
 
-#include <linux/config.h>
+#include "../include/linux/config.h"
 
-#include <asm/uaccess.h>
-#include <asm/system.h>
-#include <linux/types.h>
-#include <linux/sched.h>
-#include <linux/string.h>
-#include <linux/errno.h>
-#include <linux/module.h>
+#include "../include/asm/uaccess.h"
+#include "../include/asm/system.h"
+#include "../include/linux/types.h"
+#include "../include/linux/sched.h"
+#include "../include/linux/string.h"
+#include "../include/linux/errno.h"
+#include "../include/linux/module.h"
 
-#include <linux/socket.h>
-#include <linux/sockios.h>
-#include <linux/in.h>
-#include <linux/inet.h>
-#include <linux/netdevice.h>
-#include <linux/icmp.h>
-#include <linux/udp.h>
-#include <net/ip.h>
-#include <net/protocol.h>
-#include <net/route.h>
-#include <net/tcp.h>
-#include <net/udp.h>
-#include <net/sock.h>
-#include <net/icmp.h>
-#include <linux/netlink.h>
-#include <linux/netfilter.h>
-#include <linux/netfilter_ipv4/compat_firewall.h>
-#include <linux/netfilter_ipv4/ipchains_core.h>
+#include "../include/linux/socket.h"
+#include "../include/linux/sockios.h"
+#include "../include/linux/in.h"
+#include "../include/linux/inet.h"
+#include "../include/linux/netdevice.h"
+#include "../include/linux/icmp.h"
+#include "../include/linux/udp.h"
+#include "../include/net/ip.h"
+#include "../include/net/protocol.h"
+#include "../include/net/route.h"
+#include "../include/net/tcp.h"
+#include "../include/net/udp.h"
+#include "../include/net/sock.h"
+#include "../include/net/icmp.h"
+#include "../include/linux/netlink.h"
+#include "../include/linux/netfilter.h"
+#include "../include/linux/netfilter_ipv4/compat_firewall.h"
+#include "../include/linux/netfilter_ipv4/ipchains_core.h"
 
-#include <net/checksum.h>
-#include <linux/proc_fs.h>
-#include <linux/stat.h>
+#include "../include/net/checksum.h"
+#include "../include/linux/proc_fs.h"
+#include "../include/linux/stat.h"
 
 /* Understanding locking in this code: (thanks to Alan Cox for using
  * little words to explain this to me). -- PR

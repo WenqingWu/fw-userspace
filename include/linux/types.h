@@ -5,8 +5,8 @@
 #include <linux/config.h>
 #endif
 
-#include <linux/posix_types.h>
-#include <asm/types.h>
+#include "posix_types.h"
+#include "../asm/types.h"
 
 #ifndef __KERNEL_STRICT_NAMES
 

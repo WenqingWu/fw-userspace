@@ -4,9 +4,9 @@
    but required by, the NAT layer; it can also be used by an iptables
    extension. */
 
-#include <linux/config.h>
-#include <linux/netfilter_ipv4/ip_conntrack_tuple.h>
-#include <asm/atomic.h>
+#include "../config.h"
+#include "ip_conntrack_tuple.h"
+#include "../../asm/atomic.h"
 
 enum ip_conntrack_info
 {
@@ -43,8 +43,8 @@ enum ip_conntrack_status {
 	IPS_ASSURED = (1 << IPS_ASSURED_BIT),
 };
 
-#include <linux/netfilter_ipv4/ip_conntrack_tcp.h>
-#include <linux/netfilter_ipv4/ip_conntrack_icmp.h>
+#include "ip_conntrack_tcp.h"
+#include "ip_conntrack_icmp.h"
 
 /* per conntrack: protocol private data */
 union ip_conntrack_proto {
@@ -58,8 +58,8 @@ union ip_conntrack_expect_proto {
 };
 
 /* Add protocol helper include file here */
-#include <linux/netfilter_ipv4/ip_conntrack_ftp.h>
-#include <linux/netfilter_ipv4/ip_conntrack_irc.h>
+#include "ip_conntrack_ftp.h"
+#include "ip_conntrack_irc.h"
 
 /* per expectation: application helper private data */
 union ip_conntrack_expect_help {
@@ -82,7 +82,7 @@ union ip_conntrack_help {
 };
 
 #ifdef CONFIG_IP_NF_NAT_NEEDED
-#include <linux/netfilter_ipv4/ip_nat.h>
+#include "ip_nat.h"
 
 /* per conntrack: nat application helper private data */
 union ip_conntrack_nat_help {
@@ -92,8 +92,8 @@ union ip_conntrack_nat_help {
 
 #ifdef __KERNEL__
 
-#include <linux/types.h>
-#include <linux/skbuff.h>
+#include "../types.h"
+#include "../skbuff.h"
 
 #ifdef CONFIG_NF_DEBUG
 #define IP_NF_ASSERT(x)							\
@@ -148,7 +148,7 @@ struct ip_conntrack_expect
 	union ip_conntrack_expect_help help;
 };
 
-#include <linux/netfilter_ipv4/ip_conntrack_helper.h>
+#include "ip_conntrack_helper.h"
 struct ip_conntrack
 {
 	/* Usage count in here is 1 for hash table/destruct timer, 1 per skb,

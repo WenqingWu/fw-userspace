@@ -2,13 +2,13 @@
 #define __LINUX_NETFILTER_H
 
 #ifdef __KERNEL__
-#include <linux/init.h>
-#include <linux/types.h>
-#include <linux/skbuff.h>
-#include <linux/net.h>
-#include <linux/if.h>
-#include <linux/wait.h>
-#include <linux/list.h>
+#include "init.h"
+#include "types.h"
+#include "skbuff.h"
+#include "net.h"
+#include "if.h"
+#include "wait.h"
+#include "list.h"
 #endif
 
 /* Responses from hook functions. */
@@ -24,7 +24,7 @@
 #define NFC_UNKNOWN 0x4000
 
 #ifdef __KERNEL__
-#include <linux/config.h>
+#include "config.h"
 #ifdef CONFIG_NETFILTER
 
 extern void netfilter_init(void);

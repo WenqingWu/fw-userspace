@@ -2,19 +2,19 @@
    to look as much like the 2.2 infrastructure as possible. */
 struct notifier_block;
 
-#include <linux/netfilter_ipv4.h>
-#include <linux/ip.h>
-#include <net/icmp.h>
-#include <linux/if.h>
-#include <linux/inetdevice.h>
-#include <linux/netdevice.h>
-#include <linux/module.h>
-#include <asm/uaccess.h>
-#include <net/ip.h>
-#include <net/route.h>
-#include <linux/netfilter_ipv4/compat_firewall.h>
-#include <linux/netfilter_ipv4/ip_conntrack.h>
-#include <linux/netfilter_ipv4/ip_conntrack_core.h>
+#include "../include/linux/netfilter_ipv4.h"
+#include "../include/linux/ip.h"
+#include "../include/net/icmp.h"
+#include "../include/linux/if.h"
+#include "../include/linux/inetdevice.h"
+#include "../include/linux/netdevice.h"
+#include "../include/linux/module.h"
+#include "../include/asm/uaccess.h"
+#include "../include/net/ip.h"
+#include "../include/net/route.h"
+#include "../include/linux/netfilter_ipv4/compat_firewall.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_core.h"
 
 /* Theoretically, we could one day use 2.4 helpers, but for now it
    just confuses depmod --RR */

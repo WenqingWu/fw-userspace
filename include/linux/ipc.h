@@ -1,7 +1,7 @@
 #ifndef _LINUX_IPC_H
 #define _LINUX_IPC_H
 
-#include <linux/types.h>
+#include "types.h"
 
 #define IPC_PRIVATE ((__kernel_key_t) 0)  
 
@@ -18,7 +18,7 @@ struct ipc_perm
 };
 
 /* Include the definition of ipc64_perm */
-#include <asm/ipcbuf.h>
+#include "../asm/ipcbuf.h"
 
 /* resource get request flags */
 #define IPC_CREAT  00001000   /* create if key is nonexistent */

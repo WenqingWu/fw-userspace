@@ -13,7 +13,7 @@
 #ifndef _ASM_GENERIC__TLB_H
 #define _ASM_GENERIC__TLB_H
 
-#include <linux/config.h>
+#include "../linux/config.h"
 
 #ifdef CONFIG_SMP
 /* aim for something that fits in the L1 cache */

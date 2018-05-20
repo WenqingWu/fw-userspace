@@ -1,11 +1,11 @@
 /* Kernel module to match connection tracking information.
  * GPL (C) 1999  Rusty Russell (rusty@rustcorp.com.au).
  */
-#include <linux/module.h>
-#include <linux/skbuff.h>
-#include <linux/netfilter_ipv4/ip_conntrack.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
-#include <linux/netfilter_ipv4/ipt_state.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
+#include "../include/linux/netfilter_ipv4/ipt_state.h"
 
 static int
 match(const struct sk_buff *skb,

@@ -7,12 +7,12 @@
 #ifndef __PPC_SYSTEM_H
 #define __PPC_SYSTEM_H
 
-#include <linux/config.h>
-#include <linux/kdev_t.h>
+#include "../linux/config.h"
+#include "../linux/kdev_t.h"
 
-#include <asm/processor.h>
-#include <asm/atomic.h>
-#include <asm/hw_irq.h>
+#include "processor.h"
+#include "atomic.h"
+#include "hw_irq.h"
 
 /*
  * Memory barrier.

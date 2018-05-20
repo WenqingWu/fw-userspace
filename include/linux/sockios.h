@@ -18,7 +18,7 @@
 #ifndef _LINUX_SOCKIOS_H
 #define _LINUX_SOCKIOS_H
 
-#include <asm/sockios.h>
+#include "../asm/sockios.h"
 
 /* Linux-specific socket ioctls */
 #define SIOCINQ		FIONREAD

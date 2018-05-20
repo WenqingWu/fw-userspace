@@ -9,21 +9,21 @@
  *
  */
 
-#include <linux/config.h>
-#include <linux/kernel.h>
-#include <linux/skbuff.h>
-#include <linux/netdevice.h>
-#include <linux/if_arp.h>
-#include <linux/kmod.h>
-#include <linux/vmalloc.h>
-#include <linux/proc_fs.h>
-#include <linux/module.h>
-#include <linux/init.h>
+#include "../include/linux/config.h"
+#include "../include/linux/kernel.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/netdevice.h"
+#include "../include/linux/if_arp.h"
+#include "../include/linux/kmod.h"
+#include "../include/linux/vmalloc.h"
+#include "../include/linux/proc_fs.h"
+#include "../include/linux/module.h"
+#include "../include/linux/init.h"
 
-#include <asm/uaccess.h>
-#include <asm/semaphore.h>
+#include "../include/asm/uaccess.h"
+#include "../include/asm/semaphore.h"
 
-#include <linux/netfilter_arp/arp_tables.h>
+#include "../include/linux/netfilter_arp/arp_tables.h"
 
 /*#define DEBUG_ARP_TABLES*/
 /*#define DEBUG_ARP_TABLES_USER*/

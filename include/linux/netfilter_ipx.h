@@ -5,7 +5,7 @@
  * (C)1998 Rusty Russell -- This code is GPL.
  */
 
-#include <linux/netfilter.h>
+#include "netfilter.h"
 
 /* IPX Hooks */
 #define NF_IPX_INPUT	0

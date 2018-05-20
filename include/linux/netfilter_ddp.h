@@ -5,7 +5,7 @@
  * (C)1998 Rusty Russell -- This code is GPL.
  */
 
-#include <linux/netfilter.h>
+#include "netfilter.h"
 
 /* Appletalk hooks */
 #define NF_DDP_INPUT	0

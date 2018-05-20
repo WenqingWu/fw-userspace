@@ -24,9 +24,9 @@
 #ifndef _LINUX_SYSCTL_H
 #define _LINUX_SYSCTL_H
 
-#include <linux/kernel.h>
-#include <linux/types.h>
-#include <linux/list.h>
+#include "kernel.h"
+#include "types.h"
+#include "list.h"
 
 struct file;
 

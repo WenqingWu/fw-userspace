@@ -1,12 +1,12 @@
-#include <linux/types.h>
-#include <linux/init.h>
-#include <linux/netfilter.h>
-#include <linux/ip.h>
-#include <linux/tcp.h>
-#include <linux/if.h>
-#include <linux/netfilter_ipv4/ip_nat.h>
-#include <linux/netfilter_ipv4/ip_nat_rule.h>
-#include <linux/netfilter_ipv4/ip_nat_protocol.h>
+#include "../include/linux/types.h"
+#include "../include/linux/init.h"
+#include "../include/linux/netfilter.h"
+#include "../include/linux/ip.h"
+#include "../include/linux/tcp.h"
+#include "../include/linux/if.h"
+#include "../include/linux/netfilter_ipv4/ip_nat.h"
+#include "../include/linux/netfilter_ipv4/ip_nat_rule.h"
+#include "../include/linux/netfilter_ipv4/ip_nat_protocol.h"
 
 static int
 tcp_in_range(const struct ip_conntrack_tuple *tuple,

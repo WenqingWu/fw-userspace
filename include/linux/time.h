@@ -1,8 +1,8 @@
 #ifndef _LINUX_TIME_H
 #define _LINUX_TIME_H
 
-#include <asm/param.h>
-#include <linux/types.h>
+#include "../asm/param.h"
+#include "types.h"
 
 #ifndef _STRUCT_TIMESPEC
 #define _STRUCT_TIMESPEC

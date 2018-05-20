@@ -1,17 +1,17 @@
 #ifndef _LINUX_MM_H
 #define _LINUX_MM_H
 
-#include <linux/sched.h>
-#include <linux/errno.h>
+#include "sched.h"
+#include "errno.h"
 
 #ifdef __KERNEL__
 
-#include <linux/config.h>
-#include <linux/string.h>
-#include <linux/list.h>
-#include <linux/mmzone.h>
-#include <linux/swap.h>
-#include <linux/rbtree.h>
+#include "config.h"
+#include "string.h"
+#include "list.h"
+#include "mmzone.h"
+#include "swap.h"
+#include "rbtree.h"
 
 extern unsigned long max_mapnr;
 extern unsigned long num_physpages;
@@ -22,9 +22,9 @@ extern int page_cluster;
 extern struct list_head active_list;
 extern struct list_head inactive_list;
 
-#include <asm/page.h>
-#include <asm/pgtable.h>
-#include <asm/atomic.h>
+#include "../asm/page.h"
+#include "../asm/pgtable.h"
+#include "../asm/atomic.h"
 
 /*
  * Linux kernel virtual memory manager primitives.

@@ -1,10 +1,10 @@
 /* Kernel module to match TCP MSS values. */
-#include <linux/module.h>
-#include <linux/skbuff.h>
-#include <net/tcp.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
+#include "../include/net/tcp.h"
 
-#include <linux/netfilter_ipv4/ipt_tcpmss.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
+#include "../include/linux/netfilter_ipv4/ipt_tcpmss.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
 
 #define TH_SYN 0x02
 

@@ -4,7 +4,7 @@
 #ifndef __ASM_SPINLOCK_H
 #define __ASM_SPINLOCK_H
 
-#include <asm/system.h>
+#include "system.h"
 
 #if defined(CONFIG_DEBUG_SPINLOCK)
 #define SPINLOCK_DEBUG 1

@@ -19,8 +19,8 @@
  *      Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <linux/config.h>
-#include <linux/errno.h>
+#include "config.h"
+#include "errno.h"
 
 #ifdef CONFIG_KMOD
 extern int request_module(const char * name);

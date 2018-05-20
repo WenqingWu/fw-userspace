@@ -33,66 +33,66 @@
 #ifndef _SOCK_H
 #define _SOCK_H
 
-#include <linux/config.h>
-#include <linux/timer.h>
-#include <linux/cache.h>
-#include <linux/in.h>		/* struct sockaddr_in */
+#include "../linux/config.h"
+#include "../linux/timer.h"
+#include "../linux/cache.h"
+#include "../linux/in.h"		/* struct sockaddr_in */
 
 #if defined(CONFIG_IPV6) || defined (CONFIG_IPV6_MODULE)
-#include <linux/in6.h>		/* struct sockaddr_in6 */
-#include <linux/ipv6.h>		/* dest_cache, inet6_options */
-#include <linux/icmpv6.h>
-#include <net/if_inet6.h>	/* struct ipv6_mc_socklist */
+#include "../linux/in6.h"		/* struct sockaddr_in6 */
+#include "../linux/ipv6.h"		/* dest_cache, inet6_options */
+#include "../linux/icmpv6.h"
+#include "if_inet6.h"	/* struct ipv6_mc_socklist */
 #endif
 
 #if defined(CONFIG_INET) || defined (CONFIG_INET_MODULE)
-#include <linux/icmp.h>
+#include "../linux/icmp.h"
 #endif
-#include <linux/tcp.h>		/* struct tcphdr */
+#include "../linux/tcp.h"		/* struct tcphdr */
 
-#include <linux/netdevice.h>
-#include <linux/skbuff.h>	/* struct sk_buff */
-#include <net/protocol.h>		/* struct inet_protocol */
+#include "../linux/netdevice.h"
+#include "../linux/skbuff.h"	/* struct sk_buff */
+#include "protocol.h"		/* struct inet_protocol */
 #if defined(CONFIG_X25) || defined(CONFIG_X25_MODULE)
-#include <net/x25.h>
+#include "x25.h"
 #endif
 #if defined(CONFIG_WAN_ROUTER) || defined(CONFIG_WAN_ROUTER_MODULE)
-#include <linux/if_wanpipe.h>
+#include "../linux/if_wanpipe.h"
 #endif
 
 #if defined(CONFIG_AX25) || defined(CONFIG_AX25_MODULE)
-#include <net/ax25.h>
+#include "ax25.h"
 #if defined(CONFIG_NETROM) || defined(CONFIG_NETROM_MODULE)
-#include <net/netrom.h>
+#include "netrom.h"
 #endif
 #if defined(CONFIG_ROSE) || defined(CONFIG_ROSE_MODULE)
-#include <net/rose.h>
+#include "rose.h"
 #endif
 #endif
 
 #if defined(CONFIG_PPPOE) || defined(CONFIG_PPPOE_MODULE)
-#include <linux/if_pppox.h>
-#include <linux/ppp_channel.h>   /* struct ppp_channel */
+#include "../linux/if_pppox.h"
+#include "../linux/ppp_channel.h"   /* struct ppp_channel */
 #endif
 
 #if defined(CONFIG_IPX) || defined(CONFIG_IPX_MODULE)
 #if defined(CONFIG_SPX) || defined(CONFIG_SPX_MODULE)
-#include <net/spx.h>
+#include "spx.h"
 #else
-#include <net/ipx.h>
+#include "ipx.h"
 #endif /* CONFIG_SPX */
 #endif /* CONFIG_IPX */
 
 #if defined(CONFIG_ATALK) || defined(CONFIG_ATALK_MODULE)
-#include <linux/atalk.h>
+#include "../linux/atalk.h"
 #endif
 
 #if defined(CONFIG_DECNET) || defined(CONFIG_DECNET_MODULE)
-#include <net/dn.h>
+#include "dn.h"
 #endif
 
 #if defined(CONFIG_IRDA) || defined(CONFIG_IRDA_MODULE)
-#include <net/irda/irda.h>
+#include "irda/irda.h"
 #endif
 
 #if defined(CONFIG_ATM) || defined(CONFIG_ATM_MODULE)
@@ -100,11 +100,11 @@ struct atm_vcc;
 #endif
 
 #ifdef CONFIG_FILTER
-#include <linux/filter.h>
+#include "../linux/filter.h"
 #endif
 
-#include <asm/atomic.h>
-#include <net/dst.h>
+#include "../asm/atomic.h"
+#include "dst.h"
 
 
 /* The AF_UNIX specific socket options */

@@ -1,8 +1,8 @@
 /* Header for use in defining a given protocol. */
 #ifndef _IP_NAT_PROTOCOL_H
 #define _IP_NAT_PROTOCOL_H
-#include <linux/init.h>
-#include <linux/list.h>
+#include "../init.h"
+#include "../list.h"
 
 struct iphdr;
 struct ip_nat_range;

@@ -8,7 +8,7 @@
  *   it's amazing what adding a bunch of 6s can do =8^)
  */
 
-#include <linux/netfilter.h>
+#include "netfilter.h"
 
 /* IP Cache bits. */
 /* Src IP address. */

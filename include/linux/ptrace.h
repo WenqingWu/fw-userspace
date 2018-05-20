@@ -21,6 +21,6 @@
 
 #define PTRACE_SYSCALL		  24
 
-#include <asm/ptrace.h>
+#include "../asm/ptrace.h"
 
 #endif

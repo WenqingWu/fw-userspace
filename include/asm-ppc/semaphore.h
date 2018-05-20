@@ -19,10 +19,10 @@
 
 #ifdef __KERNEL__
 
-#include <asm/atomic.h>
-#include <asm/system.h>
-#include <linux/wait.h>
-#include <linux/rwsem.h>
+#include "atomic.h"
+#include "system.h"
+#include "../linux/wait.h"
+#include "../linux/rwsem.h"
 
 struct semaphore {
 	/*

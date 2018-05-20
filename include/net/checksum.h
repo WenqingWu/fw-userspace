@@ -26,11 +26,11 @@
 #ifndef _CHECKSUM_H
 #define _CHECKSUM_H
 
-#include <asm/types.h>
-#include <asm/byteorder.h>
-#include <net/ip.h>
-#include <asm/uaccess.h>
-#include <asm/checksum.h>
+#include "../asm/types.h"
+#include "../asm/byteorder.h"
+#include "ip.h"
+#include "../asm/uaccess.h"
+#include "../asm/checksum.h"
 
 #ifndef _HAVE_ARCH_IPV6_CSUM
 

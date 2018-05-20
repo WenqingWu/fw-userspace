@@ -16,17 +16,17 @@
  *	If You don't specify ports, the default will be port 6667
  */
 
-#include <linux/module.h>
-#include <linux/netfilter_ipv4.h>
-#include <linux/ip.h>
-#include <linux/tcp.h>
-#include <linux/kernel.h>
-#include <net/tcp.h>
-#include <linux/netfilter_ipv4/ip_nat.h>
-#include <linux/netfilter_ipv4/ip_nat_helper.h>
-#include <linux/netfilter_ipv4/ip_nat_rule.h>
-#include <linux/netfilter_ipv4/ip_conntrack_irc.h>
-#include <linux/netfilter_ipv4/ip_conntrack_helper.h>
+#include "../include/linux/module.h"
+#include "../include/linux/netfilter_ipv4.h"
+#include "../include/linux/ip.h"
+#include "../include/linux/tcp.h"
+#include "../include/linux/kernel.h"
+#include "../include/net/tcp.h"
+#include "../include/linux/netfilter_ipv4/ip_nat.h"
+#include "../include/linux/netfilter_ipv4/ip_nat_helper.h"
+#include "../include/linux/netfilter_ipv4/ip_nat_rule.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_irc.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_helper.h"
 
 #if 0
 #define DEBUGP printk

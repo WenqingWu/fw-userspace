@@ -3,13 +3,13 @@
 
    Copyright (C) 2000 Marc Boucher
  */
-#include <linux/module.h>
-#include <linux/skbuff.h>
-#include <linux/file.h>
-#include <net/sock.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/file.h"
+#include "../include/net/sock.h"
 
-#include <linux/netfilter_ipv4/ipt_owner.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
+#include "../include/linux/netfilter_ipv4/ipt_owner.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
 
 static int
 match_comm(const struct sk_buff *skb, const char *comm)

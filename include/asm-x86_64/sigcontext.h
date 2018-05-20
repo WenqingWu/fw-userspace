@@ -1,7 +1,7 @@
 #ifndef _ASM_X86_64_SIGCONTEXT_H
 #define _ASM_X86_64_SIGCONTEXT_H
 
-#include <asm/types.h>
+#include "types.h"
 
 /* FXSAVE frame */
 /* Note: reserved1/2 may someday contain valuable data. Always save/restore

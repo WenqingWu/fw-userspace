@@ -24,16 +24,16 @@
   along with this program; if not, write to the Free Software Foundation,
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
  */
-#include <linux/module.h>
-#include <linux/skbuff.h>
-#include <linux/ip.h>
-#include <net/ip.h>
-#include <net/icmp.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
-#include <linux/netdevice.h>
-#include <linux/route.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/ip.h"
+#include "../include/net/ip.h"
+#include "../include/net/icmp.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
+#include "../include/linux/netdevice.h"
+#include "../include/linux/route.h"
 struct in_device;
-#include <net/route.h>
+#include "../include/net/route.h"
 
 #if 0
 #define DEBUGP printk

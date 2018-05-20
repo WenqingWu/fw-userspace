@@ -1,7 +1,7 @@
 #ifndef _LINUX_SEM_H
 #define _LINUX_SEM_H
 
-#include <linux/ipc.h>
+#include "ipc.h"
 
 /* semop flags */
 #define SEM_UNDO        0x1000  /* undo the operation on exit */
@@ -32,7 +32,7 @@ struct semid_ds {
 };
 
 /* Include the definition of semid64_ds */
-#include <asm/sembuf.h>
+#include "../asm/sembuf.h"
 
 /* semop system calls takes an array of these. */
 struct sembuf {

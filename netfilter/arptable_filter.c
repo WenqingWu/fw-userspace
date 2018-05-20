@@ -5,8 +5,8 @@
  *
  */
 
-#include <linux/module.h>
-#include <linux/netfilter_arp/arp_tables.h>
+#include "../include/linux/module.h"
+#include "../include/linux/netfilter_arp/arp_tables.h"
 
 #define FILTER_VALID_HOOKS ((1 << NF_ARP_IN) | (1 << NF_ARP_OUT))
 

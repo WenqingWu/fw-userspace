@@ -1,12 +1,12 @@
 /* Kernel module to match one of a list of TCP/UDP ports: ports are in
    the same place so we can treat them as equal. */
-#include <linux/module.h>
-#include <linux/types.h>
-#include <linux/udp.h>
-#include <linux/skbuff.h>
+#include "../include/linux/module.h"
+#include "../include/linux/types.h"
+#include "../include/linux/udp.h"
+#include "../include/linux/skbuff.h"
 
-#include <linux/netfilter_ipv4/ipt_multiport.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
+#include "../include/linux/netfilter_ipv4/ipt_multiport.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
 
 #if 0
 #define duprintf(format, args...) printk(format , ## args)

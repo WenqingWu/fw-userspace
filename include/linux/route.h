@@ -23,7 +23,7 @@
 #ifndef _LINUX_ROUTE_H
 #define _LINUX_ROUTE_H
 
-#include <linux/if.h>
+#include "if.h"
 
 
 /* This structure gets passed by the SIOCADDRT and SIOCDELRT calls. */

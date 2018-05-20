@@ -1,11 +1,11 @@
 #ifndef _LOCKHELP_H
 #define _LOCKHELP_H
-#include <linux/config.h>
+#include "../config.h"
 
-#include <linux/spinlock.h>
-#include <asm/atomic.h>
-#include <linux/interrupt.h>
-#include <linux/smp.h>
+#include "../spinlock.h"
+#include "../../asm/atomic.h"
+#include "../interrupt.h"
+#include "../smp.h"
 
 /* Header to do help in lock debugging. */
 

@@ -1,9 +1,9 @@
 /* Kernel module to match TOS values. */
-#include <linux/module.h>
-#include <linux/skbuff.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
 
-#include <linux/netfilter_ipv4/ipt_tos.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
+#include "../include/linux/netfilter_ipv4/ipt_tos.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
 
 static int
 match(const struct sk_buff *skb,

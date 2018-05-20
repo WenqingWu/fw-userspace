@@ -1,16 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stddef.h>
+#include <sys/socket.h>
 
-#include <linux/netfilter.h>
-#include <linux/netfilter_ipv4.h>
-#include "include/net/snmp.h"
-#include <net/ip.h>
-#include <net/protocol.h>
-#include <net/route.h>
-#include <linux/skbuff.h>
-#include <net/sock.h>
-#include <net/arp.h>
-#include <net/icmp.h>
+#include "include/linux/netfilter.h"
+#include "include/linux/netfilter_ipv4.h"
+
 
 /*
  * sample okfn called in NF_HOOK
@@ -18,7 +14,7 @@
 int okfn_sample(struct sk_buff *skb)
 {
     /* processing */
-    printf("-------------this is okfn.----------\n")
+    printf("-------------this is okfn.----------\n");
     return 1;
 }
 
@@ -28,7 +24,7 @@ int main()
 //    struct net_device *dev1;
 //   struct net_device *dev2;
     int ret;
-    char *packet = "0x6a8d01e7080045003e234500008011"
+    char *packet = "0x6a8d01e7080045003e234500008011";
     
     memcpy(skb, packet, sizeof(struct sk_buff));
 

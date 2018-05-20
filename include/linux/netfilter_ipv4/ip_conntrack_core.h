@@ -1,6 +1,6 @@
 #ifndef _IP_CONNTRACK_CORE_H
 #define _IP_CONNTRACK_CORE_H
-#include <linux/netfilter_ipv4/lockhelp.h>
+#include "lockhelp.h"
 
 /* This header is used to share core functionality between the
    standalone connection tracking module, and the compatibility layer's use

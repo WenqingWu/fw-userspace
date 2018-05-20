@@ -1,10 +1,10 @@
 /* Kernel module to match MAC address parameters. */
-#include <linux/module.h>
-#include <linux/skbuff.h>
-#include <linux/if_ether.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/if_ether.h"
 
-#include <linux/netfilter_ipv4/ipt_mac.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
+#include "../include/linux/netfilter_ipv4/ipt_mac.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
 
 static int
 match(const struct sk_buff *skb,

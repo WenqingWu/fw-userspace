@@ -7,18 +7,18 @@
    FIXME: Timing is overly simplistic.  If anyone complains, make it
    use conntrack.
 */
-#include <linux/config.h>
-#include <linux/netfilter.h>
-#include <linux/ip.h>
-#include <linux/udp.h>
-#include <linux/tcp.h>
-#include <net/checksum.h>
-#include <linux/timer.h>
-#include <linux/netdevice.h>
-#include <linux/if.h>
-#include <linux/in.h>
+#include "../include/linux/config.h"
+#include "../include/linux/netfilter.h"
+#include "../include/linux/ip.h"
+#include "../include/linux/udp.h"
+#include "../include/linux/tcp.h"
+#include "../include/net/checksum.h"
+#include "../include/linux/timer.h"
+#include "../include/linux/netdevice.h"
+#include "../include/linux/if.h"
+#include "../include/linux/in.h"
 
-#include <linux/netfilter_ipv4/lockhelp.h>
+#include "../include/linux/netfilter_ipv4/lockhelp.h"
 
 /* Very simple timeout pushed back by each packet */
 #define REDIR_TIMEOUT (240*HZ)
@@ -27,7 +27,7 @@ static DECLARE_LOCK(redir_lock);
 #define ASSERT_READ_LOCK(x) MUST_BE_LOCKED(&redir_lock)
 #define ASSERT_WRITE_LOCK(x) MUST_BE_LOCKED(&redir_lock)
 
-#include <linux/netfilter_ipv4/listhelp.h>
+#include "../include/linux/netfilter_ipv4/listhelp.h"
 
 #if 0
 #define DEBUGP printk

@@ -1,16 +1,16 @@
 /* Masquerade.  Simple mapping which alters range to a local IP address
    (depending on route). */
-#include <linux/config.h>
-#include <linux/types.h>
-#include <linux/ip.h>
-#include <linux/timer.h>
-#include <linux/module.h>
-#include <linux/netfilter.h>
-#include <net/protocol.h>
-#include <net/checksum.h>
-#include <linux/netfilter_ipv4.h>
-#include <linux/netfilter_ipv4/ip_nat_rule.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
+#include "../include/linux/config.h"
+#include "../include/linux/types.h"
+#include "../include/linux/ip.h"
+#include "../include/linux/timer.h"
+#include "../include/linux/module.h"
+#include "../include/linux/netfilter.h"
+#include "../include/net/protocol.h"
+#include "../include/net/checksum.h"
+#include "../include/linux/netfilter_ipv4.h"
+#include "../include/linux/netfilter_ipv4/ip_nat_rule.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
 
 #if 0
 #define DEBUGP printk

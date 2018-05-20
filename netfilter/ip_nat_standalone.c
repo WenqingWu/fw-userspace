@@ -12,18 +12,18 @@
  * 	- now capable of multiple expectations for one master
  * */
 
-#include <linux/config.h>
-#include <linux/types.h>
-#include <linux/ip.h>
-#include <linux/netfilter.h>
-#include <linux/netfilter_ipv4.h>
-#include <linux/module.h>
-#include <linux/skbuff.h>
-#include <linux/proc_fs.h>
-#include <net/checksum.h>
-#include <linux/spinlock.h>
-#include <linux/version.h>
-#include <linux/brlock.h>
+#include "../include/linux/config.h"
+#include "../include/linux/types.h"
+#include "../include/linux/ip.h"
+#include "../include/linux/netfilter.h"
+#include "../include/linux/netfilter_ipv4.h"
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/proc_fs.h"
+#include "../include/net/checksum.h"
+#include "../include/linux/spinlock.h"
+#include "../include/linux/version.h"
+#include "../include/linux/brlock.h"
 
 #define ASSERT_READ_LOCK(x) MUST_BE_READ_LOCKED(&ip_nat_lock)
 #define ASSERT_WRITE_LOCK(x) MUST_BE_WRITE_LOCKED(&ip_nat_lock)

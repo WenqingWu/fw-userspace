@@ -1,6 +1,6 @@
-#ifndef _LINUX_CONFIG_H
-#define _LINUX_CONFIG_H
+#ifndef _CONFIG_H
+#define _CONFIG_H
 
-#include <linux/autoconf.h>
+#include "autoconf.h"
 
 #endif

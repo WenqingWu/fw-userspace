@@ -6,24 +6,24 @@
  * structures etc.
  */
 
-#include <linux/config.h>
-#include <linux/linkage.h>
-#include <linux/limits.h>
-#include <linux/wait.h>
-#include <linux/types.h>
-#include <linux/vfs.h>
-#include <linux/net.h>
-#include <linux/kdev_t.h>
-#include <linux/ioctl.h>
-#include <linux/list.h>
-#include <linux/dcache.h>
-#include <linux/stat.h>
-#include <linux/cache.h>
-#include <linux/stddef.h>
-#include <linux/string.h>
+#include "config.h"
+#include "linkage.h"
+#include "limits.h"
+#include "wait.h"
+#include "types.h"
+#include "vfs.h"
+#include "net.h"
+#include "kdev_t.h"
+#include "ioctl.h"
+#include "list.h"
+#include "dcache.h"
+#include "stat.h"
+#include "cache.h"
+#include "stddef.h"
+#include "string.h"
 
-#include <asm/atomic.h>
-#include <asm/bitops.h>
+#include "../asm/atomic.h"
+#include "../asm/bitops.h"
 
 struct poll_table_struct;
 

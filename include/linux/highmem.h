@@ -1,8 +1,8 @@
 #ifndef _LINUX_HIGHMEM_H
 #define _LINUX_HIGHMEM_H
 
-#include <linux/config.h>
-#include <asm/pgalloc.h>
+#include "config.h"
+#include "../asm/pgalloc.h"
 
 #ifdef CONFIG_HIGHMEM
 

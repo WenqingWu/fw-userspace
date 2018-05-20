@@ -1,7 +1,7 @@
 #ifndef _IP_NAT_H
 #define _IP_NAT_H
-#include <linux/netfilter_ipv4.h>
-#include <linux/netfilter_ipv4/ip_conntrack_tuple.h>
+#include "../netfilter_ipv4.h"
+#include "../netfilter_ipv4/ip_conntrack_tuple.h"
 
 #define IP_NAT_MAPPING_TYPE_MAX_NAMELEN 16
 

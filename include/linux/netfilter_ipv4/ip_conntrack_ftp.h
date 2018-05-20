@@ -4,7 +4,7 @@
 
 #ifdef __KERNEL__
 
-#include <linux/netfilter_ipv4/lockhelp.h>
+#include "lockhelp.h"
 
 /* Protects ftp part of conntracks */
 DECLARE_LOCK_EXTERN(ip_ftp_lock);

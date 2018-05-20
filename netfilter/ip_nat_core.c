@@ -5,31 +5,31 @@
 #ifdef MODULE
 #define __NO_VERSION__
 #endif
-#include <linux/version.h>
-#include <linux/module.h>
-#include <linux/types.h>
-#include <linux/timer.h>
-#include <linux/skbuff.h>
-#include <linux/netfilter_ipv4.h>
-#include <linux/brlock.h>
-#include <linux/vmalloc.h>
-#include <net/checksum.h>
-#include <net/icmp.h>
-#include <net/ip.h>
-#include <net/tcp.h>  /* For tcp_prot in getorigdst */
+#include "../include/linux/version.h"
+#include "../include/linux/module.h"
+#include "../include/linux/types.h"
+#include "../include/linux/timer.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/netfilter_ipv4.h"
+#include "../include/linux/brlock.h"
+#include "../include/linux/vmalloc.h"
+#include "../include/net/checksum.h"
+#include "../include/net/icmp.h"
+#include "../include/net/ip.h"
+#include "../include/net/tcp.h"  /* For tcp_prot in getorigdst */
 
 #define ASSERT_READ_LOCK(x) MUST_BE_READ_LOCKED(&ip_nat_lock)
 #define ASSERT_WRITE_LOCK(x) MUST_BE_WRITE_LOCKED(&ip_nat_lock)
 
-#include <linux/netfilter_ipv4/ip_conntrack.h>
-#include <linux/netfilter_ipv4/ip_conntrack_core.h>
-#include <linux/netfilter_ipv4/ip_conntrack_protocol.h>
-#include <linux/netfilter_ipv4/ip_nat.h>
-#include <linux/netfilter_ipv4/ip_nat_protocol.h>
-#include <linux/netfilter_ipv4/ip_nat_core.h>
-#include <linux/netfilter_ipv4/ip_nat_helper.h>
-#include <linux/netfilter_ipv4/ip_conntrack_helper.h>
-#include <linux/netfilter_ipv4/listhelp.h>
+#include "../include/linux/netfilter_ipv4/ip_conntrack.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_core.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_protocol.h"
+#include "../include/linux/netfilter_ipv4/ip_nat.h"
+#include "../include/linux/netfilter_ipv4/ip_nat_protocol.h"
+#include "../include/linux/netfilter_ipv4/ip_nat_core.h"
+#include "../include/linux/netfilter_ipv4/ip_nat_helper.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_helper.h"
+#include "../include/linux/netfilter_ipv4/listhelp.h"
 
 #if 0
 #define DEBUGP printk

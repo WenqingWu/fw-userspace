@@ -1,15 +1,15 @@
 /* FTP extension for IP connection tracking. */
-#include <linux/config.h>
-#include <linux/module.h>
-#include <linux/netfilter.h>
-#include <linux/ip.h>
-#include <linux/ctype.h>
-#include <net/checksum.h>
-#include <net/tcp.h>
+#include "../include/linux/config.h"
+#include "../include/linux/module.h"
+#include "../include/linux/netfilter.h"
+#include "../include/linux/ip.h"
+#include "../include/linux/ctype.h"
+#include "../include/net/checksum.h"
+#include "../include/net/tcp.h"
 
-#include <linux/netfilter_ipv4/lockhelp.h>
-#include <linux/netfilter_ipv4/ip_conntrack_helper.h>
-#include <linux/netfilter_ipv4/ip_conntrack_ftp.h>
+#include "../include/linux/netfilter_ipv4/lockhelp.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_helper.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_ftp.h"
 
 DECLARE_LOCK(ip_ftp_lock);
 struct module *ip_conntrack_ftp = THIS_MODULE;

@@ -8,22 +8,22 @@
  * 	- increase module usage count as soon as we have rules inside
  * 	  a table
  */
-#include <linux/config.h>
-#include <linux/cache.h>
-#include <linux/skbuff.h>
-#include <linux/kmod.h>
-#include <linux/vmalloc.h>
-#include <linux/netdevice.h>
-#include <linux/module.h>
-#include <linux/tcp.h>
-#include <linux/udp.h>
-#include <linux/icmp.h>
-#include <net/ip.h>
-#include <asm/uaccess.h>
-#include <asm/semaphore.h>
-#include <linux/proc_fs.h>
+#include "../include/linux/config.h"
+#include "../include/linux/cache.h"
+#include "../include/linux/skbuff.h"
+#include "../include/linux/kmod.h"
+#include "../include/linux/vmalloc.h"
+#include "../include/linux/netdevice.h"
+#include "../include/linux/module.h"
+#include "../include/linux/tcp.h"
+#include "../include/linux/udp.h"
+#include "../include/linux/icmp.h"
+#include "../include/net/ip.h"
+#include "../include/asm/uaccess.h"
+#include "../include/asm/semaphore.h"
+#include "../include/linux/proc_fs.h"
 
-#include <linux/netfilter_ipv4/ip_tables.h>
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
 
 /*#define DEBUG_IP_FIREWALL*/
 /*#define DEBUG_ALLOW_ALL*/ /* Useful for remote debugging */

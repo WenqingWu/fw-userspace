@@ -1,7 +1,7 @@
 #ifndef __ARCH_X8664_IOCTLS_H__
 #define __ARCH_X8664_IOCTLS_H__
 
-#include <asm/ioctl.h>
+#include "ioctl.h"
 
 /* 0x54 is just a magic number to make these relatively unique ('T') */
 

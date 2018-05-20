@@ -5,14 +5,14 @@
  *
  * Extended to all five netfilter hooks by Brad Chapman & Harald Welte
  */
-#include <linux/config.h>
-#include <linux/module.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
-#include <linux/netdevice.h>
-#include <linux/skbuff.h>
-#include <net/sock.h>
-#include <net/route.h>
-#include <linux/ip.h>
+#include "../include/linux/config.h"
+#include "../include/linux/module.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
+#include "../include/linux/netdevice.h"
+#include "../include/linux/skbuff.h"
+#include "../include/net/sock.h"
+#include "../include/net/route.h"
+#include "../include/linux/ip.h"
 
 #define MANGLE_VALID_HOOKS ((1 << NF_IP_PRE_ROUTING) | \
 			    (1 << NF_IP_LOCAL_IN) | \

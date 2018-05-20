@@ -21,7 +21,7 @@
 #ifndef _LINUX_IN6_H
 #define _LINUX_IN6_H
 
-#include <linux/types.h>
+#include "types.h"
 
 /*
  *	IPv6 address structure

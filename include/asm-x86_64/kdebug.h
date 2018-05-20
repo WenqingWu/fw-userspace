@@ -1,7 +1,7 @@
 #ifndef _X86_64_KDEBUG_H
 #define _X86_64_KDEBUG_H 1
 
-#include <linux/notifier.h>
+#include "../linux/notifier.h"
 
 struct pt_regs;
 

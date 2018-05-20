@@ -7,11 +7,11 @@
  * This software is distributed under the terms  GNU GPL
  */
 
-#include <linux/module.h>
-#include <linux/skbuff.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
 
-#include <linux/netfilter_ipv4/ipt_dscp.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
+#include "../include/linux/netfilter_ipv4/ipt_dscp.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
 
 MODULE_AUTHOR("Harald Welte <laforge@gnumonks.org>");
 MODULE_DESCRIPTION("IP tables DSCP matching module");

@@ -1,19 +1,19 @@
 #define __NO_VERSION__
-#include <linux/types.h>
-#include <linux/sched.h>
-#include <linux/timer.h>
-#include <linux/netfilter.h>
-#include <linux/module.h>
-#include <linux/in.h>
-#include <linux/ip.h>
-#include <linux/tcp.h>
-#include <linux/string.h>
+#include "../include/linux/types.h"
+#include "../include/linux/sched.h"
+#include "../include/linux/timer.h"
+#include "../include/linux/netfilter.h"
+#include "../include/linux/module.h"
+#include "../include/linux/in.h"
+#include "../include/linux/ip.h"
+#include "../include/linux/tcp.h"
+#include "../include/linux/string.h"
 
-#include <net/tcp.h>
+#include "../include/net/tcp.h"
 
-#include <linux/netfilter_ipv4/ip_conntrack.h>
-#include <linux/netfilter_ipv4/ip_conntrack_protocol.h>
-#include <linux/netfilter_ipv4/lockhelp.h>
+#include "../include/linux/netfilter_ipv4/ip_conntrack.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_protocol.h"
+#include "../include/linux/netfilter_ipv4/lockhelp.h"
 
 #if 0
 #define DEBUGP printk

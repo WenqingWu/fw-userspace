@@ -10,14 +10,14 @@
 #define _ARPTABLES_H
 
 #ifdef __KERNEL__
-#include <linux/if.h>
-#include <linux/types.h>
-#include <linux/in.h>
-#include <linux/if_arp.h>
-#include <linux/skbuff.h>
+#include "../if.h"
+#include "../types.h"
+#include "../in.h"
+#include "../if_arp.h"
+#include "../skbuff.h"
 #endif
 
-#include <linux/netfilter_arp.h>
+#include "../netfilter_arp.h"
 
 #define ARPT_FUNCTION_MAXNAMELEN 30
 #define ARPT_TABLE_MAXNAMELEN 32

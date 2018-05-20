@@ -1,9 +1,9 @@
 /* Kernel module to match packet length. */
-#include <linux/module.h>
-#include <linux/skbuff.h>
+#include "../include/linux/module.h"
+#include "../include/linux/skbuff.h"
 
-#include <linux/netfilter_ipv4/ipt_length.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
+#include "../include/linux/netfilter_ipv4/ipt_length.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
 
 MODULE_AUTHOR("James Morris <jmorris@intercode.com.au>");
 MODULE_DESCRIPTION("IP tables packet length matching module");
