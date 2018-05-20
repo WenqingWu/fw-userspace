@@ -1,8 +1,8 @@
-#ifndef _LINUX_TYPES_H
-#define _LINUX_TYPES_H
+#ifndef _TYPES_H
+#define _TYPES_H
 
 #ifdef	__KERNEL__
-#include <linux/config.h>
+#include "config.h"
 #endif
 
 #include "posix_types.h"

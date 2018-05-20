@@ -1,5 +1,5 @@
-#ifndef __LINUX_COMPILER_H
-#define __LINUX_COMPILER_H
+#ifndef __COMPILER_H
+#define __COMPILER_H
 
 /* Somewhere in the middle of the GCC 2.96 development cycle, we implemented
    a mechanism by which the user can annotate likely branch directions and

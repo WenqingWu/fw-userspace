@@ -1,5 +1,5 @@
-#ifndef _LINUX_BITOPS_H
-#define _LINUX_BITOPS_H
+#ifndef _BITOPS_H
+#define _BITOPS_H
 
 
 /*

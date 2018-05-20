@@ -28,10 +28,10 @@
 
 /*****************************************************************************/
 
-#ifndef _LINUX_USBDEVICE_FS_H
-#define _LINUX_USBDEVICE_FS_H
+#ifndef _USBDEVICE_FS_H
+#define _USBDEVICE_FS_H
 
-#include <linux/types.h>
+#include "types.h"
 
 /* --------------------------------------------------------------------- */
 

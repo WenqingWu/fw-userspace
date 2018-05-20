@@ -1,5 +1,5 @@
-#ifndef _LINUX_UNISTD_H_
-#define _LINUX_UNISTD_H_
+#ifndef _UNISTD_H_
+#define _UNISTD_H_
 
 extern int errno;
 

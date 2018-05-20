@@ -2,8 +2,8 @@
  *      Tieman Voyager braille display USB driver.
  *
  *      Copyright 2001-2002 Stephane Dalton <sdalton@videotron.ca>
- *                      and Stéphane Doyon  <s.doyon@videotron.ca>
- *            Maintained by Stéphane Doyon  <s.doyon@videotron.ca>.
+ *                      and Stï¿½phane Doyon  <s.doyon@videotron.ca>
+ *            Maintained by Stï¿½phane Doyon  <s.doyon@videotron.ca>.
  */
 /*
  *  This program is free software; you can redistribute it and/or modify
@@ -21,8 +21,8 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef _LINUX_BRLVGER_H
-#define _LINUX_BRLVGER_H
+#ifndef _BRLVGER_H
+#define _BRLVGER_H
 
 /* Ioctl request codes */
 #define BRLVGER_GET_INFO	0

@@ -1,14 +1,14 @@
-#ifndef _LINUX_BLKDEV_H
-#define _LINUX_BLKDEV_H
+#ifndef _BLKDEV_H
+#define _BLKDEV_H
 
-#include <linux/major.h>
-#include <linux/sched.h>
-#include <linux/genhd.h>
-#include <linux/tqueue.h>
-#include <linux/list.h>
-#include <linux/mm.h>
+#include "major.h"
+#include "sched.h"
+#include "genhd.h"
+#include "tqueue.h"
+#include "list.h"
+#include "mm.h"
 
-#include <asm/io.h>
+#include "../asm/io.h"
 
 struct request_queue;
 typedef struct request_queue request_queue_t;

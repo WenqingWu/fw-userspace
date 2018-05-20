@@ -1,5 +1,5 @@
-#ifndef _LINUX_FD1772REG_H
-#define _LINUX_FD1772REG_H
+#ifndef _FD1772REG_H
+#define _FD1772REG_H
 
 /*
 ** WD1772 stuff - originally from the M68K Linux

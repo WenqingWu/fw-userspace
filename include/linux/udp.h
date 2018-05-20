@@ -14,8 +14,8 @@
  *		as published by the Free Software Foundation; either version
  *		2 of the License, or (at your option) any later version.
  */
-#ifndef _LINUX_UDP_H
-#define _LINUX_UDP_H
+#ifndef _UDP_H
+#define _UDP_H
 
 
 struct udphdr {

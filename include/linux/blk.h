@@ -1,10 +1,10 @@
 #ifndef _BLK_H
 #define _BLK_H
 
-#include <linux/blkdev.h>
-#include <linux/locks.h>
-#include <linux/config.h>
-#include <linux/spinlock.h>
+#include "blkdev.h"
+#include "locks.h"
+#include "config.h"
+#include "spinlock.h"
 
 /*
  * Spinlock for protecting the request queue which

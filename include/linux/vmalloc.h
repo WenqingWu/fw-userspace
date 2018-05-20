@@ -1,5 +1,5 @@
-#ifndef __LINUX_VMALLOC_H
-#define __LINUX_VMALLOC_H
+#ifndef __VMALLOC_H
+#define __VMALLOC_H
 
 #include "sched.h"
 #include "mm.h"

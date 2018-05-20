@@ -9,6 +9,12 @@
 #include "netfilter.h"
 #include "kernel.h"
 
+/*
+ * self code
+ */
+#define INT_MAX		((int)(~0U>>1))
+#define INT_MIN		(-INT_MAX - 1)
+
 /* IP Cache bits. */
 /* Src IP address. */
 #define NFC_IP_SRC		0x0001

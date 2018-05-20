@@ -1,5 +1,5 @@
-#ifndef __LINUX_BRLOCK_H
-#define __LINUX_BRLOCK_H
+#ifndef __BRLOCK_H
+#define __BRLOCK_H
 
 /*
  * 'Big Reader' read-write spinlocks.

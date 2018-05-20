@@ -1,5 +1,5 @@
-#ifndef _LINUX_WAIT_H
-#define _LINUX_WAIT_H
+#ifndef __WAIT_H
+#define __WAIT_H
 
 #define WNOHANG		0x00000001
 #define WUNTRACED	0x00000002
@@ -10,14 +10,14 @@
 
 #ifdef __KERNEL__
 
-#include <linux/kernel.h>
-#include <linux/list.h>
-#include <linux/stddef.h>
-#include <linux/spinlock.h>
-#include <linux/config.h>
+#include "../kernel.h"
+#include "../list.h"
+#include "../stddef.h"
+#include "../spinlock.h"
+#include "../config.h"
 
-#include <asm/page.h>
-#include <asm/processor.h>
+#include "../asm/page.h"
+#include "../asm/processor.h"
 
 /*
  * Debug control.  Slow but useful.

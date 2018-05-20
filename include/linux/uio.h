@@ -1,5 +1,5 @@
-#ifndef __LINUX_UIO_H
-#define __LINUX_UIO_H
+#ifndef __UIO_H
+#define __UIO_H
 
 #include "types.h"
 
