@@ -1,7 +1,7 @@
 #ifndef _ASMx86_64_SIGNAL_H
 #define _ASMx86_64_SIGNAL_H
 
-#include <linux/types.h>
+#include "../linux/types.h"
 
 /* Avoid too many header ordering problems.  */
 struct siginfo;
