@@ -3,7 +3,7 @@
 
 #include "../linux/stddef.h"
 #ifndef ASM_OFFSET_H
-#include <asm/offset.h>
+#include "offset.h"
 #endif
 #include "../linux/cache.h"
 
