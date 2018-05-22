@@ -6,9 +6,9 @@
 #ifndef _ASMx8664_TIMEX_H
 #define _ASMx8664_TIMEX_H
 
-#include <linux/config.h>
-#include <asm/msr.h>
-#include <asm/vsyscall.h>
+#include "../linux/config.h"
+#include "msr.h"
+#include "vsyscall.h"
 
 #define CLOCK_TICK_RATE (hpet.address ? hpet.hz : 1193182L)
 #define FINETUNE	((((((long)LATCH * HZ - CLOCK_TICK_RATE) << SHIFT_HZ) * \

@@ -1,7 +1,7 @@
 #ifndef __ARCH_X86_64_ATOMIC__
 #define __ARCH_X86_64_ATOMIC__
 
-#include <linux/config.h>
+#include "../linux/config.h"
 
 /* atomic_t should be 32 bit signed type */
 
