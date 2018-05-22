@@ -1,7 +1,7 @@
 #ifndef _X8664_SIGINFO_H
 #define _X8664_SIGINFO_H
 
-#include <linux/types.h>
+#include "../linux/types.h"
 
 typedef union sigval {
 	int sival_int;
