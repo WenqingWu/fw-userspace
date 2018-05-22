@@ -1,8 +1,8 @@
 #ifndef ASM_PCI_DIRECT_H
 #define ASM_PCI_DIRECT_H 1
 
-#include <linux/types.h>
-#include <asm/io.h>
+#include "../linux/types.h"
+#include "io.h"
 
 /* Direct PCI access. This is used for PCI accesses in early boot before
    the PCI subsystem works. */ 

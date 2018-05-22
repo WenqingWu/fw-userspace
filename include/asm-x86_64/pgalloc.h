@@ -1,13 +1,13 @@
 #ifndef _X86_64_PGALLOC_H
 #define _X86_64_PGALLOC_H
 
-#include <linux/config.h>
-#include <asm/processor.h>
-#include <asm/fixmap.h>
-#include <asm/pda.h>
-#include <linux/threads.h>
-#include <linux/mm.h>
-#include <asm/page.h>
+#include "../linux/config.h"
+#include "processor.h"
+#include "fixmap.h"
+#include "pda.h"
+#include "../linux/threads.h"
+#include "../linux/mm.h"
+#include "page.h"
 
 #define inc_pgcache_size() add_pda(pgtable_cache_sz,1UL)
 #define dec_pgcache_size() sub_pda(pgtable_cache_sz,1UL)

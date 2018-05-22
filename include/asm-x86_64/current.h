@@ -27,7 +27,7 @@ static inline struct task_struct *stack_current(void)
 #else
 
 #ifndef ASM_OFFSET_H
-#include <asm/offset.h> 
+#include "offset.h"
 #endif
 
 #define GET_CURRENT(reg) movq %gs:(pda_pcurrent),reg

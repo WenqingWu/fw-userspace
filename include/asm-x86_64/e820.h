@@ -11,7 +11,7 @@
 #ifndef __E820_HEADER
 #define __E820_HEADER
 
-#include <linux/mmzone.h>
+#include "../linux/mmzone.h"
 
 #define E820MAP	0x2d0		/* our map */
 #define E820MAX	32		/* number of entries in E820MAP */

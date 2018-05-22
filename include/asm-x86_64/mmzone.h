@@ -5,7 +5,7 @@
 #ifndef _ASM_MMZONE_H_
 #define _ASM_MMZONE_H_
 
-#include <linux/config.h>
+#include "../linux/config.h"
 
 typedef struct plat_pglist_data {
 	pg_data_t	gendata;

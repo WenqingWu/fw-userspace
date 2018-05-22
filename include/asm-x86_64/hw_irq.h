@@ -105,7 +105,7 @@ extern char _stext, _etext;
 
 #include "ptrace.h"
 #ifndef ASM_OFFSET_H
-#include <asm/offset.h>
+#include "offset.h"
 #endif
 
 /* IF:off, stack contains irq number on origrax */ 
