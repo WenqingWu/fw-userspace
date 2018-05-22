@@ -2,8 +2,8 @@
 #ifndef __ARCH_DESC_H
 #define __ARCH_DESC_H
 
-#include <linux/threads.h>
-#include <asm/ldt.h>
+#include "../linux/threads.h"
+#include "ldt.h"
 
 #ifndef __ASSEMBLY__
 

@@ -73,8 +73,8 @@ typedef struct { unsigned long pgprot; } pgprot_t;
 
 #ifndef __ASSEMBLY__
 
-#include <linux/config.h>
-#include <linux/stringify.h>
+#include "../linux/config.h"
+#include "../linux/stringify.h"
 
 
 /*

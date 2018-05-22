@@ -9,15 +9,15 @@
  * Thanks. --rmk
  */
 
-#include <linux/config.h>
+#include "config.h"
 
 #if !defined(CONFIG_ARCH_S390)
 
-#include <linux/cache.h>
-#include <linux/spinlock.h>
+#include "cache.h"
+#include "spinlock.h"
 
-#include <asm/irq.h>
-#include <asm/ptrace.h>
+#include "../asm/irq.h"
+#include "../asm/ptrace.h"
 
 /*
  * IRQ line status.
@@ -66,7 +66,7 @@ typedef struct {
 
 extern irq_desc_t irq_desc [NR_IRQS];
 
-#include <asm/hw_irq.h> /* the arch dependent stuff */
+#include "../asm/hw_irq.h" /* the arch dependent stuff */
 
 extern int handle_IRQ_event(unsigned int, struct pt_regs *, struct irqaction *);
 extern int setup_irq(unsigned int , struct irqaction * );

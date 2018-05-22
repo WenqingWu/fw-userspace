@@ -1,11 +1,11 @@
 #ifndef __ASM_SPINLOCK_H
 #define __ASM_SPINLOCK_H
 
-#include <asm/atomic.h>
-#include <asm/rwlock.h>
-#include <asm/page.h>
-#include <linux/kernel.h>
-#include <linux/config.h>
+#include "atomic.h"
+#include "rwlock.h"
+#include "page.h"
+#include "../linux/kernel.h"
+#include "../linux/config.h"
 
 extern int printk(const char * fmt, ...)
 	__attribute__ ((format (printf, 1, 2)));

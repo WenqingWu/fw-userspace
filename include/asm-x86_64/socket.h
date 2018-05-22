@@ -1,7 +1,7 @@
 #ifndef _ASM_SOCKET_H
 #define _ASM_SOCKET_H
 
-#include <asm/sockios.h>
+#include "sockios.h"
 
 /* For setsockoptions(2) */
 #define SOL_SOCKET	1

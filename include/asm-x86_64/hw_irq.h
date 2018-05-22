@@ -16,9 +16,9 @@
  *  $Id: hw_irq.h,v 1.29 2002/04/15 23:43:12 ak Exp $
  */
 
-#include <linux/config.h>
-#include <asm/atomic.h>
-#include <asm/irq.h>
+#include "../linux/config.h"
+#include "atomic.h"
+#include "irq.h"
 
 /*
  * IDT vectors usable for external interrupt sources start
@@ -103,7 +103,7 @@ extern char _stext, _etext;
 #define __STR(x) #x
 #define STR(x) __STR(x)
 
-#include <asm/ptrace.h>
+#include "ptrace.h"
 #ifndef ASM_OFFSET_H
 #include <asm/offset.h>
 #endif

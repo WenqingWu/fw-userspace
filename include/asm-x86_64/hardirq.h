@@ -1,9 +1,9 @@
 #ifndef __ASM_HARDIRQ_H
 #define __ASM_HARDIRQ_H
 
-#include <linux/config.h>
-#include <linux/threads.h>
-#include <linux/irq.h>
+#include "../linux/config.h"
+#include "../linux/threads.h"
+#include "../linux/irq.h"
 
 /* assembly code in softirq.h is sensitive to the offsets of these fields */
 typedef struct {
@@ -15,7 +15,7 @@ typedef struct {
 	unsigned int __nmi_count;	/* arch dependent */
 } ____cacheline_aligned irq_cpustat_t;
 
-#include <linux/irq_cpustat.h>	/* Standard mappings for irq_cpustat_t above */
+#include "../linux/irq_cpustat.h"	/* Standard mappings for irq_cpustat_t above */
 
 /*
  * Are we in an interrupt context? Either doing bottom half

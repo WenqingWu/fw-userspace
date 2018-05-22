@@ -1,7 +1,7 @@
 #ifndef __x86_64_MMU_H
 #define __x86_64_MMU_H
 
-#include <linux/spinlock.h>
+#include "../linux/spinlock.h"
 
 /*
  * The x86_64 doesn't have a mmu context, but

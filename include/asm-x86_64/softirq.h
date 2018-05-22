@@ -1,8 +1,8 @@
 #ifndef __ASM_SOFTIRQ_H
 #define __ASM_SOFTIRQ_H
 
-#include <asm/atomic.h>
-#include <asm/hardirq.h>
+#include "atomic.h"
+#include "hardirq.h"
 
 #define __cpu_bh_enable(cpu) \
 		do { barrier(); local_bh_count(cpu)--; } while (0)
