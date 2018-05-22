@@ -53,6 +53,8 @@
 
 #include "../asm/param.h"
 
+#include "time.h"
+
 /*
  * The following defines establish the engineering parameters of the PLL
  * model. The HZ variable establishes the timer interrupt frequency, 100 Hz
