@@ -269,17 +269,17 @@ static inline void clear_in_cr4 (unsigned long mask)
 #define INVALID_IO_BITMAP_OFFSET 0x8000
 
 struct i387_fxsave_struct {
-	u16	cwd;
-	u16	swd;
-	u16	twd;
-	u16	fop;
-	u64	rip;
-	u64	rdp; 
-	u32	mxcsr;
-	u32	mxcsr_mask;
-	u32	st_space[32];	/* 8*16 bytes for each FP-reg = 128 bytes */
-	u32	xmm_space[64];	/* 16*16 bytes for each XMM-reg = 128 bytes */
-	u32	padding[24];
+	unsigned short	cwd;
+	unsigned short	swd;
+	unsigned short	twd;
+	unsigned short	fop;
+	unsigned long long	rip;
+	unsigned long long	rdp; 
+	unsigned int	mxcsr;
+	unsigned int	mxcsr_mask;
+	unsigned int	st_space[32];	/* 8*16 bytes for each FP-reg = 128 bytes */
+	unsigned int	xmm_space[64];	/* 16*16 bytes for each XMM-reg = 128 bytes */
+	unsigned int	padding[24];
 } __attribute__ ((aligned (16)));
 
 union i387_union {
@@ -291,17 +291,17 @@ typedef struct {
 } mm_segment_t;
 
 struct tss_struct {
-	u32 reserved1;
-	u64 rsp0;	
-	u64 rsp1;
-	u64 rsp2;
-	u64 reserved2;
-	u64 ist[7];
-	u32 reserved3;
-	u32 reserved4;
-	u16 reserved5;
-	u16 io_map_base;
-	u32 io_bitmap[IO_BITMAP_SIZE];
+	unsigned int reserved1;
+	unsigned long long rsp0;	
+	unsigned long long rsp1;
+	unsigned long long rsp2;
+	unsigned long long reserved2;
+	unsigned long long ist[7];
+	unsigned int reserved3;
+	unsigned int reserved4;
+	unsigned short reserved5;
+	unsigned short io_map_base;
+	unsigned int io_bitmap[IO_BITMAP_SIZE];
 } __attribute__((packed));
 
 struct thread_struct {
