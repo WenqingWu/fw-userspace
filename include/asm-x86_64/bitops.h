@@ -355,7 +355,7 @@ static __inline__ unsigned long ffz(unsigned long word)
 	return word;
 }
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /**
  * ffs - find first bit set
@@ -387,9 +387,9 @@ static __inline__ int ffs(int x)
 #define hweight16(x) generic_hweight16(x)
 #define hweight8(x) generic_hweight8(x)
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #define ext2_set_bit                 __test_and_set_bit
 #define ext2_clear_bit               __test_and_clear_bit
@@ -404,6 +404,6 @@ static __inline__ int ffs(int x)
 #define minix_test_bit(nr,addr) test_bit(nr,addr)
 #define minix_find_first_zero_bit(addr,size) find_first_zero_bit(addr,size)
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* _X86_64_BITOPS_H */

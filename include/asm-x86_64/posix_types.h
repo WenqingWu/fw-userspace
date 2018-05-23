@@ -40,7 +40,7 @@ typedef __kernel_gid_t __kernel_old_gid_t;
 typedef __kernel_uid_t __kernel_uid32_t;
 typedef __kernel_gid_t __kernel_gid32_t;
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #undef __FD_SET
 static __inline__ void __FD_SET(unsigned long fd, __kernel_fd_set *fdsetp)
@@ -111,6 +111,6 @@ static __inline__ void __FD_ZERO(__kernel_fd_set *p)
 	}
 }
 
-#endif /* defined(__KERNEL__) */
+//#endif /* defined(__KERNEL__) */
 
 #endif

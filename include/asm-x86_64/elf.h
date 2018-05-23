@@ -119,9 +119,9 @@ typedef struct user_fxsr_struct elf_fpxregset_t;
 /* I'm not sure if we can use '-' here */
 #define ELF_PLATFORM  ("x86_64")
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 extern void set_personality_64bit(void);
-#define SET_PERSONALITY(ex, ibcs2) set_personality_64bit()
+//#define SET_PERSONALITY(ex, ibcs2) set_personality_64bit()
 	
 #endif
 

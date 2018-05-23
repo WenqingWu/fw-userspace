@@ -72,8 +72,8 @@ struct flock {
 
 #define F_LINUX_SPECIFIC_BASE	1024
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #define flock64	flock
-#endif
+//#endif
 
 #endif /* !_X86_64_FCNTL_H */

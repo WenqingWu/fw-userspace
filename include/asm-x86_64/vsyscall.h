@@ -13,7 +13,7 @@ enum vsyscall_num {
 #define VSYSCALL_END (-2UL << 20)
 #define VSYSCALL_ADDR(vsyscall_nr) (VSYSCALL_START+VSYSCALL_SIZE*(vsyscall_nr))
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #define __section_hpet __attribute__ ((unused, __section__ (".hpet"), aligned(16)))
 #define __section_wall_jiffies __attribute__ ((unused, __section__ (".wall_jiffies"), aligned(16)))
@@ -52,6 +52,6 @@ extern struct timezone sys_tz;
 #define vxtime_lock() do { vxtime_sequence[0]++; wmb(); } while(0)
 #define vxtime_unlock() do { wmb(); vxtime_sequence[1]++; } while (0)
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* _ASM_X86_64_VSYSCALL_H_ */

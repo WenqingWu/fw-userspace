@@ -29,7 +29,7 @@
 #define INIT_TASK_SIZE THREAD_SIZE
 #define CURRENT_MASK (~(THREAD_SIZE-1))
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #ifndef __ASSEMBLY__
 
 void clear_page(void *);
@@ -138,6 +138,6 @@ extern __inline__ int get_order(unsigned long size)
 #define VM_DATA_DEFAULT_FLAGS	(VM_READ | VM_WRITE | VM_EXEC | \
 				 VM_MAYREAD | VM_MAYWRITE | VM_MAYEXEC)
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* _X86_64_PAGE_H */

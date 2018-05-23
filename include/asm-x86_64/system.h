@@ -5,7 +5,7 @@
 #include "../linux/kernel.h"
 #include "segment.h"
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #ifdef CONFIG_SMP
 #define LOCK_PREFIX "lock ; "
@@ -106,7 +106,7 @@ extern void load_gs_index(unsigned);
 #define wbinvd() \
 	__asm__ __volatile__ ("wbinvd": : :"memory");
 
-#endif	/* __KERNEL__ */
+//#endif	/* __KERNEL__ */
 
 #define nop() __asm__ __volatile__ ("nop")
 

@@ -105,9 +105,9 @@ __OUTS(l)
 
 #define IO_SPACE_LIMIT 0xffff
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/vmalloc.h>
+#include "../linux/vmalloc.h"
 
 /*
  * Temporary debugging check to catch old code using
@@ -141,7 +141,7 @@ extern inline void * phys_to_virt(unsigned long address)
  * Change "struct page" to physical address.
  */
 #ifdef CONFIG_DISCONTIGMEM
-#include <asm/mmzone.h>
+#include "mmzone.h"
 #else
 #define page_to_phys(page)	(((page) - mem_map) << PAGE_SHIFT)
 #endif
@@ -266,6 +266,6 @@ out:
 
 #define flush_write_buffers() 
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif

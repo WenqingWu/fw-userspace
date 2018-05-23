@@ -9,24 +9,24 @@
 #ifndef _LINUX_RWSEM_H
 #define _LINUX_RWSEM_H
 
-#include <linux/linkage.h>
+#include "linkage.h"
 
 #define RWSEM_DEBUG 0
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/config.h>
-#include <linux/types.h>
-#include <linux/kernel.h>
-#include <asm/system.h>
-#include <asm/atomic.h>
+#include "config.h"
+#include "types.h"
+#include "kernel.h"
+#include "../asm/system.h"
+#include "../asm/atomic.h"
 
 struct rw_semaphore;
 
 #ifdef CONFIG_RWSEM_GENERIC_SPINLOCK
-#include <linux/rwsem-spinlock.h> /* use a generic implementation */
+#include "rwsem-spinlock.h" /* use a generic implementation */
 #else
-#include <asm/rwsem.h> /* use an arch-specific implementation */
+#include "../asm/rwsem.h" /* use an arch-specific implementation */
 #endif
 
 #ifndef rwsemtrace
@@ -102,5 +102,5 @@ static inline void up_write(struct rw_semaphore *sem)
 }
 
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 #endif /* _LINUX_RWSEM_H */

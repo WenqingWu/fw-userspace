@@ -4,7 +4,7 @@
 #include "../linux/config.h"
 #include "io.h"
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 extern dma_addr_t bad_dma_address;
 
@@ -27,13 +27,13 @@ void pcibios_penalize_isa_irq(int irq);
 struct irq_routing_table *pcibios_get_irq_routing_table(void);
 int pcibios_set_irq_routing(struct pci_dev *dev, int pin, int irq);
 
-#include <linux/types.h>
-#include <linux/slab.h>
-#include <asm/scatterlist.h>
-#include <linux/string.h>
-#include <asm/io.h>
-#include <asm/page.h>
-#include <asm/mmzone.h>
+#include "../linux/types.h"
+#include "../linux/slab.h"
+#include "scatterlist.h"
+#include "../linux/string.h"
+#include "io.h"
+#include "page.h"
+#include "mmzone.h"
 
 struct pci_dev;
 
@@ -270,6 +270,6 @@ static inline int pci_controller_num(struct pci_dev *dev)
 extern int pci_mmap_page_range(struct pci_dev *dev, struct vm_area_struct *vma,
 			       enum pci_mmap_state mmap_state, int write_combine);
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* __x8664_PCI_H */

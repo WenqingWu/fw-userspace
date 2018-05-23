@@ -3,7 +3,7 @@
 
 #include "../linux/linkage.h"
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /*
  * SMP- and interrupt-safe semaphores..
@@ -36,12 +36,12 @@
  *
  */
 
-#include <asm/system.h>
-#include <asm/atomic.h>
-#include <asm/rwlock.h>
-#include <linux/wait.h>
-#include <linux/rwsem.h>
-#include <linux/stringify.h>
+#include "system.h"
+#include "atomic.h"
+#include "rwlock.h"
+#include "../linux/wait.h"
+#include "../linux/rwsem.h"
+#include "../linux/stringify.h"
 
 struct semaphore {
 	atomic_t count;
@@ -231,5 +231,5 @@ static inline int sem_getcount(struct semaphore *sem)
        return atomic_read(&sem->count);
 }
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 #endif

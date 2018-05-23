@@ -213,8 +213,8 @@ typedef struct sigevent {
 #define sigev_notify_function	_sigev_un._sigev_thread._function
 #define sigev_notify_attributes	_sigev_un._sigev_thread._attribute
 
-#ifdef __KERNEL__
-#include <linux/string.h>
+//#ifdef __KERNEL__
+#include "../linux/string.h"
 
 extern inline void copy_siginfo(siginfo_t *to, siginfo_t *from)
 {
@@ -227,6 +227,6 @@ extern inline void copy_siginfo(siginfo_t *to, siginfo_t *from)
 
 extern int copy_siginfo_to_user(siginfo_t *to, siginfo_t *from);
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif

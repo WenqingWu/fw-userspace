@@ -1,7 +1,7 @@
 #ifndef _X86_64_STRING_H_
 #define _X86_64_STRING_H_
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #define struct_cpy(x,y) (*(x)=*(y))
 
@@ -47,6 +47,6 @@ extern void *__memcpy(void *to, const void *from, size_t len);
 #define __HAVE_ARCH_MEMMOVE
 void * memmove(void * dest,const void *src,size_t count);
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif

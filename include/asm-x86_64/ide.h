@@ -11,7 +11,7 @@
 #ifndef __ASMx86_64_IDE_H
 #define __ASMx86_64_IDE_H
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #include "../linux/config.h"
 
@@ -123,6 +123,6 @@ typedef union {
 #define ide_release_lock(lock)		do {} while (0)
 #define ide_get_lock(lock, hdlr, data)	do {} while (0)
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* __ASMx86_64_IDE_H */

@@ -23,7 +23,7 @@ typedef unsigned long long __u64;
 /*
  * These aren't exported outside the kernel to avoid name space clashes
  */
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 typedef signed char s8;
 typedef unsigned char u8;
@@ -42,6 +42,6 @@ typedef unsigned long long u64;
 typedef u64 dma64_addr_t;
 typedef u64 dma_addr_t;
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif

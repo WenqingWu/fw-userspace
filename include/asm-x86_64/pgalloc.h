@@ -180,7 +180,7 @@ static inline void flush_tlb_range(struct mm_struct *mm,
 
 #else
 
-#include <asm/smp.h>
+#include "smp.h"
 
 #define local_flush_tlb() \
 	__flush_tlb()

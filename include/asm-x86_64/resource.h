@@ -25,7 +25,7 @@
  */
 #define RLIM_INFINITY	(~0UL)
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #define INIT_RLIMITS					\
 {							\
@@ -42,6 +42,6 @@
         { RLIM_INFINITY, RLIM_INFINITY },		\
 }
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif
