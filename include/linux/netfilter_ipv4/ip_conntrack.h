@@ -90,7 +90,7 @@ union ip_conntrack_nat_help {
 };
 #endif
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #include "../types.h"
 #include "../skbuff.h"
@@ -258,5 +258,5 @@ static inline int is_confirmed(struct ip_conntrack *ct)
 }
 
 extern unsigned int ip_conntrack_htable_size;
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 #endif /* _IP_CONNTRACK_H */

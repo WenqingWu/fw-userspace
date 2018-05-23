@@ -22,13 +22,13 @@
 #ifndef _IP_FWCHAINS_H
 #define _IP_FWCHAINS_H
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #include "../icmp.h"
 #include "../in.h"
 #include "../ip.h"
 #include "../tcp.h"
 #include "../udp.h"
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 #define IP_FW_MAX_LABEL_LENGTH 8
 typedef char ip_chainlabel[IP_FW_MAX_LABEL_LENGTH+1];
 
@@ -174,12 +174,12 @@ extern int ip_fw_masq_timeouts(void *, int);
  *	Main firewall chains definitions and global var's definitions.
  */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/config.h>
-#include <linux/version.h>
+#include "../config.h"
+#include "../version.h"
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,1,0)
-#include <linux/init.h>
+#include "../init.h"
 extern void ip_fw_init(void) __init;
 #else /* 2.0.x */
 extern void ip_fw_init(void);
@@ -188,6 +188,6 @@ extern int ip_fw_ctl(int, void *, int);
 #ifdef CONFIG_IP_MASQUERADE
 extern int ip_masq_uctl(int, char *, int);
 #endif
-#endif /* KERNEL */
+//#endif /* KERNEL */
 
 #endif /* _IP_FWCHAINS_H */

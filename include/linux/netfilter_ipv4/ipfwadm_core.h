@@ -55,13 +55,13 @@
  * 	Port numbers are stored in HOST byte order.
  */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #include "../icmp.h"
 #include "../in.h"
 #include "../ip.h"
 #include "../tcp.h"
 #include "../udp.h"
-#endif
+//#endif
 
 struct ip_fw
 {
@@ -219,7 +219,7 @@ struct ip_fw_masq;
  *	Main firewall chains definitions and global var's definitions.
  */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /* Modes used in the ip_fw_chk() routine. */
 #define IP_FW_MODE_FW		0x00	/* kernel firewall check */
@@ -227,7 +227,7 @@ struct ip_fw_masq;
 #define IP_FW_MODE_ACCT_OUT	0x02	/* accounting (outgoing) */
 #define IP_FW_MODE_CHK		0x04	/* check requested by user */
 
-#include <linux/config.h>
+#include "../config.h"
 #ifdef CONFIG_IP_FIREWALL
 extern struct ip_fw *ip_fw_in_chain;
 extern struct ip_fw *ip_fw_out_chain;
@@ -252,5 +252,5 @@ extern int ip_fw_masq_timeouts(void *user, int len);
 
 extern int ip_fw_chk(struct iphdr *, struct net_device *, __u16 *,
 		     struct ip_fw *, int, int);
-#endif /* KERNEL */
+//#endif /* KERNEL */
 #endif /* _IP_FW_H */

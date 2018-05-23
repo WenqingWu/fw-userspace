@@ -78,9 +78,9 @@ struct ip_nat_info_manip
 	struct ip_conntrack_manip manip;
 };
 
-#ifdef __KERNEL__
-#include <linux/list.h>
-#include <linux/netfilter_ipv4/lockhelp.h>
+//#ifdef __KERNEL__
+#include "../list.h"
+#include "lockhelp.h"
 
 /* Protects NAT hash tables, and NAT-private part of conntracks. */
 DECLARE_RWLOCK_EXTERN(ip_nat_lock);
@@ -129,5 +129,5 @@ extern int ip_nat_used_tuple(const struct ip_conntrack_tuple *tuple,
 extern u_int16_t ip_nat_cheat_check(u_int32_t oldvalinv,
 				    u_int32_t newval,
 				    u_int16_t oldcheck);
-#endif /*__KERNEL__*/
+//#endif /*__KERNEL__*/
 #endif

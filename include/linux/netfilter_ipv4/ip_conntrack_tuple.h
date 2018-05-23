@@ -69,7 +69,7 @@ enum ip_conntrack_dir
 	IP_CT_DIR_MAX
 };
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #define DUMP_TUPLE(tp)						\
 DEBUGP("tuple %p: %u %u.%u.%u.%u:%hu -> %u.%u.%u.%u:%hu\n",	\
@@ -93,7 +93,7 @@ struct ip_conntrack_tuple_hash
 	struct ip_conntrack *ctrack;
 };
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 static inline int ip_ct_tuple_src_equal(const struct ip_conntrack_tuple *t1,
 				        const struct ip_conntrack_tuple *t2)

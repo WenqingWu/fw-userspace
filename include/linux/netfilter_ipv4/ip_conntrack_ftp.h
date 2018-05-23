@@ -2,7 +2,7 @@
 #define _IP_CONNTRACK_FTP_H
 /* FTP tracking. */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #include "lockhelp.h"
 
@@ -11,7 +11,7 @@ DECLARE_LOCK_EXTERN(ip_ftp_lock);
 
 #define FTP_PORT	21
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 enum ip_ct_ftp_type
 {

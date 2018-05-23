@@ -15,13 +15,13 @@
 #ifndef _IPTABLES_H
 #define _IPTABLES_H
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #include "../if.h"
 #include "../types.h"
 #include "../in.h"
 #include "../ip.h"
 #include "../skbuff.h"
-#endif
+//#endif
 #include "../netfilter_ipv4.h"
 
 #define IPT_FUNCTION_MAXNAMELEN 30
@@ -334,7 +334,7 @@ ipt_get_target(struct ipt_entry *e)
 /*
  *	Main firewall chains definitions and global var's definitions.
  */
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #include "../init.h"
 extern void ipt_init(void) __init;
@@ -443,5 +443,5 @@ extern unsigned int ipt_do_table(struct sk_buff **pskb,
 				 void *userdata);
 
 #define IPT_ALIGN(s) (((s) + (__alignof__(struct ipt_entry)-1)) & ~(__alignof__(struct ipt_entry)-1))
-#endif /*__KERNEL__*/
+//#endif /*__KERNEL__*/
 #endif /* _IPTABLES_H */

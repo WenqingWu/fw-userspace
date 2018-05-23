@@ -79,7 +79,7 @@
  */
 
 
-#if defined(__KERNEL__)
+//#if defined(__KERNEL__)
 /*
  * inside the kernel, we can use nicknames;
  * outside of it, we must avoid POSIX namespace pollution...
@@ -120,7 +120,7 @@
 #define be32_to_cpus __be32_to_cpus
 #define cpu_to_be16s __cpu_to_be16s
 #define be16_to_cpus __be16_to_cpus
-#endif
+//#endif
 
 
 /*
@@ -164,7 +164,10 @@ extern unsigned short int	htons(unsigned short int);
 #define ___ntohl(x) __be32_to_cpu(x)
 #define ___ntohs(x) __be16_to_cpu(x)
 
-#if defined(__KERNEL__) || (defined (__GLIBC__) && __GLIBC__ >= 2)
+//#if defined(__KERNEL__) || (defined (__GLIBC__) && __GLIBC__ >= 2)
+#if defined (__GLIBC__) && __GLIBC__ >= 2
+
+#define htonl(x) ___htonl(x)
 #define htonl(x) ___htonl(x)
 #define ntohl(x) ___ntohl(x)
 #else

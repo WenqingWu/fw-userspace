@@ -4,7 +4,7 @@
 #include "../netfilter_ipv4/ip_tables.h"
 #include "../netfilter_ipv4/ip_nat.h"
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 extern int ip_nat_rule_init(void) __init;
 extern void ip_nat_rule_cleanup(void);
@@ -14,5 +14,5 @@ extern int ip_nat_rule_find(struct sk_buff **pskb,
 			    const struct net_device *out,
 			    struct ip_conntrack *ct,
 			    struct ip_nat_info *info);
-#endif
+//#endif
 #endif /* _IP_NAT_RULE_H */

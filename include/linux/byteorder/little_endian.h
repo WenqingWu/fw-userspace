@@ -1,5 +1,5 @@
-#ifndef _LINUX_BYTEORDER_LITTLE_ENDIAN_H
-#define _LINUX_BYTEORDER_LITTLE_ENDIAN_H
+#ifndef _LITTLE_ENDIAN_H
+#define _LITTLE_ENDIAN_H
 
 #ifndef __LITTLE_ENDIAN
 #define __LITTLE_ENDIAN 1234
@@ -8,7 +8,7 @@
 #define __LITTLE_ENDIAN_BITFIELD
 #endif
 
-#include <linux/byteorder/swab.h>
+#include "swab.h"
 
 #define __constant_htonl(x) ___constant_swab32((x))
 #define __constant_ntohl(x) ___constant_swab32((x))
@@ -79,6 +79,6 @@
 #define __cpu_to_be16s(x) __swab16s((x))
 #define __be16_to_cpus(x) __swab16s((x))
 
-#include <linux/byteorder/generic.h>
+#include "generic.h"
 
 #endif /* _LINUX_BYTEORDER_LITTLE_ENDIAN_H */
