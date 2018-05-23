@@ -22,7 +22,7 @@ struct sigpending {
 /*
  * Define some primitives to manipulate sigset_t.
  */
-
+#if 0
 #ifndef __HAVE_ARCH_SIG_BITOPS
 #include "../asm/bitops.h"
 
@@ -210,7 +210,7 @@ static inline void siginitsetinv(sigset_t *set, unsigned long mask)
 }
 
 #endif /* __HAVE_ARCH_SIG_SETOPS */
-
+#endif
 static inline void init_sigpending(struct sigpending *sig)
 {
 	sigemptyset(&sig->signal);

@@ -4,23 +4,23 @@
 /*
  * We need the APIC definitions automatically as part of 'smp.h'
  */
-#ifndef __ASSEMBLY__
+//#ifndef __ASSEMBLY__
 #include "../linux/config.h"
 #include "../linux/threads.h"
 #include "../linux/ptrace.h"
-#endif
+//#endif
 
-#ifdef CONFIG_X86_LOCAL_APIC
-#ifndef __ASSEMBLY__
+//#ifdef CONFIG_X86_LOCAL_APIC
+//#ifndef __ASSEMBLY__
 #include "fixmap.h"
 #include "bitops.h"
 #include "mpspec.h"
-#ifdef CONFIG_X86_IO_APIC
+//#ifdef CONFIG_X86_IO_APIC
 #include "io_apic.h"
-#endif
+//#endif
 #include "apic.h"
-#endif
-#endif
+//#endif
+//#endif
 
 #ifdef CONFIG_SMP
 #ifndef ASSEMBLY
