@@ -85,7 +85,7 @@
 
 #define	_LVM_KERNEL_H_VERSION	"LVM "LVM_RELEASE_NAME" ("LVM_RELEASE_DATE")"
 
-#include <linux/version.h>
+#include "version.h"
 
 /*
  * preprocessor definitions
@@ -93,7 +93,7 @@
 /* if you like emergency reset code in the driver */
 #define	LVM_TOTAL_RESET
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #undef LVM_HD_NAME /* display nice names in /proc/partitions */
 
 /* lots of debugging output (see driver source)
@@ -109,31 +109,31 @@
    #define DEBUG_KFREE
  */
 
-#include <linux/kdev_t.h>
-#include <linux/list.h>
-#include <asm/types.h>
-#include <linux/major.h>
-#else
-/* This prevents the need to include <linux/list.h> which
-   causes problems on some platforms. It's not nice but then
-   neither is the alternative. */
-struct list_head {
-        struct list_head *next, *prev;
-};
-#define __KERNEL__
-#include <linux/kdev_t.h>
-#undef __KERNEL__
-#endif				/* #ifndef __KERNEL__ */
+#include "kdev_t.h"
+#include "list.h"
+#include "../asm/types.h"
+#include "major.h"
+// #else
+// /* This prevents the need to include "list.h> whic"
+//    causes problems on some platforms. It's not nice but then
+//    neither is the alternative. */
+// struct list_head {
+//         struct list_head *next, *prev;
+// };
+// #define __KERNEL__
+#include "kdev_t.h"
+// #undef __KERNEL__
+// #endif				/* #ifndef __KERNEL__ */
 
 
-#ifdef __KERNEL__
-#include <linux/spinlock.h>
+//#ifdef __KERNEL__
+#include "spinlock.h"
 
-#include <asm/semaphore.h>
-#endif				/* #ifdef __KERNEL__ */
+#include "../asm/semaphore.h"
+//#endif				/* #ifdef __KERNEL__ */
 
 
-#include <asm/page.h>
+#include "../asm/page.h"
 
 #if !defined ( LVM_BLK_MAJOR) || !defined ( LVM_CHAR_MAJOR)
 #error Bad include/linux/major.h - LVM MAJOR undefined
@@ -559,7 +559,7 @@ typedef struct lv_v5 {
 	uint lv_remap_end;
 	uint lv_chunk_size;
 	uint lv_snapshot_minor;
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 	struct kiobuf *lv_iobuf;
 	struct kiobuf *lv_COW_table_iobuf;
 	struct rw_semaphore lv_lock;
@@ -571,9 +571,9 @@ typedef struct lv_v5 {
 	struct vg_v3	*vg;
 
 	uint lv_allocated_snapshot_le;
-#else
-	char dummy[200];
-#endif
+// #else
+// 	char dummy[200];
+// #endif
 } lv_t;
 
 /* disk */
@@ -627,13 +627,13 @@ typedef struct vg_v3 {
 	pv_t *pv[ABS_MAX_PV + 1];	/* physical volume struct pointers */
 	lv_t *lv[ABS_MAX_LV + 1];	/* logical  volume struct pointers */
 	char vg_uuid[UUID_LEN+1];	/* volume group UUID */
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 	struct proc_dir_entry *vg_dir_pde;
 	struct proc_dir_entry *lv_subdir_pde;
 	struct proc_dir_entry *pv_subdir_pde;
-#else
-	char dummy1[200];
-#endif
+// #else
+// 	char dummy1[200];
+// #endif
 } vg_t;
 
 

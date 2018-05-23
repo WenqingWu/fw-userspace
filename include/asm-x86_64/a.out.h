@@ -21,10 +21,10 @@ struct exec
 #define N_DRSIZE(a)	((a).a_drsize)
 #define N_SYMSIZE(a)	((a).a_syms)
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #define STACK_TOP	TASK_SIZE
 
-#endif
+//#endif
 
 #endif /* __A_OUT_GNU_H__ */

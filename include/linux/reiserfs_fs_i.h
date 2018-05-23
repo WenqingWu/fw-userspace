@@ -4,7 +4,7 @@
 #ifndef _REISER_FS_I
 #define _REISER_FS_I
 
-#include <linux/list.h>
+#include "list.h"
 
 /** bitmasks for i_flags field in reiserfs-specific part of inode */
 typedef enum {
@@ -28,16 +28,16 @@ typedef enum {
 
 
 struct reiserfs_inode_info {
-    __u32 i_key [4];/* key is still 4 32 bit integers */
+    unsigned int i_key [4];/* key is still 4 32 bit integers */
   
     /** transient inode flags that are never stored on disk. Bitmasks
 	for this field are defined above. */
-    __u32 i_flags;
+    unsigned int i_flags;
 
-    __u32 i_first_direct_byte; // offset of first byte stored in direct item.
+    unsigned int i_first_direct_byte; // offset of first byte stored in direct item.
 
     /* copy of persistent inode flags read from sd_attrs. */
-    __u32 i_attrs;
+    unsigned int i_attrs;
 
     int i_prealloc_block; /* first unused block of a sequence of unused blocks */
     int i_prealloc_count; /* length of that sequence */

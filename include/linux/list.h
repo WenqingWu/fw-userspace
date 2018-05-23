@@ -1,9 +1,9 @@
 #ifndef _LINUX_LIST_H
 #define _LINUX_LIST_H
 
-#if defined(__KERNEL__) || defined(_LVM_H_INCLUDE)
+//#if defined(__KERNEL__) || defined(_LVM_H_INCLUDE)
 
-#include <linux/prefetch.h>
+#include "prefetch.h"
 
 /*
  * Simple doubly linked list implementation.
@@ -227,6 +227,6 @@ static inline void list_splice_init(struct list_head *list,
 	     pos = list_entry(pos->member.next, typeof(*pos), member),	\
 		     prefetch(pos->member.next))
 
-#endif /* __KERNEL__ || _LVM_H_INCLUDE */
+//#endif /* __KERNEL__ || _LVM_H_INCLUDE */
 
 #endif

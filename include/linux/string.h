@@ -3,10 +3,10 @@
 
 /* We don't want strings.h stuff being user by user stuff by accident */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/types.h>	/* for size_t */
-#include <linux/stddef.h>	/* for NULL */
+#include "types.h"	/* for size_t */
+#include "stddef.h"	/* for NULL */
 
 #ifdef __cplusplus
 extern "C" {
@@ -22,7 +22,7 @@ extern __kernel_size_t strspn(const char *,const char *);
 /*
  * Include machine specific inline routines
  */
-#include <asm/string.h>
+#include "../asm/string.h"
 
 #ifndef __HAVE_ARCH_STRCPY
 extern char * strcpy(char *,const char *);
@@ -84,5 +84,5 @@ extern void * memchr(const void *,int,__kernel_size_t);
 }
 #endif
 
-#endif
+//#endif
 #endif /* _LINUX_STRING_H_ */

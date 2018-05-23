@@ -42,10 +42,10 @@
 #ifndef _LINUX_INET_H
 #define _LINUX_INET_H
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 extern void		inet_proto_init(struct net_proto *pro);
-extern __u32		in_aton(const char *str);
+extern unsigned int		in_aton(const char *str);
 
-#endif
+//#endif
 #endif	/* _LINUX_INET_H */

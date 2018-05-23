@@ -7,13 +7,13 @@
  * Copyright 1995 Linus Torvalds
  */
 
-#include <linux/mm.h>
-#include <linux/fs.h>
-#include <linux/list.h>
+#include "mm.h"
+#include "fs.h"
+#include "list.h"
 
-#include <asm/system.h>
-#include <asm/pgtable.h>
-#include <linux/highmem.h>
+#include "../asm/system.h"
+#include "../asm/pgtable.h"
+#include "highmem.h"
 
 /*
  * The page cache can done in larger chunks than

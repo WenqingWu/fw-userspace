@@ -49,7 +49,7 @@ struct ipc_perm
 #define IPC_64  0x0100  /* New version (support 32-bit UIDs, bigger
 			   message sizes, etc. */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #define IPCMNI 32768  /* <= MAX_INT limit for ipc arrays (including sysctl changes) */
 
@@ -65,7 +65,7 @@ struct kern_ipc_perm
 	unsigned long	seq;
 };
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* _LINUX_IPC_H */
 

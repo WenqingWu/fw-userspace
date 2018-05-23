@@ -72,7 +72,7 @@ enum nf_ip_hook_priorities {
 /* 2.4 firewalling went 64 through 67. */
 #define SO_ORIGINAL_DST 80
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #ifdef CONFIG_NETFILTER_DEBUG
 void nf_debug_ip_local_deliver(struct sk_buff *skb);
 void nf_debug_ip_loopback_xmit(struct sk_buff *newskb);
@@ -80,6 +80,6 @@ void nf_debug_ip_finish_output2(struct sk_buff *skb);
 #endif /*CONFIG_NETFILTER_DEBUG*/
 
 extern int ip_route_me_harder(struct sk_buff **pskb);
-#endif /*__KERNEL__*/
+//#endif /*__KERNEL__*/
 
 #endif /*__LINUX_IP_NETFILTER_H*/

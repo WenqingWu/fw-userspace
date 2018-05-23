@@ -33,7 +33,7 @@
 #include "../asm/cache.h"
 #include "../asm/byteorder.h"
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #include "config.h"
 #ifdef CONFIG_NET_PROFILE
 #include "../net/profile.h"
@@ -63,7 +63,7 @@ struct vlan_group;
 
 #define net_xmit_errno(e)	((e) != NET_XMIT_CN ? -ENOBUFS : 0)
 
-#endif
+//#endif
 
 #define MAX_ADDR_LEN	8		/* Largest hardware address length */
 
@@ -139,7 +139,7 @@ enum {
         IF_PORT_100BASEFX
 };
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 extern const char *if_port_text[];
 
@@ -819,6 +819,6 @@ extern void		dev_clear_fastroute(struct net_device *dev);
 #endif
 
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif	/* _LINUX_DEV_H */

@@ -41,10 +41,11 @@
    NUD_PERMANENT is also cannot be deleted by garbage collectors.
  */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <asm/atomic.h>
-#include <linux/skbuff.h>
+#include "../asm/atomic.h"
+#include "../linux/skbuff.h"
+#include "../linux/slab.h"
 
 #define NUD_IN_TIMER	(NUD_INCOMPLETE|NUD_DELAY|NUD_PROBE)
 #define NUD_VALID	(NUD_PERMANENT|NUD_NOARP|NUD_REACHABLE|NUD_PROBE|NUD_STALE|NUD_DELAY)
@@ -275,7 +276,7 @@ __neigh_lookup_errno(struct neigh_table *tbl, const void *pkey,
 	return neigh_create(tbl, pkey, dev);
 }
 
-#endif
+//#endif
 #endif
 
 

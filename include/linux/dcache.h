@@ -1,11 +1,11 @@
 #ifndef __LINUX_DCACHE_H
 #define __LINUX_DCACHE_H
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <asm/atomic.h>
-#include <linux/mount.h>
-#include <linux/kernel.h>
+#include "../asm/atomic.h"
+#include "mount.h"
+#include "kernel.h"
 
 /*
  * linux/include/linux/dcache.h
@@ -273,6 +273,6 @@ static __inline__ int d_mountpoint(struct dentry *dentry)
 }
 
 extern struct vfsmount *lookup_mnt(struct vfsmount *, struct dentry *);
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif	/* __LINUX_DCACHE_H */

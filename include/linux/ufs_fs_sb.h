@@ -14,7 +14,7 @@
 #ifndef __LINUX_UFS_FS_SB_H
 #define __LINUX_UFS_FS_SB_H
 
-#include <linux/ufs_fs.h>
+#include "ufs_fs.h"
 
 /*
  * This structure is used for reading disk structures larger

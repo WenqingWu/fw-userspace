@@ -4,7 +4,7 @@
 #include "sched.h"
 #include "errno.h"
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #include "config.h"
 #include "string.h"
@@ -672,6 +672,6 @@ extern struct vm_area_struct *find_extend_vma(struct mm_struct *mm, unsigned lon
 
 extern struct page * vmalloc_to_page(void *addr);
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif

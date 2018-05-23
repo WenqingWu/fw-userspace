@@ -6,9 +6,9 @@
 #ifndef _LINUX_ATMSVC_H
 #define _LINUX_ATMSVC_H
 
-#include <linux/atmapi.h>
-#include <linux/atm.h>
-#include <linux/atmioc.h>
+#include "atmapi.h"
+#include "atm.h"
+#include "atmioc.h"
 
 
 #define ATMSIGD_CTRL _IO('a',ATMIOC_SPECIAL)

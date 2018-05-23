@@ -10,7 +10,8 @@
 #ifndef _LINUX_QNX4_FS_H
 #define _LINUX_QNX4_FS_H
 
-#include <linux/qnxtypes.h>
+#include "qnxtypes.h"
+#include "../asm/types.h"
 
 #define QNX4_ROOT_INO 1
 
@@ -87,7 +88,7 @@ struct qnx4_super_block {
 	struct qnx4_inode_entry AltBoot;
 };
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #define QNX4_DEBUG 0
 
@@ -120,6 +121,6 @@ extern int qnx4_sync_file(struct file *file, struct dentry *dentry, int);
 extern int qnx4_sync_inode(struct inode *inode);
 extern int qnx4_get_block(struct inode *inode, long iblock, struct buffer_head *bh, int create);
 
-#endif				/* __KERNEL__ */
+//#endif				/* __KERNEL__ */
 
 #endif

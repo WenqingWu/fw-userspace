@@ -2,10 +2,10 @@
 #define _LINUX_LOCKS_H
 
 #ifndef _LINUX_MM_H
-#include <linux/mm.h>
+#include "mm.h"
 #endif
 #ifndef _LINUX_PAGEMAP_H
-#include <linux/pagemap.h>
+#include "pagemap.h"
 #endif
 
 /*

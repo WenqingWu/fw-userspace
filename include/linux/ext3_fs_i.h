@@ -16,7 +16,7 @@
 #ifndef _LINUX_EXT3_FS_I
 #define _LINUX_EXT3_FS_I
 
-#include <linux/rwsem.h>
+#include "rwsem.h"
 
 /*
  * second extended file system inode data in memory

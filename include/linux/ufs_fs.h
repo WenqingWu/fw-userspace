@@ -27,10 +27,10 @@
 #ifndef __LINUX_UFS_FS_H
 #define __LINUX_UFS_FS_H
 
-#include <linux/types.h>
-#include <linux/kernel.h>
-#include <linux/time.h>
-#include <linux/stat.h>
+#include "types.h"
+#include "kernel.h"
+#include "time.h"
+#include "stat.h"
 
 #define UFS_BBLOCK 0
 #define UFS_BBSIZE 8192
@@ -508,7 +508,7 @@ struct ufs_inode {
 #define UFS_SF_APPEND     0x00040000  /* append-only */
 #define UFS_SF_NOUNLINK   0x00100000  /* can't be removed or renamed */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /* balloc.c */
 extern void ufs_free_fragments (struct inode *, unsigned, unsigned);
@@ -567,6 +567,6 @@ extern struct inode_operations ufs_fast_symlink_inode_operations;
 /* truncate.c */
 extern void ufs_truncate (struct inode *);
 
-#endif	/* __KERNEL__ */
+//#endif	/* __KERNEL__ */
 
 #endif /* __LINUX_UFS_FS_H */

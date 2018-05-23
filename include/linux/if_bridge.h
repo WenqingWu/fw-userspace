@@ -15,7 +15,7 @@
 #ifndef _LINUX_IF_BRIDGE_H
 #define _LINUX_IF_BRIDGE_H
 
-#include <linux/types.h>
+#include "types.h"
 
 #define BRCTL_VERSION 1
 
@@ -94,9 +94,9 @@ struct __fdb_entry
 	__u32 unused;
 };
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/netdevice.h>
+#include "netdevice.h"
 
 struct net_bridge;
 struct net_bridge_port;
@@ -104,6 +104,6 @@ struct net_bridge_port;
 extern int (*br_ioctl_hook)(unsigned long arg);
 extern void (*br_handle_frame_hook)(struct sk_buff *skb);
 
-#endif
+//#endif
 
 #endif

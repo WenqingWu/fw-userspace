@@ -1,6 +1,6 @@
 #ifndef _MSDOS_FS_SB
 #define _MSDOS_FS_SB
-#include<linux/fat_cvf.h>
+#include "fat_cvf.h"
 
 /*
  * MS-DOS file system in-core superblock data

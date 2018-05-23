@@ -10,8 +10,8 @@
 #ifndef _LINUX_PREFETCH_H
 #define _LINUX_PREFETCH_H
 
-#include <asm/processor.h>
-#include <asm/cache.h>
+#include "../asm/processor.h"
+#include "../asm/cache.h"
 
 /*
 	prefetch(x) attempts to pre-emptively get the memory pointed to

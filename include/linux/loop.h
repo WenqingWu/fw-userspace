@@ -1,7 +1,7 @@
 #ifndef _LINUX_LOOP_H
 #define _LINUX_LOOP_H
 
-#include <linux/kdev_t.h>
+#include "kdev_t.h"
 
 /*
  * include/linux/loop.h
@@ -15,7 +15,7 @@
 #define LO_NAME_SIZE	64
 #define LO_KEY_SIZE	32
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /* Possible states of device */
 enum {
@@ -70,7 +70,7 @@ static inline int lo_do_transfer(struct loop_device *lo, int cmd, char *rbuf,
 
 	return lo->transfer(lo, cmd, rbuf, lbuf, size, rblock);
 }
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 /*
  * Loop flags
@@ -124,7 +124,7 @@ struct loop_info {
 #define LO_CRYPT_SKIPJACK 10
 #define MAX_LO_CRYPT	20
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 /* Support for loadable transfer modules */
 struct loop_func_table {
 	int number; 	/* filter type */ 
@@ -142,7 +142,7 @@ struct loop_func_table {
 int  loop_register_transfer(struct loop_func_table *funcs);
 int loop_unregister_transfer(int number); 
 
-#endif
+//#endif
 /*
  * IOCTL commands --- we will commandeer 0x4C ('L')
  */

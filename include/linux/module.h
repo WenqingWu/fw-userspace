@@ -178,7 +178,7 @@ struct module_info
  * Keith Owens <kaos@ocs.com.au> 28 Oct 2000.
  */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #define HAVE_INTER_MODULE
 extern void inter_module_register(const char *, struct module *, const void *);
 extern void inter_module_unregister(const char *);
@@ -194,7 +194,7 @@ struct inter_module_entry {
 };
 
 extern int try_inc_mod_count(struct module *mod);
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #if defined(MODULE) && !defined(__GENKSYMS__)
 

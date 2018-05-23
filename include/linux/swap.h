@@ -1,8 +1,10 @@
 #ifndef _LINUX_SWAP_H
 #define _LINUX_SWAP_H
 
-#include <linux/spinlock.h>
-#include <asm/page.h>
+#include "spinlock.h"
+#include "../asm/page.h"
+#include "wait.h"
+#include "kdev_t.h"
 
 #define SWAP_FLAG_PREFER	0x8000	/* set if swap priority specified */
 #define SWAP_FLAG_PRIO_MASK	0x7fff
@@ -39,7 +41,7 @@ union swap_header {
 	} info;
 };
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /*
  * Max bad pages in the new format..
@@ -48,7 +50,7 @@ union swap_header {
 #define MAX_SWAP_BADPAGES \
 	((__swapoffset(magic.magic) - __swapoffset(info.badpages)) / sizeof(int))
 
-#include <asm/atomic.h>
+#include "../asm/atomic.h"
 
 #define SWP_USED	1
 #define SWP_WRITEOK	3
@@ -213,6 +215,6 @@ extern spinlock_t swaplock;
 
 extern void shmem_unuse(swp_entry_t entry, struct page *page);
 
-#endif /* __KERNEL__*/
+//#endif /* __KERNEL__*/
 
 #endif /* _LINUX_SWAP_H */

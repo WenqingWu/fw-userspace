@@ -13,10 +13,10 @@
 #ifndef _LINUX_TQUEUE_H
 #define _LINUX_TQUEUE_H
 
-#include <linux/spinlock.h>
-#include <linux/list.h>
-#include <asm/bitops.h>
-#include <asm/system.h>
+#include "spinlock.h"
+#include "list.h"
+#include "../asm/bitops.h"
+#include "../asm/system.h"
 
 /*
  * New proposed "bottom half" handlers:

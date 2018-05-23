@@ -38,8 +38,8 @@ typedef struct {
 
 #else
 
-#include <asm/atomic.h>
-#include <asm/smp.h>
+#include "atomic.h"
+#include "smp.h"
 
 extern unsigned char global_irq_holder;
 extern unsigned volatile long global_irq_lock; /* long for set_bit -RR */

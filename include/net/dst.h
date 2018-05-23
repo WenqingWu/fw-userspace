@@ -86,7 +86,7 @@ struct dst_ops
 	kmem_cache_t 		*kmem_cachep;
 };
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 static inline void dst_hold(struct dst_entry * dst)
 {
@@ -157,6 +157,6 @@ static inline void dst_set_expires(struct dst_entry *dst, int timeout)
 
 extern void		dst_init(void);
 
-#endif
+//#endif
 
 #endif /* _NET_DST_H */

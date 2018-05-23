@@ -6,11 +6,11 @@
 #ifndef _LINUX_ATMARP_H
 #define _LINUX_ATMARP_H
 
-#ifdef __KERNEL__
-#include <linux/types.h>
-#endif
-#include <linux/atmapi.h>
-#include <linux/atmioc.h>
+//#ifdef __KERNEL__
+#include "types.h"
+//#endif
+#include "atmapi.h"
+#include "atmioc.h"
 
 
 #define ATMARP_RETRY_DELAY 30		/* request next resolution or forget

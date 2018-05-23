@@ -2,7 +2,7 @@
 #define __NET_PKT_CLS_H
 
 
-#include <linux/pkt_cls.h>
+#include "../linux/pkt_cls.h"
 
 struct rtattr;
 struct tcmsg;

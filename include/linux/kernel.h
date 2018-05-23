@@ -5,7 +5,7 @@
  * 'kernel.h' contains some often-used function prototypes etc
  */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #include <stdarg.h>
 #include "linkage.h"
@@ -174,7 +174,7 @@ extern void dump_stack(void);
 extern void __out_of_line_bug(int line) ATTRIB_NORET;
 #define out_of_line_bug() __out_of_line_bug(__LINE__)
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #define SI_LOAD_SHIFT	16
 struct sysinfo {

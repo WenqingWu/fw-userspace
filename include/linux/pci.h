@@ -273,7 +273,7 @@
 
 /* Include the ID list */
 
-#include <linux/pci_ids.h>
+#include "pci_ids.h"
 
 /*
  * The PCI interface treats multi-function devices as independent
@@ -294,13 +294,13 @@
 #define PCIIOC_MMAP_IS_MEM	(PCIIOC_BASE | 0x02)	/* Set mmap state to MEM space. */
 #define PCIIOC_WRITE_COMBINE	(PCIIOC_BASE | 0x03)	/* Enable/disable write-combining. */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/types.h>
-#include <linux/config.h>
-#include <linux/ioport.h>
-#include <linux/list.h>
-#include <linux/errno.h>
+#include "types.h"
+#include "config.h"
+#include "ioport.h"
+#include "list.h"
+#include "errno.h"
 
 /* File state for mmap()s on /proc/bus/pci/X/Y */
 enum pci_mmap_state {
@@ -619,7 +619,7 @@ void pci_pool_free (struct pci_pool *pool, void *vaddr, dma_addr_t addr);
 
 /* Include architecture-dependent settings and functions */
 
-#include <asm/pci.h>
+#include "../asm/pci.h"
 
 /*
  *  If the system does not have PCI, clearly these return errors.  Define
@@ -677,6 +677,7 @@ static inline int pci_enable_wake(struct pci_dev *dev, u32 state, int enable) { 
 
 #define pci_for_each_dev(dev) \
 	for(dev = NULL; 0; )
+
 
 #else
 
@@ -768,5 +769,5 @@ extern int pci_pci_problems;
 #define PCIPCI_VIAETBF		8
 #define PCIPCI_VSFX		16
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 #endif /* LINUX_PCI_H */

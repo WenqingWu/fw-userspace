@@ -75,16 +75,16 @@ struct cmsghdr {
  *	This mess will go away with glibc
  */
  
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #define __KINLINE static inline
-#elif  defined(__GNUC__) 
+/*#elif  defined(__GNUC__) 
 #define __KINLINE static __inline__
 #elif defined(__cplusplus)
 #define __KINLINE static inline
 #else
 #define __KINLINE static
 #endif
-
+*/
 
 /*
  *	Get the next cmsg header
@@ -245,7 +245,7 @@ struct ucred {
 /* IPX options */
 #define IPX_TYPE	1
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 extern int memcpy_fromiovec(unsigned char *kdata, struct iovec *iov, int len);
 extern int memcpy_fromiovecend(unsigned char *kdata, struct iovec *iov, 
 				int offset, int len);
@@ -260,6 +260,6 @@ extern void memcpy_tokerneliovec(struct iovec *iov, unsigned char *kdata, int le
 extern int move_addr_to_user(void *kaddr, int klen, void *uaddr, int *ulen);
 extern int move_addr_to_kernel(void *uaddr, int ulen, void *kaddr);
 extern int put_cmsg(struct msghdr*, int level, int type, int len, void *data);
-#endif
+//#endif
 #endif /* not kernel and not glibc */
 #endif /* _LINUX_SOCKET_H */

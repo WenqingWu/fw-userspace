@@ -31,7 +31,7 @@
 #define MACIIC_PACKET	5
 #define PMU_PACKET	6
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 struct adb_request {
 	unsigned char data[32];
@@ -90,6 +90,6 @@ int adb_reset_bus(void);
 int adb_try_handler_change(int address, int new_id);
 int adb_get_infos(int address, int *original_address, int *handler_id);
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* __ADB_H */

@@ -56,7 +56,7 @@ typedef enum {
 
 #define __SO_ACCEPTCON	(1<<16)		/* performed a listen		*/
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #define SOCK_ASYNC_NOSPACE	0
 #define SOCK_ASYNC_WAITDATA	1
@@ -224,5 +224,5 @@ static struct proto_ops name##_ops = {			\
 #endif
 
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 #endif	/* _LINUX_NET_H */

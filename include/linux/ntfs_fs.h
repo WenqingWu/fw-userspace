@@ -1,7 +1,7 @@
 #ifndef _LINUX_NTFS_FS_H
 #define _LINUX_NTFS_FS_H
 
-#include <asm/byteorder.h>
+#include "../asm/byteorder.h"
 
 #define NTFS_SECTOR_BITS 9
 #define NTFS_SECTOR_SIZE 512

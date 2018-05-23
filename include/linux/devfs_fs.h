@@ -1,7 +1,7 @@
 #ifndef _LINUX_DEVFS_FS_H
 #define _LINUX_DEVFS_FS_H
 
-#include <linux/ioctl.h>
+#include "ioctl.h"
 
 #define DEVFSD_PROTOCOL_REVISION_KERNEL  5
 

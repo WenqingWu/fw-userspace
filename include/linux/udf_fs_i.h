@@ -18,15 +18,15 @@
 #ifndef _UDF_FS_I_H
 #define _UDF_FS_I_H 1
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #ifndef _ECMA_167_H
 typedef struct
 {
-	__u32 logicalBlockNum;
-	__u16 partitionReferenceNum;
+	unsigned int logicalBlockNum;
+	unsigned short partitionReferenceNum;
 } __attribute__ ((packed)) lb_addr;
-#endif
+//#endif
 
 struct udf_inode_info
 {
@@ -36,12 +36,12 @@ struct udf_inode_info
 	long i_ucrtime;
 	/* Physical address of inode */
 	lb_addr i_location;
-	__u64 i_unique;
-	__u32 i_lenEAttr;
-	__u32 i_lenAlloc;
-	__u64 i_lenExtents;
-	__u32 i_next_alloc_block;
-	__u32 i_next_alloc_goal;
+	unsigned long long i_unique;
+	unsigned int i_lenEAttr;
+	unsigned int i_lenAlloc;
+	unsigned long long i_lenExtents;
+	unsigned int i_next_alloc_block;
+	unsigned int i_next_alloc_goal;
 	unsigned i_alloc_type : 3;
 	unsigned i_extended_fe : 1;
 	unsigned i_strat_4096 : 1;

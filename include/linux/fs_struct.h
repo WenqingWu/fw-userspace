@@ -1,6 +1,6 @@
 #ifndef _LINUX_FS_STRUCT_H
 #define _LINUX_FS_STRUCT_H
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 struct fs_struct {
 	atomic_t count;
@@ -69,5 +69,5 @@ static inline void set_fs_pwd(struct fs_struct *fs,
 struct fs_struct *copy_fs_struct(struct fs_struct *old);
 void put_fs_struct(struct fs_struct *fs);
 
-#endif
+//#endif
 #endif

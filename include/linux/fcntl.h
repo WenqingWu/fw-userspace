@@ -23,7 +23,7 @@
 #define DN_ATTRIB	0x00000020	/* File changed attibutes */
 #define DN_MULTISHOT	0x80000000	/* Don't remove notifier */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #if BITS_PER_LONG == 32
 #define IS_GETLK32(cmd)		((cmd) == F_GETLK)
@@ -45,6 +45,6 @@
 #define IS_SETLK(cmd)	(IS_SETLK32(cmd)  || IS_SETLK64(cmd))
 #define IS_SETLKW(cmd)	(IS_SETLKW32(cmd) || IS_SETLKW64(cmd))
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif

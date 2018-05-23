@@ -1,9 +1,9 @@
 #ifndef _ATMMPC_H_
 #define _ATMMPC_H_
 
-#include <linux/atmapi.h>
-#include <linux/atmioc.h>
-#include <linux/atm.h>
+#include "atmapi.h"
+#include "atmioc.h"
+#include "atm.h"
 
 #define ATMMPC_CTRL _IO('a', ATMIOC_MPOA)
 #define ATMMPC_DATA _IO('a', ATMIOC_MPOA+1)

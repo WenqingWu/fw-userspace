@@ -1,7 +1,7 @@
 #ifndef _LINUX_NTFS_FS_SB_H
 #define _LINUX_NTFS_FS_SB_H
 
-#include <linux/ntfs_fs_i.h>
+#include "ntfs_fs_i.h"
 
 struct ntfs_sb_info{
 	/* Configuration provided by user at mount time. */

@@ -7,7 +7,7 @@
 #ifndef _LINUX_NFS_H
 #define _LINUX_NFS_H
 
-#include <linux/sunrpc/msg_prot.h>
+#include "sunrpc/msg_prot.h"
 
 #define NFS_PROGRAM	100003
 #define NFS_PORT	2049

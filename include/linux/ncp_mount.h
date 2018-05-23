@@ -8,8 +8,8 @@
 #ifndef _LINUX_NCP_MOUNT_H
 #define _LINUX_NCP_MOUNT_H
 
-#include <linux/types.h>
-#include <linux/ncp.h>
+#include "types.h"
+#include "ncp.h"
 
 #define NCP_MOUNT_VERSION 3
 
@@ -65,7 +65,7 @@ struct ncp_mount_data_v4 {
 	unsigned long dir_mode;
 };
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 struct ncp_mount_data_kernel {
 	unsigned long    flags;		/* NCP_MOUNT_* flags */
@@ -84,6 +84,6 @@ struct ncp_mount_data_kernel {
 	__kernel_mode_t  dir_mode;
 };
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif

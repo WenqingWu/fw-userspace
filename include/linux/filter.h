@@ -11,6 +11,7 @@
 #define BPF_MAJOR_VERSION 1
 #define BPF_MINOR_VERSION 1
 
+#include "../asm/atomic.h"
 /*
  *	Try and keep these values and structures similar to BSD, especially
  *	the BPF code definitions which need to match so you can share filters
@@ -18,10 +19,10 @@
  
 struct sock_filter	/* Filter block */
 {
-        __u16	code;   /* Actual filter code */
-        __u8	jt;	/* Jump true */
-        __u8	jf;	/* Jump false */
-        __u32	k;      /* Generic multiuse field */
+        unsigned short	code;   /* Actual filter code */
+        unsigned char	jt;	/* Jump true */
+        unsigned char	jf;	/* Jump false */
+        unsigned int	k;      /* Generic multiuse field */
 };
 
 struct sock_fprog	/* Required for SO_ATTACH_FILTER. */
@@ -30,7 +31,7 @@ struct sock_fprog	/* Required for SO_ATTACH_FILTER. */
 	struct sock_filter	*filter;
 };
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 struct sk_filter
 {
 	atomic_t		refcnt;
@@ -42,7 +43,7 @@ static inline unsigned int sk_filter_len(struct sk_filter *fp)
 {
 	return fp->len*sizeof(struct sock_filter) + sizeof(*fp);
 }
-#endif
+//#endif
 
 /*
  * Instruction classes
@@ -132,10 +133,10 @@ static inline unsigned int sk_filter_len(struct sk_filter *fp)
 #define SKF_NET_OFF   (-0x100000)
 #define SKF_LL_OFF    (-0x200000)
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 extern int sk_run_filter(struct sk_buff *skb, struct sock_filter *filter, int flen);
 extern int sk_attach_filter(struct sock_fprog *fprog, struct sock *sk);
 extern int sk_chk_filter(struct sock_filter *filter, int flen);
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* __LINUX_FILTER_H__ */

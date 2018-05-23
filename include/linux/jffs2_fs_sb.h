@@ -3,11 +3,11 @@
 #ifndef _JFFS2_FS_SB
 #define _JFFS2_FS_SB
 
-#include <linux/types.h>
-#include <linux/spinlock.h>
-#include <linux/completion.h>
-#include <asm/semaphore.h>
-#include <linux/list.h>
+#include "types.h"
+#include "spinlock.h"
+#include "completion.h"
+#include "../asm/semaphore.h"
+#include "list.h"
 
 #define INOCACHE_HASHSIZE 1
 

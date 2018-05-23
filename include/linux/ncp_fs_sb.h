@@ -8,10 +8,10 @@
 #ifndef _NCP_FS_SB
 #define _NCP_FS_SB
 
-#include <linux/types.h>
-#include <linux/ncp_mount.h>
+#include "types.h"
+#include "ncp_mount.h"
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #define NCP_DEFAULT_OPTIONS 0		/* 2 for packet signatures */
 
@@ -99,7 +99,7 @@ static inline void ncp_invalidate_conn(struct ncp_server *server)
 	server->conn_status |= 0x01;
 }
 
-#endif				/* __KERNEL__ */
+//#endif				/* __KERNEL__ */
 
 #endif
  

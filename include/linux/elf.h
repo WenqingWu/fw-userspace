@@ -1,8 +1,8 @@
 #ifndef _LINUX_ELF_H
 #define _LINUX_ELF_H
 
-#include <linux/types.h>
-#include <asm/elf.h>
+#include "types.h"
+#include "../asm/elf.h"
 
 /* 32-bit ELF base types. */
 typedef __u32	Elf32_Addr;

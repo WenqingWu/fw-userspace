@@ -6,7 +6,7 @@
 #ifndef _LINUX_ATMSAP_H
 #define _LINUX_ATMSAP_H
 
-#include <linux/atmapi.h>
+#include "atmapi.h"
 
 /*
  * BEGIN_xx and END_xx markers are used for automatic generation of

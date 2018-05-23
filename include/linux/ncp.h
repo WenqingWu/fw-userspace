@@ -10,7 +10,7 @@
 #ifndef _LINUX_NCP_H
 #define _LINUX_NCP_H
 
-#include <linux/types.h>
+#include "types.h"
 
 #define NCP_PTYPE                (0x11)
 #define NCP_PORT                 (0x0451)

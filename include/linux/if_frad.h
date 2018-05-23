@@ -24,8 +24,8 @@
 #ifndef _FRAD_H_
 #define _FRAD_H_
 
-#include <linux/config.h>
-#include <linux/if.h>
+#include "config.h"
+#include "if.h"
 
 #if defined(CONFIG_DLCI) || defined(CONFIG_DLCI_MODULE)
 
@@ -126,7 +126,7 @@ struct frad_conf
 #define FRAD_CLOCK_INT		0x0001
 #define FRAD_CLOCK_EXT		0x0000
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /* these are the fields of an RFC 1490 header */
 struct frhdr
@@ -194,7 +194,7 @@ int unregister_frad(const char *name);
 
 extern int (*dlci_ioctl_hook)(unsigned int, void *);
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* CONFIG_DLCI || CONFIG_DLCI_MODULE */
 

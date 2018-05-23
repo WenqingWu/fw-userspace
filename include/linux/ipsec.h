@@ -13,10 +13,10 @@
 #ifndef _LINUX_IPSEC_H
 #define _LINUX_IPSEC_H
 
-#include <linux/config.h>
-#include <linux/socket.h>
-#include <net/sock.h>
-#include <linux/skbuff.h>
+#include "config.h"
+#include "socket.h"
+#include "../net/sock.h"
+#include "skbuff.h"
 
 /* Values for the set/getsockopt calls */
 

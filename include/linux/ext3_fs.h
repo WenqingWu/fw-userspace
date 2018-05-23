@@ -16,7 +16,8 @@
 #ifndef _LINUX_EXT3_FS_H
 #define _LINUX_EXT3_FS_H
 
-#include <linux/types.h>
+#include "types.h"
+#include "jbd.h"
 
 /*
  * The second extended filesystem constants/structures
@@ -84,30 +85,30 @@
 #define EXT3_MIN_BLOCK_SIZE		1024
 #define	EXT3_MAX_BLOCK_SIZE		4096
 #define EXT3_MIN_BLOCK_LOG_SIZE		  10
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 # define EXT3_BLOCK_SIZE(s)		((s)->s_blocksize)
-#else
-# define EXT3_BLOCK_SIZE(s)		(EXT3_MIN_BLOCK_SIZE << (s)->s_log_block_size)
-#endif
+// #else
+// # define EXT3_BLOCK_SIZE(s)		(EXT3_MIN_BLOCK_SIZE << (s)->s_log_block_size)
+// #endif
 #define EXT3_ACLE_PER_BLOCK(s)		(EXT3_BLOCK_SIZE(s) / sizeof (struct ext3_acl_entry))
 #define	EXT3_ADDR_PER_BLOCK(s)		(EXT3_BLOCK_SIZE(s) / sizeof (__u32))
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 # define EXT3_BLOCK_SIZE_BITS(s)	((s)->s_blocksize_bits)
-#else
-# define EXT3_BLOCK_SIZE_BITS(s)	((s)->s_log_block_size + 10)
-#endif
-#ifdef __KERNEL__
+// #else
+// # define EXT3_BLOCK_SIZE_BITS(s)	((s)->s_log_block_size + 10)
+// #endif
+// #ifdef __KERNEL__
 #define	EXT3_ADDR_PER_BLOCK_BITS(s)	((s)->u.ext3_sb.s_addr_per_block_bits)
 #define EXT3_INODE_SIZE(s)		((s)->u.ext3_sb.s_inode_size)
 #define EXT3_FIRST_INO(s)		((s)->u.ext3_sb.s_first_ino)
-#else
-#define EXT3_INODE_SIZE(s)	(((s)->s_rev_level == EXT3_GOOD_OLD_REV) ? \
-				 EXT3_GOOD_OLD_INODE_SIZE : \
-				 (s)->s_inode_size)
-#define EXT3_FIRST_INO(s)	(((s)->s_rev_level == EXT3_GOOD_OLD_REV) ? \
-				 EXT3_GOOD_OLD_FIRST_INO : \
-				 (s)->s_first_ino)
-#endif
+// #else
+// #define EXT3_INODE_SIZE(s)	(((s)->s_rev_level == EXT3_GOOD_OLD_REV) ? \
+// 				 EXT3_GOOD_OLD_INODE_SIZE : \
+// 				 (s)->s_inode_size)
+// #define EXT3_FIRST_INO(s)	(((s)->s_rev_level == EXT3_GOOD_OLD_REV) ? \
+// 				 EXT3_GOOD_OLD_FIRST_INO : \
+// 				 (s)->s_first_ino)
+// #endif
 
 /*
  * Macro-instructions used to manage fragments
@@ -115,13 +116,13 @@
 #define EXT3_MIN_FRAG_SIZE		1024
 #define	EXT3_MAX_FRAG_SIZE		4096
 #define EXT3_MIN_FRAG_LOG_SIZE		  10
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 # define EXT3_FRAG_SIZE(s)		((s)->u.ext3_sb.s_frag_size)
 # define EXT3_FRAGS_PER_BLOCK(s)	((s)->u.ext3_sb.s_frags_per_block)
-#else
-# define EXT3_FRAG_SIZE(s)		(EXT3_MIN_FRAG_SIZE << (s)->s_log_frag_size)
-# define EXT3_FRAGS_PER_BLOCK(s)	(EXT3_BLOCK_SIZE(s) / EXT3_FRAG_SIZE(s))
-#endif
+// #else
+// # define EXT3_FRAG_SIZE(s)		(EXT3_MIN_FRAG_SIZE << (s)->s_log_frag_size)
+// # define EXT3_FRAGS_PER_BLOCK(s)	(EXT3_BLOCK_SIZE(s) / EXT3_FRAG_SIZE(s))
+// #endif
 
 /*
  * ACL structures
@@ -163,16 +164,16 @@ struct ext3_group_desc
 /*
  * Macro-instructions used to manage group descriptors
  */
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 # define EXT3_BLOCKS_PER_GROUP(s)	((s)->u.ext3_sb.s_blocks_per_group)
 # define EXT3_DESC_PER_BLOCK(s)		((s)->u.ext3_sb.s_desc_per_block)
 # define EXT3_INODES_PER_GROUP(s)	((s)->u.ext3_sb.s_inodes_per_group)
 # define EXT3_DESC_PER_BLOCK_BITS(s)	((s)->u.ext3_sb.s_desc_per_block_bits)
-#else
-# define EXT3_BLOCKS_PER_GROUP(s)	((s)->s_blocks_per_group)
-# define EXT3_DESC_PER_BLOCK(s)		(EXT3_BLOCK_SIZE(s) / sizeof (struct ext3_group_desc))
-# define EXT3_INODES_PER_GROUP(s)	((s)->s_inodes_per_group)
-#endif
+// #else
+// # define EXT3_BLOCKS_PER_GROUP(s)	((s)->s_blocks_per_group)
+// # define EXT3_DESC_PER_BLOCK(s)		(EXT3_BLOCK_SIZE(s) / sizeof (struct ext3_group_desc))
+// # define EXT3_INODES_PER_GROUP(s)	((s)->s_inodes_per_group)
+// #endif
 
 /*
  * Constants relative to the data blocks
@@ -286,7 +287,7 @@ struct ext3_inode {
 
 #define i_size_high	i_dir_acl
 
-#if defined(__KERNEL__) || defined(__linux__)
+//#if defined(__KERNEL__) || defined(__linux__)
 #define i_reserved1	osd1.linux1.l_i_reserved1
 #define i_frag		osd2.linux2.l_i_frag
 #define i_fsize		osd2.linux2.l_i_fsize
@@ -296,23 +297,23 @@ struct ext3_inode {
 #define i_gid_high	osd2.linux2.l_i_gid_high
 #define i_reserved2	osd2.linux2.l_i_reserved2
 
-#elif defined(__GNU__)
+// #elif defined(__GNU__)
 
-#define i_translator	osd1.hurd1.h_i_translator
-#define i_frag		osd2.hurd2.h_i_frag;
-#define i_fsize		osd2.hurd2.h_i_fsize;
-#define i_uid_high	osd2.hurd2.h_i_uid_high
-#define i_gid_high	osd2.hurd2.h_i_gid_high
-#define i_author	osd2.hurd2.h_i_author
+// #define i_translator	osd1.hurd1.h_i_translator
+// #define i_frag		osd2.hurd2.h_i_frag;
+// #define i_fsize		osd2.hurd2.h_i_fsize;
+// #define i_uid_high	osd2.hurd2.h_i_uid_high
+// #define i_gid_high	osd2.hurd2.h_i_gid_high
+// #define i_author	osd2.hurd2.h_i_author
 
-#elif defined(__masix__)
+// #elif defined(__masix__)
 
-#define i_reserved1	osd1.masix1.m_i_reserved1
-#define i_frag		osd2.masix2.m_i_frag
-#define i_fsize		osd2.masix2.m_i_fsize
-#define i_reserved2	osd2.masix2.m_i_reserved2
+// #define i_reserved1	osd1.masix1.m_i_reserved1
+// #define i_frag		osd2.masix2.m_i_frag
+// #define i_fsize		osd2.masix2.m_i_fsize
+// #define i_reserved2	osd2.masix2.m_i_reserved2
 
-#endif /* defined(__KERNEL__) || defined(__linux__) */
+// #endif /* defined(__KERNEL__) || defined(__linux__) */
 
 /*
  * File system states
@@ -441,15 +442,15 @@ struct ext3_super_block {
 /*EC*/	__u32	s_reserved[197];	/* Padding to the end of the block */
 };
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #define EXT3_SB(sb)	(&((sb)->u.ext3_sb))
 #define EXT3_I(inode)	(&((inode)->u.ext3_i))
-#else
-/* Assume that user mode programs are passing in an ext3fs superblock, not
- * a kernel struct super_block.  This will allow us to call the feature-test
- * macros from user land. */
-#define EXT3_SB(sb)	(sb)
-#endif
+// #else
+// /* Assume that user mode programs are passing in an ext3fs superblock, not
+//  * a kernel struct super_block.  This will allow us to call the feature-test
+//  * macros from user land. */
+// #define EXT3_SB(sb)	(sb)
+// #endif
 
 #define NEXT_ORPHAN(inode) (inode)->u.ext3_i.i_dtime
 
@@ -576,7 +577,7 @@ struct ext3_dir_entry_2 {
 #define EXT3_DIR_REC_LEN(name_len)	(((name_len) + 8 + EXT3_DIR_ROUND) & \
 					 ~EXT3_DIR_ROUND)
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 /*
  * Describe an inode's exact location on disk and in memory
  */
@@ -699,6 +700,6 @@ extern struct inode_operations ext3_dir_inode_operations;
 extern struct inode_operations ext3_fast_symlink_inode_operations;
 
 
-#endif	/* __KERNEL__ */
+//#endif	/* __KERNEL__ */
 
 #endif	/* _LINUX_EXT3_FS_H */

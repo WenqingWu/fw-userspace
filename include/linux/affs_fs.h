@@ -4,7 +4,7 @@
  * The affs filesystem constants/structures
  */
 
-#include <linux/types.h>
+#include "types.h"
 
 #define AFFS_SUPER_MAGIC 0xadff
 

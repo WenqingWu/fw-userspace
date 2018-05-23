@@ -7,7 +7,9 @@
 #ifndef _LINUX_RANDOM_H
 #define _LINUX_RANDOM_H
 
-#include <linux/ioctl.h>
+#include "ioctl.h"
+#include "../asm/types.h"
+
 
 /* ioctl()'s for the random number generator */
 
@@ -35,18 +37,18 @@
 struct rand_pool_info {
 	int	entropy_count;
 	int	buf_size;
-	__u32	buf[0];
+	unsigned int	buf[0];
 };
 
 /* Exported functions */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 extern void rand_initialize(void);
 extern void rand_initialize_irq(int irq);
 extern void rand_initialize_blkdev(int irq, int mode);
 
-extern void batch_entropy_store(u32 a, u32 b, int num);
+extern void batch_entropy_store(unsigned int a, unsigned int b, int num);
 
 extern void add_keyboard_randomness(unsigned char scancode);
 extern void add_mouse_randomness(__u32 mouse_data);
@@ -76,6 +78,6 @@ extern __u32 secure_ipv6_id(__u32 *daddr);
 extern struct file_operations random_fops, urandom_fops;
 #endif
 
-#endif /* __KERNEL___ */
+//#endif /* __KERNEL___ */
 
 #endif /* _LINUX_RANDOM_H */

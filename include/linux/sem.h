@@ -2,6 +2,7 @@
 #define _LINUX_SEM_H
 
 #include "ipc.h"
+#include "linkage.h"
 
 /* semop flags */
 #define SEM_UNDO        0x1000  /* undo the operation on exit */
@@ -76,7 +77,7 @@ struct  seminfo {
 #define SEMMAP  SEMMNS          /* # of entries in semaphore map */
 #define SEMUSZ  20		/* sizeof struct sem_undo */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /* One semaphore structure for each semaphore in the system. */
 struct sem {
@@ -125,6 +126,6 @@ asmlinkage long sys_semget (key_t key, int nsems, int semflg);
 asmlinkage long sys_semop (int semid, struct sembuf *sops, unsigned nsops);
 asmlinkage long sys_semctl (int semid, int semnum, int cmd, union semun arg);
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* _LINUX_SEM_H */

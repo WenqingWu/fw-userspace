@@ -1,13 +1,13 @@
 #ifndef _LINUX_DEVFS_FS_KERNEL_H
 #define _LINUX_DEVFS_FS_KERNEL_H
 
-#include <linux/fs.h>
-#include <linux/config.h>
-#include <linux/spinlock.h>
-#include <linux/kdev_t.h>
-#include <linux/types.h>
+#include "fs.h"
+#include "config.h"
+#include "spinlock.h"
+#include "kdev_t.h"
+#include "types.h"
 
-#include <asm/semaphore.h>
+#include "../asm/semaphore.h"
 
 #define DEVFS_SUPER_MAGIC                0x1373
 

@@ -9,6 +9,8 @@
  * See the file COPYING.
  */
 
+#include "../asm/types.h"
+
 #ifndef _DRIVERS_BLOCK_MM_H
 #define _DRIVERS_BLOCK_MM_H
 
@@ -108,6 +110,10 @@ DMA READ OPERATIONS.
 
 #define DMA_READ_FROM_HOST 0
 #define DMA_WRITE_TO_HOST 1
+
+typedef unsigned long long u64;
+typedef unsigned int u32;
+
 
 struct mm_dma_desc {
 	u64	pci_addr;

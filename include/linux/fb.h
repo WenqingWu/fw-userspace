@@ -1,8 +1,8 @@
 #ifndef _LINUX_FB_H
 #define _LINUX_FB_H
 
-#include <linux/tty.h>
-#include <asm/types.h>
+#include "tty.h"
+#include "../asm/types.h"
 
 /* Definitions of frame buffers						*/
 
@@ -255,7 +255,7 @@ struct fb_vblank {
 	__u32 reserved[4];		/* reserved for future compatibility */
 };
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #if 1 /* to go away in 2.5.0 */
 extern int GET_FB_IDX(kdev_t rdev);
@@ -263,9 +263,9 @@ extern int GET_FB_IDX(kdev_t rdev);
 #define GET_FB_IDX(node)	(MINOR(node))
 #endif
 
-#include <linux/fs.h>
-#include <linux/init.h>
-#include <linux/devfs_fs_kernel.h>
+#include "fs.h"
+#include "init.h"
+#include "devfs_fs_kernel.h"
 
 
 struct fb_info;
@@ -494,7 +494,7 @@ extern int __init fb_find_mode(struct fb_var_screeninfo *var,
 			       unsigned int default_bpp);
 #endif
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #if 1
 

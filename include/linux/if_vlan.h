@@ -13,7 +13,7 @@
 #ifndef _LINUX_IF_VLAN_H_
 #define _LINUX_IF_VLAN_H_
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /* externally defined structs */
 struct vlan_group;
@@ -23,8 +23,8 @@ struct packet_type;
 struct vlan_collection;
 struct vlan_dev_info;
 
-#include <linux/proc_fs.h> /* for proc_dir_entry */
-#include <linux/netdevice.h>
+#include "proc_fs.h" /* for proc_dir_entry */
+#include "netdevice.h"
 
 #define VLAN_HLEN	4		/* The additional bytes (on top of the Ethernet header)
 					 * that VLAN requires.
@@ -199,7 +199,7 @@ static inline int vlan_hwaccel_receive_skb(struct sk_buff *skb,
 {
 	return __vlan_hwaccel_rx(skb, grp, vlan_tag, 1);
 }
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 /* VLAN IOCTLs are found in sockios.h */
 

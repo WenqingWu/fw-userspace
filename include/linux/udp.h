@@ -19,10 +19,10 @@
 
 
 struct udphdr {
-	__u16	source;
-	__u16	dest;
-	__u16	len;
-	__u16	check;
+	unsigned short	source;
+	unsigned short	dest;
+	unsigned short	len;
+	unsigned short	check;
 };
 
 

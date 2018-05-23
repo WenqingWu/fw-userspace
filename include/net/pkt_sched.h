@@ -7,13 +7,14 @@
 
 #define PSCHED_CLOCK_SOURCE	PSCHED_JIFFIES
 
-#include <linux/config.h>
-#include <linux/types.h>
-#include <linux/pkt_sched.h>
-#include <net/pkt_cls.h>
+#include "../linux/config.h"
+#include "../linux/types.h"
+#include "../linux/pkt_sched.h"
+#include "pkt_cls.h"
+#include "../linux/spinlock.h"
 
 #ifdef CONFIG_X86_TSC
-#include <asm/msr.h>
+#include "../asm/msr.h"
 #endif
 
 struct rtattr;

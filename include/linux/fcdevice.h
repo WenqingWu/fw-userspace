@@ -24,9 +24,9 @@
 #define _LINUX_FCDEVICE_H
 
 
-#include <linux/if_fc.h>
+#include "if_fc.h"
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 extern int		fc_header(struct sk_buff *skb, struct net_device *dev,
 				   unsigned short type, void *daddr,
 				   void *saddr, unsigned len);
@@ -38,6 +38,6 @@ extern struct net_device *alloc_fcdev(int sizeof_priv);
 extern int register_fcdev(struct net_device *dev);
 extern void unregister_fcdev(struct net_device *dev);
 
-#endif
+//#endif
 
 #endif	/* _LINUX_FCDEVICE_H */

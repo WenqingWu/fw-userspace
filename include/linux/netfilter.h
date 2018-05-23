@@ -1,7 +1,7 @@
 #ifndef __LINUX_NETFILTER_H
 #define __LINUX_NETFILTER_H
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #include "init.h"
 #include "types.h"
 #include "skbuff.h"
@@ -9,7 +9,7 @@
 #include "if.h"
 #include "wait.h"
 #include "list.h"
-#endif
+//#endif
 
 /* Responses from hook functions. */
 #define NF_DROP 0
@@ -23,7 +23,7 @@
 #define NFC_ALTERED 0x8000
 #define NFC_UNKNOWN 0x4000
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #include "config.h"
 #ifdef CONFIG_NETFILTER
 
@@ -178,6 +178,6 @@ extern void nf_invalidate_cache(int pf);
 /* Two unsigned, return a signed. */
 #define SUMAX(a,b) ((size_t)(a)>(size_t)(b) ? (ssize_t)(a) : (ssize_t)(b))
 #define SUMIN(a,b) ((size_t)(a)<(size_t)(b) ? (ssize_t)(a) : (ssize_t)(b))
-#endif /*__KERNEL__*/
+//#endif /*__KERNEL__*/
 
 #endif /*__LINUX_NETFILTER_H*/

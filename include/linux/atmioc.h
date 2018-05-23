@@ -12,7 +12,7 @@
 #ifndef _LINUX_ATMIOC_H
 #define _LINUX_ATMIOC_H
 
-#include <asm/ioctl.h>
+#include "../asm/ioctl.h"
 		/* everybody including atmioc.h will also need _IO{,R,W,WR} */
 
 #define ATMIOC_PHYCOM	  0x00 /* PHY device common ioctls, globally unique */

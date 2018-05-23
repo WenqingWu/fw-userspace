@@ -14,9 +14,9 @@
 #ifndef _LINUX_CPUFREQ_H
 #define _LINUX_CPUFREQ_H
 
-#include <linux/config.h>
-#include <linux/notifier.h>
-#include <linux/threads.h>
+#include "config.h"
+#include "notifier.h"
+#include "threads.h"
 
 
 /*********************************************************************

@@ -40,7 +40,7 @@ typedef struct __user_cap_data_struct {
         __u32 inheritable;
 } *cap_user_data_t;
   
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /* #define STRICT_CAP_T_TYPECHECKS */
 
@@ -59,7 +59,7 @@ typedef __u32 kernel_cap_t;
 #define _USER_CAP_HEADER_SIZE  (2*sizeof(__u32))
 #define _KERNEL_CAP_T_SIZE     (sizeof(kernel_cap_t))
 
-#endif
+//#endif
 
 
 /**

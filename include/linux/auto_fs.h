@@ -14,14 +14,14 @@
 #ifndef _LINUX_AUTO_FS_H
 #define _LINUX_AUTO_FS_H
 
-#ifdef __KERNEL__
-#include <linux/version.h>
-#include <linux/fs.h>
-#include <linux/limits.h>
-#include <asm/types.h>
-#endif /* __KERNEL__ */
+//#ifdef __KERNEL__
+#include "version.h"
+#include "fs.h"
+#include "limits.h"
+#include "../asm/types.h"
+//#endif /* __KERNEL__ */
 
-#include <linux/ioctl.h>
+#include "ioctl.h"
 
 /* This file describes autofs v3 */
 #define AUTOFS_PROTO_VERSION	3

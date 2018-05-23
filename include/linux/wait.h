@@ -8,13 +8,13 @@
 #define __WALL		0x40000000	/* Wait on all children, regardless of type */
 #define __WCLONE	0x80000000	/* Wait only on non-SIGCHLD children */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include "../kernel.h"
-#include "../list.h"
-#include "../stddef.h"
-#include "../spinlock.h"
-#include "../config.h"
+#include "kernel.h"
+#include "list.h"
+#include "stddef.h"
+#include "spinlock.h"
+#include "config.h"
 
 #include "../asm/page.h"
 #include "../asm/processor.h"
@@ -237,6 +237,6 @@ static inline void __remove_wait_queue(wait_queue_head_t *head,
 	list_del(&old->task_list);
 }
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif

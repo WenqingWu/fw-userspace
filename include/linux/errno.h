@@ -3,7 +3,7 @@
 
 #include "../asm/errno.h"
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /* Should never be seen by user programs */
 #define ERESTARTSYS	512
@@ -21,6 +21,6 @@
 #define EBADTYPE	527	/* Type not supported by server */
 #define EJUKEBOX	528	/* Request initiated, but will not complete before timeout */
 
-#endif
+//#endif
 
 #endif

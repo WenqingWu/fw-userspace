@@ -14,7 +14,7 @@
 /* sizeof(linux_binprm->buf) */
 #define BINPRM_BUF_SIZE 128
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /*
  * This structure is used to hold the arguments that are used when loading binaries.
@@ -65,5 +65,5 @@ extern void set_binfmt(struct linux_binfmt *new);
 #define change_ldt(a,b) setup_arg_pages(a,b)
 #endif
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 #endif /* _LINUX_BINFMTS_H */

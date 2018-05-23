@@ -14,9 +14,9 @@
 #ifndef _LINUX_CONSOLE_H_
 #define _LINUX_CONSOLE_H_ 1
 
-#include <linux/types.h>
-#include <linux/kdev_t.h>
-#include <linux/spinlock.h>
+#include "types.h"
+#include "kdev_t.h"
+#include "spinlock.h"
 
 struct vc_data;
 struct console_font_op;

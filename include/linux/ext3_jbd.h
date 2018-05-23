@@ -15,9 +15,9 @@
 #ifndef _LINUX_EXT3_JBD_H
 #define _LINUX_EXT3_JBD_H
 
-#include <linux/fs.h>
-#include <linux/jbd.h>
-#include <linux/ext3_fs.h>
+#include "fs.h"
+#include "jbd.h"
+#include "ext3_fs.h"
 
 #define EXT3_JOURNAL(inode)	(EXT3_SB((inode)->i_sb)->s_journal)
 

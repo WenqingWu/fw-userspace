@@ -29,7 +29,15 @@
         "ip_nat_core.h": "c",
         "list.h": "c",
         "icmp.h": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "hardirq.h": "c",
+        "skbuff.h": "c",
+        "sched.h": "c",
+        "binfmts.h": "c",
+        "capability.h": "c",
+        "fs.h": "c",
+        "ufs_fs_sb.h": "c",
+        "ufs_fs.h": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }

@@ -1,14 +1,14 @@
 #ifndef _LINUX_POLL_H
 #define _LINUX_POLL_H
 
-#include <asm/poll.h>
+#include "../asm/poll.h"
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/wait.h>
-#include <linux/string.h>
-#include <linux/mm.h>
-#include <asm/uaccess.h>
+#include "wait.h"
+#include "string.h"
+#include "mm.h"
+#include "../asm/uaccess.h"
 
 struct poll_table_page;
 
@@ -85,6 +85,6 @@ void zero_fd_set(unsigned long nr, unsigned long *fdset)
 
 extern int do_select(int n, fd_set_bits *fds, long *timeout);
 
-#endif /* KERNEL */
+//#endif /* KERNEL */
 
 #endif /* _LINUX_POLL_H */

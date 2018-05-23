@@ -1,7 +1,7 @@
 #ifndef _NFS_FS_SB
 #define _NFS_FS_SB
 
-#include <linux/list.h>
+#include "list.h"
 
 /*
  * NFS client parameters stored in the superblock.

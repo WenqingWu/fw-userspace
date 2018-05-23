@@ -88,7 +88,7 @@
 #define	IPOPT_TS_TSANDADDR	1		/* timestamps and addresses */
 #define	IPOPT_TS_PRESPEC	3		/* specified modules only */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 struct ip_options {
   __u32		faddr;				/* Saved first hop address */
@@ -111,7 +111,7 @@ struct ip_options {
 };
 
 #define optlength(opt) (sizeof(struct ip_options) + opt->optlen)
-#endif
+//#endif
 
 struct iphdr {
 #if defined(__LITTLE_ENDIAN_BITFIELD)

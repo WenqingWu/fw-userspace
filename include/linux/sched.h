@@ -80,9 +80,9 @@ extern int last_pid;
 #include "time.h"
 #include "param.h"
 #include "resource.h"
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #include "timer.h"
-#endif
+//#endif
 
 #include "../asm/processor.h"
 
@@ -131,9 +131,9 @@ struct sched_param {
 
 struct completion;
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/spinlock.h>
+#include "spinlock.h"
 
 /*
  * This serializes "schedule()" and also protects
@@ -577,7 +577,7 @@ static inline void task_release_cpu(struct task_struct *tsk)
 extern struct user_struct * alloc_uid(uid_t);
 extern void free_uid(struct user_struct *);
 
-#include <asm/current.h>
+#include "../asm/current.h"
 
 extern unsigned long volatile jiffies;
 extern unsigned long itimer_ticks;
@@ -955,5 +955,5 @@ static inline void cond_resched(void)
 		__cond_resched();
 }
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 #endif

@@ -1,7 +1,7 @@
 #ifndef _LINUX_FD_H
 #define _LINUX_FD_H
 
-#include <linux/ioctl.h>
+#include "ioctl.h"
 
 /* New file layout: Now the ioctl definitions immediately follow the
  * definitions of the structures that they use */

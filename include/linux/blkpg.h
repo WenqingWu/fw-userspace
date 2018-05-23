@@ -24,7 +24,7 @@
  *
  * For today, only the partition stuff - aeb, 990515
  */
-#include <linux/ioctl.h>
+#include "ioctl.h"
 
 #define BLKPG      _IO(0x12,105)
 
@@ -54,11 +54,11 @@ struct blkpg_partition {
 	char volname[BLKPG_VOLNAMELTH];	/* volume label */
 };
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 extern char * partition_name(kdev_t dev);
 extern int blk_ioctl(kdev_t dev, unsigned int cmd, unsigned long arg);
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* _LINUX_BLKPG_H */

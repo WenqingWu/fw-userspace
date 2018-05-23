@@ -246,7 +246,7 @@ struct timex {
 #define TIME_ERROR	5	/* clock not synchronized */
 #define TIME_BAD	TIME_ERROR /* bw compat */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 /*
  * kernel variables
  * Note: maximum error = NTP synch distance = dispersion + delay / 2;
@@ -288,6 +288,6 @@ extern long pps_calcnt;		/* calibration intervals */
 extern long pps_errcnt;		/* calibration errors */
 extern long pps_stbcnt;		/* stability limit exceeded */
 
-#endif /* KERNEL */
+//#endif /* KERNEL */
 
 #endif /* LINUX_TIMEX_H */

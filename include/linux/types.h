@@ -21,7 +21,7 @@ typedef __kernel_daddr_t	daddr_t;
 typedef __kernel_key_t		key_t;
 typedef __kernel_suseconds_t	suseconds_t;
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 typedef __kernel_uid32_t	uid_t;
 typedef __kernel_gid32_t	gid_t;
 typedef __kernel_uid16_t        uid16_t;
@@ -36,10 +36,10 @@ typedef __kernel_old_gid_t	old_gid_t;
 /* libc5 includes this file to define uid_t, thus uid_t can never change
  * when it is included by non-kernel code
  */
-#else
-typedef __kernel_uid_t		uid_t;
-typedef __kernel_gid_t		gid_t;
-#endif /* __KERNEL__ */
+// #else
+// typedef __kernel_uid_t		uid_t;
+// typedef __kernel_gid_t		gid_t;
+// #endif /* __KERNEL__ */
 
 #if defined(__GNUC__)
 typedef __kernel_loff_t		loff_t;

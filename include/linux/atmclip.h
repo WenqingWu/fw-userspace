@@ -6,8 +6,8 @@
 #ifndef LINUX_ATMCLIP_H
 #define LINUX_ATMCLIP_H
 
-#include <linux/sockios.h>
-#include <linux/atmioc.h>
+#include "sockios.h"
+#include "atmioc.h"
 
 
 #define RFC1483LLC_LEN	8		/* LLC+OUI+PID = 8 */
@@ -18,8 +18,8 @@
 
 #define	SIOCMKCLIP	_IO('a',ATMIOC_CLIP)	/* create IP interface */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 extern const unsigned char llc_oui[6];
-#endif
+//#endif
 
 #endif

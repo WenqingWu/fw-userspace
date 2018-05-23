@@ -9,10 +9,10 @@
 #ifndef _ATMLEC_H_
 #define _ATMLEC_H_
 
-#include <linux/atmapi.h>
-#include <linux/atmioc.h>
-#include <linux/atm.h>
-#include <linux/if_ether.h>
+#include "atmapi.h"
+#include "atmioc.h"
+#include "atm.h"
+#include "if_ether.h"
 /* ATM lec daemon control socket */
 #define ATMLEC_CTRL _IO('a',ATMIOC_LANE)
 #define ATMLEC_DATA _IO('a',ATMIOC_LANE+1)

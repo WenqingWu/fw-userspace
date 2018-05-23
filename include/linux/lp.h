@@ -96,7 +96,7 @@
 #define LP_TIMEOUT_INTERRUPT	(60 * HZ)
 #define LP_TIMEOUT_POLLED	(10 * HZ)
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /* Magic numbers for defining port-device mappings */
 #define LP_PARPORT_UNSPEC -4
@@ -189,6 +189,6 @@ struct lp_struct {
 
 extern int lp_init(void);
 
-#endif
+//#endif
 
 #endif

@@ -1,13 +1,13 @@
 #ifndef _LINUX_MMZONE_H
 #define _LINUX_MMZONE_H
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #ifndef __ASSEMBLY__
 
-#include <linux/config.h>
-#include <linux/spinlock.h>
-#include <linux/list.h>
-#include <linux/wait.h>
+#include "config.h"
+#include "spinlock.h"
+#include "list.h"
+#include "wait.h"
 
 /*
  * Free memory management - zoned buddy allocator.
@@ -233,5 +233,5 @@ static inline zone_t *next_zone(zone_t *zone)
 		sizeof(mem_map_t) - ((x) % sizeof(mem_map_t))))
 
 #endif /* !__ASSEMBLY__ */
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 #endif /* _LINUX_MMZONE_H */

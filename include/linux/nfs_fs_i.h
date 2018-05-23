@@ -1,9 +1,9 @@
 #ifndef _NFS_FS_I
 #define _NFS_FS_I
 
-#include <asm/types.h>
-#include <linux/list.h>
-#include <linux/nfs.h>
+#include "../asm/types.h"
+#include "list.h"
+#include "nfs.h"
 
 /*
  * nfs fs inode data in memory

@@ -30,9 +30,9 @@
 #define	LINUX_REBOOT_CMD_RESTART2	0xA1B2C3D4
 
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/notifier.h>
+#include "notifier.h"
 
 extern int register_reboot_notifier(struct notifier_block *);
 extern int unregister_reboot_notifier(struct notifier_block *);
@@ -46,6 +46,6 @@ extern void machine_restart(char *cmd);
 extern void machine_halt(void);
 extern void machine_power_off(void);
 
-#endif
+//#endif
 
 #endif /* _LINUX_REBOOT_H */

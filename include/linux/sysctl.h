@@ -47,10 +47,10 @@ struct __sysctl_args {
 /* Top-level names: */
 
 /* For internal pattern-matching use only: */
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #define CTL_ANY		-1	/* Matches any name */
 #define CTL_NONE	0
-#endif
+//#endif
 
 enum
 {
@@ -629,7 +629,7 @@ enum
 	ABI_FAKE_UTSNAME=6,	/* fake target utsname information */
 };
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 extern asmlinkage long sys_sysctl(struct __sysctl_args *);
 extern void sysctl_init(void);
@@ -738,8 +738,8 @@ struct ctl_table_header * register_sysctl_table(ctl_table * table,
 						int insert_at_head);
 void unregister_sysctl_table(struct ctl_table_header * table);
 
-#else /* __KERNEL__ */
+//#else /* __KERNEL__ */
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* _LINUX_SYSCTL_H */

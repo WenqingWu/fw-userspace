@@ -1,10 +1,10 @@
 #ifndef _AFFS_FS_I
 #define _AFFS_FS_I
 
-#include <linux/a.out.h>
+#include "a.out.h"
 
 // move this to linux/coda.h!!!
-#include <linux/time.h>
+#include "time.h"
 
 #define AFFS_CACHE_SIZE		PAGE_SIZE
 //#define AFFS_CACHE_SIZE		(4*4)

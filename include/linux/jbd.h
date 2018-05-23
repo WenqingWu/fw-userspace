@@ -19,16 +19,16 @@
 #if defined(CONFIG_JBD) || defined(CONFIG_JBD_MODULE) || !defined(__KERNEL__)
 
 /* Allow this file to be included directly into e2fsprogs */
-#ifndef __KERNEL__
-#include "jfs_compat.h"
-#define JFS_DEBUG
-#define jfs_debug jbd_debug
-#else
+//#ifndef __KERNEL__
+//#include "jfs_compat.h"
+// #define JFS_DEBUG
+// #define jfs_debug jbd_debug
+// #else
 
-#include <linux/journal-head.h>
-#include <linux/stddef.h>
-#include <asm/semaphore.h>
-#endif
+#include "journal-head.h"
+#include "stddef.h"
+#include "../asm/semaphore.h"
+//#endif
 
 #define journal_oom_retry 1
 
@@ -69,10 +69,10 @@ extern void * __jbd_kmalloc (char *where, size_t size, int flags, int retry);
 
 #define JFS_MIN_JOURNAL_BLOCKS 1024
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 typedef struct handle_s		handle_t;	/* Atomic operation type */
 typedef struct journal_s	journal_t;	/* Journal control structure */
-#endif
+//#endif
 
 /*
  * Internal structures used by the logging mechanism:
@@ -197,10 +197,10 @@ typedef struct journal_superblock_s
 #define JFS_KNOWN_ROCOMPAT_FEATURES	0
 #define JFS_KNOWN_INCOMPAT_FEATURES	JFS_FEATURE_INCOMPAT_REVOKE
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/fs.h>
-#include <linux/sched.h>
+#include "fs.h"
+#include "sched.h"
 
 #define JBD_ASSERTIONS
 #ifdef JBD_ASSERTIONS
@@ -797,7 +797,7 @@ static inline void journal_abort_handle(handle_t *handle)
  } while (0)
 #endif /* BUG */
 
-#endif /* __KERNEL__   */
+//#endif /* __KERNEL__   */
 
 /* Comparison functions for transaction IDs: perform comparisons using
  * modulo arithmetic so that they work over sequence number wraps. */
@@ -832,7 +832,7 @@ extern int journal_blocks_per_page(struct inode *inode);
 #define BJ_Reserved	8	/* Buffer is reserved for access by journal */
 #define BJ_Types	9
  
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 extern spinlock_t jh_splice_lock;
 /*
@@ -892,7 +892,7 @@ static inline int buffer_jbd_data(struct buffer_head *bh)
 #define BUFFER_TRACE2(bh, bh2, info)	do {} while (0)
 #define JBUFFER_TRACE(jh, info)	do {} while (0)
 
-#endif	/* __KERNEL__ */
+//#endif	/* __KERNEL__ */
 
 #endif	/* CONFIG_JBD || CONFIG_JBD_MODULE || !__KERNEL__ */
 

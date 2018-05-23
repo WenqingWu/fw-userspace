@@ -2,11 +2,11 @@
 #define UMSDOS_FS_I_H
 
 #ifndef _LINUX_TYPES_H
-#include <linux/types.h>
+#include "types.h"
 #endif
 
-#include <linux/msdos_fs_i.h>
-#include <linux/pipe_fs_i.h>
+#include "msdos_fs_i.h"
+#include "pipe_fs_i.h"
 
 /* #Specification: strategy / in memory inode
  * Here is the information specific to the inode of the UMSDOS file

@@ -39,7 +39,9 @@
 #ifndef _LINUX_QUOTA_
 #define _LINUX_QUOTA_
 
-#include <linux/errno.h>
+#include "errno.h"
+#include "rpc/types.h"
+#include "wait.h"
 
 /*
  * Convert diskblocks to blocks and the other way around.
@@ -107,12 +109,12 @@
  * indexed by user or group number.
  */
 struct dqblk {
-	__u32 dqb_bhardlimit;	/* absolute limit on disk blks alloc */
-	__u32 dqb_bsoftlimit;	/* preferred limit on disk blks */
-	__u32 dqb_curblocks;	/* current block count */
-	__u32 dqb_ihardlimit;	/* absolute limit on allocated inodes */
-	__u32 dqb_isoftlimit;	/* preferred inode limit */
-	__u32 dqb_curinodes;	/* current # allocated inodes */
+	unsigned int dqb_bhardlimit;	/* absolute limit on disk blks alloc */
+	unsigned int dqb_bsoftlimit;	/* preferred limit on disk blks */
+	unsigned int dqb_curblocks;	/* current block count */
+	unsigned int dqb_ihardlimit;	/* absolute limit on allocated inodes */
+	unsigned int dqb_isoftlimit;	/* preferred inode limit */
+	unsigned int dqb_curinodes;	/* current # allocated inodes */
 	time_t dqb_btime;		/* time limit for excessive disk use */
 	time_t dqb_itime;		/* time limit for excessive inode use */
 };
@@ -132,17 +134,17 @@ struct dqblk {
 #define dqoff(UID)      ((loff_t)((UID) * sizeof (struct dqblk)))
 
 struct dqstats {
-	__u32 lookups;
-	__u32 drops;
-	__u32 reads;
-	__u32 writes;
-	__u32 cache_hits;
-	__u32 allocated_dquots;
-	__u32 free_dquots;
-	__u32 syncs;
+	unsigned int lookups;
+	unsigned int drops;
+	unsigned int reads;
+	unsigned int writes;
+	unsigned int cache_hits;
+	unsigned int allocated_dquots;
+	unsigned int free_dquots;
+	unsigned int syncs;
 };
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 extern int nr_dquots, nr_free_dquots;
 extern int dquot_root_squash;
@@ -187,13 +189,13 @@ struct dquot {
 #define QUOTA_OK          0
 #define NO_QUOTA          1
 
-#else
+// #else
 
-# /* nodep */ include <sys/cdefs.h>
+// # /* nodep */ include <sys/cdefs.h>
 
-__BEGIN_DECLS
-long quotactl __P ((int, const char *, int, caddr_t));
-__END_DECLS
+// __BEGIN_DECLS
+// long quotactl __P ((int, const char *, int, caddr_t));
+// __END_DECLS
 
-#endif /* __KERNEL__ */
+// #endif /* __KERNEL__ */
 #endif /* _QUOTA_ */

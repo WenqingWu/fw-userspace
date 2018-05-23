@@ -1,7 +1,7 @@
 #ifndef _ADFS_FS_H
 #define _ADFS_FS_H
 
-#include <linux/types.h>
+#include "types.h"
 
 /*
  * Disc Record at disc address 0xc00
@@ -40,7 +40,7 @@ struct adfs_discrecord {
 #define ADFS_DR_SIZE_BITS	(ADFS_DR_SIZE << 3)
 #define ADFS_SUPER_MAGIC	 0xadf5
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 /*
  * Calculate the boot block checksum on an ADFS drive.  Note that this will
  * appear to be correct if the sector contains all zeros, so also check that
@@ -59,6 +59,6 @@ static inline int adfs_checkbblk(unsigned char *ptr)
 	return (result & 0xff) != ptr[511];
 }
 
-#endif
+//#endif
 
 #endif

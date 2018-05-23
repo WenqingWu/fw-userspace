@@ -195,10 +195,10 @@ extern int leases_enable, dir_notify_enable, lease_break_time;
 #define FIBMAP	   _IO(0x00,1)	/* bmap access */
 #define FIGETBSZ   _IO(0x00,2)	/* get the block size used for bmap */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <asm/semaphore.h>
-#include <asm/byteorder.h>
+#include "../asm/semaphore.h"
+#include "../asm/byteorder.h"
 
 extern void update_atime (struct inode *);
 #define UPDATE_ATIME(inode) update_atime (inode)
@@ -291,35 +291,35 @@ extern void set_bh_page(struct buffer_head *bh, struct page *page, unsigned long
 #define touch_buffer(bh)	mark_page_accessed(bh->b_page)
 
 
-#include <linux/pipe_fs_i.h>
-#include <linux/minix_fs_i.h>
-#include <linux/ext2_fs_i.h>
-#include <linux/ext3_fs_i.h>
-#include <linux/hpfs_fs_i.h>
-#include <linux/ntfs_fs_i.h>
-#include <linux/msdos_fs_i.h>
-#include <linux/umsdos_fs_i.h>
-#include <linux/iso_fs_i.h>
-#include <linux/nfs_fs_i.h>
-#include <linux/sysv_fs_i.h>
-#include <linux/affs_fs_i.h>
-#include <linux/ufs_fs_i.h>
-#include <linux/efs_fs_i.h>
-#include <linux/coda_fs_i.h>
-#include <linux/romfs_fs_i.h>
-#include <linux/shmem_fs.h>
-#include <linux/smb_fs_i.h>
-#include <linux/hfs_fs_i.h>
-#include <linux/adfs_fs_i.h>
-#include <linux/qnx4_fs_i.h>
-#include <linux/reiserfs_fs_i.h>
-#include <linux/bfs_fs_i.h>
-#include <linux/udf_fs_i.h>
-#include <linux/ncp_fs_i.h>
-#include <linux/proc_fs_i.h>
-#include <linux/usbdev_fs_i.h>
-#include <linux/jffs2_fs_i.h>
-#include <linux/cramfs_fs_sb.h>
+#include "pipe_fs_i.h"
+#include "minix_fs_i.h"
+#include "ext2_fs_i.h"
+#include "ext3_fs_i.h"
+#include "hpfs_fs_i.h"
+#include "ntfs_fs_i.h"
+#include "msdos_fs_i.h"
+#include "umsdos_fs_i.h"
+#include "iso_fs_i.h"
+#include "nfs_fs_i.h"
+#include "sysv_fs_i.h"
+#include "affs_fs_i.h"
+#include "ufs_fs_i.h"
+#include "efs_fs_i.h"
+#include "coda_fs_i.h"
+#include "romfs_fs_i.h"
+#include "shmem_fs.h"
+#include "smb_fs_i.h"
+#include "hfs_fs_i.h"
+#include "adfs_fs_i.h"
+#include "qnx4_fs_i.h"
+#include "reiserfs_fs_i.h"
+#include "bfs_fs_i.h"
+#include "udf_fs_i.h"
+#include "ncp_fs_i.h"
+#include "proc_fs_i.h"
+#include "usbdev_fs_i.h"
+#include "jffs2_fs_i.h"
+#include "cramfs_fs_sb.h"
 
 /*
  * Attribute flags.  These should be or-ed together to figure out what
@@ -370,8 +370,8 @@ struct iattr {
 /*
  * Includes for diskquotas and mount structures.
  */
-#include <linux/quota.h>
-#include <linux/mount.h>
+#include "quota.h"
+#include "mount.h"
 
 /*
  * oh the beauties of C type declarations.
@@ -612,7 +612,7 @@ struct file_lock {
 
 extern struct list_head file_lock_list;
 
-#include <linux/fcntl.h>
+#include "fcntl.h"
 
 extern int fcntl_getlk(unsigned int, struct flock *);
 extern int fcntl_setlk(unsigned int, unsigned int, struct flock *);
@@ -680,30 +680,30 @@ struct quota_mount_options
 #define MNT_FORCE	0x00000001	/* Attempt to forcibily umount */
 #define MNT_DETACH	0x00000002	/* Just detach from the tree */
 
-#include <linux/minix_fs_sb.h>
-#include <linux/ext2_fs_sb.h>
-#include <linux/ext3_fs_sb.h>
-#include <linux/hpfs_fs_sb.h>
-#include <linux/ntfs_fs_sb.h>
-#include <linux/msdos_fs_sb.h>
-#include <linux/iso_fs_sb.h>
-#include <linux/nfs_fs_sb.h>
-#include <linux/sysv_fs_sb.h>
-#include <linux/affs_fs_sb.h>
-#include <linux/ufs_fs_sb.h>
-#include <linux/efs_fs_sb.h>
-#include <linux/romfs_fs_sb.h>
-#include <linux/smb_fs_sb.h>
-#include <linux/hfs_fs_sb.h>
-#include <linux/adfs_fs_sb.h>
-#include <linux/qnx4_fs_sb.h>
-#include <linux/reiserfs_fs_sb.h>
-#include <linux/bfs_fs_sb.h>
-#include <linux/udf_fs_sb.h>
-#include <linux/ncp_fs_sb.h>
-#include <linux/usbdev_fs_sb.h>
-#include <linux/cramfs_fs_sb.h>
-#include <linux/jffs2_fs_sb.h>
+#include "minix_fs_sb.h"
+#include "ext2_fs_sb.h"
+#include "ext3_fs_sb.h"
+#include "hpfs_fs_sb.h"
+#include "ntfs_fs_sb.h"
+#include "msdos_fs_sb.h"
+#include "iso_fs_sb.h"
+#include "nfs_fs_sb.h"
+#include "sysv_fs_sb.h"
+#include "affs_fs_sb.h"
+#include "ufs_fs_sb.h"
+#include "efs_fs_sb.h"
+#include "romfs_fs_sb.h"
+#include "smb_fs_sb.h"
+#include "hfs_fs_sb.h"
+#include "adfs_fs_sb.h"
+#include "qnx4_fs_sb.h"
+#include "reiserfs_fs_sb.h"
+#include "bfs_fs_sb.h"
+#include "udf_fs_sb.h"
+#include "ncp_fs_sb.h"
+#include "usbdev_fs_sb.h"
+#include "cramfs_fs_sb.h"
+#include "jffs2_fs_sb.h"
 
 extern struct list_head super_blocks;
 extern spinlock_t sb_lock;
@@ -1628,6 +1628,6 @@ static inline void double_unlock(struct dentry *d1, struct dentry *d2)
 	dput(d2);
 }
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* _LINUX_FS_H */

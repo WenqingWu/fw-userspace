@@ -22,8 +22,8 @@
 #ifndef _UDP_H
 #define _UDP_H
 
-#include <linux/udp.h>
-#include <net/sock.h>
+#include "../linux/udp.h"
+#include "sock.h"
 
 #define UDP_HTABLE_SIZE		128
 

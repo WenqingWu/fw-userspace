@@ -7,7 +7,7 @@
 #if	!defined(_LINUX_SLAB_H)
 #define	_LINUX_SLAB_H
 
-#if	defined(__KERNEL__)
+//#if	defined(__KERNEL__)
 
 typedef struct kmem_cache_s kmem_cache_t;
 
@@ -75,6 +75,6 @@ extern kmem_cache_t	*bh_cachep;
 extern kmem_cache_t	*fs_cachep;
 extern kmem_cache_t	*sigact_cachep;
 
-#endif	/* __KERNEL__ */
+//#endif	/* __KERNEL__ */
 
 #endif	/* _LINUX_SLAB_H */

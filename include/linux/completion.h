@@ -8,7 +8,7 @@
  * See kernel/sched.c for details.
  */
 
-#include <linux/wait.h>
+#include "wait.h"
 
 struct completion {
 	unsigned int done;
