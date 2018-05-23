@@ -149,8 +149,8 @@ typedef struct sigaltstack {
 	size_t ss_size;
 } stack_t;
 
-#ifdef __KERNEL__
-#include <asm/sigcontext.h>
+//#ifdef __KERNEL__
+#include "sigcontext.h"
 
 #undef __HAVE_ARCH_SIG_BITOPS
 #if 0
@@ -192,6 +192,6 @@ extern __inline__ int sigfindinword(unsigned long word)
 	return word;
 }
 #endif
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif

@@ -8,10 +8,10 @@
 #ifndef _LINUX_CODA_FS_I
 #define _LINUX_CODA_FS_I
 
-#ifdef __KERNEL__
-#include <linux/types.h>
-#include <linux/list.h>
-#include <linux/coda.h>
+//#ifdef __KERNEL__
+#include "types.h"
+#include "list.h"
+#include "coda.h"
 
 /*
  * coda fs inode data
@@ -50,5 +50,5 @@ int coda_cnode_makectl(struct inode **inode, struct super_block *sb);
 struct inode *coda_fid_to_inode(ViceFid *fid, struct super_block *sb);
 void coda_replace_fid(struct inode *, ViceFid *, ViceFid *);
 
-#endif
+//#endif
 #endif

@@ -1,10 +1,10 @@
 #ifndef __ASM_APIC_H
 #define __ASM_APIC_H
 
-#include <linux/config.h>
-#include <linux/pm.h>
-#include <asm/apicdef.h>
-#include <asm/system.h>
+#include "../linux/config.h"
+#include "../linux/pm.h"
+#include "apicdef.h"
+#include "system.h"
 
 #ifdef CONFIG_X86_LOCAL_APIC
 
