@@ -38,10 +38,10 @@
 #error please dont include asm/rwsem.h directly, use linux/rwsem.h instead
 #endif
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/list.h>
-#include <linux/spinlock.h>
+#include "../linux/list.h"
+#include "../linux/spinlock.h"
 
 struct rwsem_waiter;
 
@@ -251,5 +251,5 @@ LOCK_PREFIX	"xaddl %0,(%2)"
 	return tmp+delta;
 }
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 #endif /* _X8664_RWSEM_H */

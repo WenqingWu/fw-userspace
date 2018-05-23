@@ -4,7 +4,7 @@
 #include "../asm/signal.h"
 #include "../asm/siginfo.h"
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 /*
  * Real Time signals may be queued.
  */
@@ -24,7 +24,7 @@ struct sigpending {
  */
 
 #ifndef __HAVE_ARCH_SIG_BITOPS
-#include <asm/bitops.h>
+#include "../asm/bitops.h"
 
 /* We don't use <asm/bitops.h> for these because there is no need to
    be atomic.  */
@@ -65,7 +65,7 @@ static inline int sigfindinword(unsigned long word)
 #endif /* __HAVE_ARCH_SIG_BITOPS */
 
 #ifndef __HAVE_ARCH_SIG_SETOPS
-#include <linux/string.h>
+#include "string.h"
 
 #define _SIG_SET_BINOP(name, op)					\
 static inline void name(sigset_t *r, const sigset_t *a, const sigset_t *b) \
@@ -220,6 +220,6 @@ static inline void init_sigpending(struct sigpending *sig)
 
 extern long do_sigpending(void *, unsigned long);
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* _LINUX_SIGNAL_H */

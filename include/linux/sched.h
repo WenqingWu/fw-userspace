@@ -27,6 +27,8 @@ extern unsigned long event;
 #include "securebits.h"
 #include "fs_struct.h"
 
+#include "rwsem.h"
+
 struct exec_domain;
 
 /*

@@ -14,12 +14,12 @@
 #error please dont include linux/rwsem-spinlock.h directly, use linux/rwsem.h instead
 #endif
 
-#include <linux/spinlock.h>
-#include <linux/list.h>
+#include "spinlock.h"
+#include "list.h"
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/types.h>
+#include "types.h"
 
 struct rwsem_waiter;
 
@@ -62,5 +62,5 @@ extern int FASTCALL(__down_write_trylock(struct rw_semaphore *sem));
 extern void FASTCALL(__up_read(struct rw_semaphore *sem));
 extern void FASTCALL(__up_write(struct rw_semaphore *sem));
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 #endif /* _LINUX_RWSEM_SPINLOCK_H */

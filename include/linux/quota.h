@@ -40,7 +40,7 @@
 #define _LINUX_QUOTA_
 
 #include "errno.h"
-#include "rpc/types.h"
+#include "types.h"
 #include "wait.h"
 
 /*
