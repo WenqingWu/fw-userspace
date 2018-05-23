@@ -20,6 +20,8 @@ extern unsigned long event;
 #include "../asm/ptrace.h"
 #include "../asm/mmu.h"
 
+#include "../asm/signal.h"
+
 #include "smp.h"
 #include "tty.h"
 #include "sem.h"

@@ -8,7 +8,10 @@
 #ifndef _LINUX_NCP_FS_I
 #define _LINUX_NCP_FS_I
 
-#ifdef __KERNEL__
+#include "types.h"
+#include "../asm/atomic.h"
+#include "../asm/semaphore.h"
+//#ifdef __KERNEL__
 
 /*
  * This is the ncpfs part of the inode structure. This must contain
@@ -27,6 +30,6 @@ struct ncp_inode_info {
 	__u8	file_handle[6] __attribute__((packed));
 };
 
-#endif	/* __KERNEL__ */
+//#endif	/* __KERNEL__ */
 
 #endif	/* _LINUX_NCP_FS_I */

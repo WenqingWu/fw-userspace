@@ -9,8 +9,8 @@
 #ifndef _LINUX_SMB_FS_I
 #define _LINUX_SMB_FS_I
 
-#ifdef __KERNEL__
-#include <linux/types.h>
+//#ifdef __KERNEL__
+#include "types.h"
 
 /*
  * smb fs inode data (in memory only)
@@ -32,5 +32,5 @@ struct smb_inode_info {
 	unsigned openers;	/* number of fileid users */
 };
 
-#endif
+//#endif
 #endif
