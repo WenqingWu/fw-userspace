@@ -2,16 +2,15 @@ VERSION = 2.4.20
 TOPDIR = $(shell /bin/pwd)
 
 CC = gcc
-CFLAGS = -fno-builtin-FUNCTION
+CFLAGS = -fPIC -fno-builtin-FUNCTION
 TARGET = main
 
 SRC = $(shell find . -name "*.c")
 
 OBJ = $(SRC:%.c=%.o) 
 
-SUB_OBJ = netfilter.o
-$(TARGET):$(SUB_OBJ)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SUB_OBJ)
+$(TARGET):$(OBJ)
+	$(CC) -o $(TARGET) $(OBJ)
 
 %*.o:%*.c
 	$(CC) -c $^ -o $@
