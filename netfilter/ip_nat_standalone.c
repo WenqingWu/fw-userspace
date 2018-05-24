@@ -28,14 +28,14 @@
 #define ASSERT_READ_LOCK(x) MUST_BE_READ_LOCKED(&ip_nat_lock)
 #define ASSERT_WRITE_LOCK(x) MUST_BE_WRITE_LOCKED(&ip_nat_lock)
 
-#include <linux/netfilter_ipv4/ip_nat.h>
-#include <linux/netfilter_ipv4/ip_nat_rule.h>
-#include <linux/netfilter_ipv4/ip_nat_protocol.h>
-#include <linux/netfilter_ipv4/ip_nat_core.h>
-#include <linux/netfilter_ipv4/ip_nat_helper.h>
-#include <linux/netfilter_ipv4/ip_tables.h>
-#include <linux/netfilter_ipv4/ip_conntrack_core.h>
-#include <linux/netfilter_ipv4/listhelp.h>
+#include "../include/linux/netfilter_ipv4/ip_nat.h"
+#include "../include/linux/netfilter_ipv4/ip_nat_rule.h"
+#include "../include/linux/netfilter_ipv4/ip_nat_protocol.h"
+#include "../include/linux/netfilter_ipv4/ip_nat_core.h"
+#include "../include/linux/netfilter_ipv4/ip_nat_helper.h"
+#include "../include/linux/netfilter_ipv4/ip_tables.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack_core.h"
+#include "../include/linux/netfilter_ipv4/listhelp.h"
 
 #if 0
 #define DEBUGP printk
