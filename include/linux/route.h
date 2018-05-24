@@ -40,9 +40,9 @@ struct rtentry
 	short		rt_metric;	/* +1 for binary compatibility!	*/
 	char		*rt_dev;	/* forcing the device at add	*/
 	unsigned long	rt_mtu;		/* per route MTU/Window 	*/
-#ifndef __KERNEL__
-#define rt_mss	rt_mtu			/* Compatibility :-(            */
-#endif
+// #ifndef __KERNEL__
+// #define rt_mss	rt_mtu			/* Compatibility :-(            */
+// #endif
 	unsigned long	rt_window;	/* Window clamping 		*/
 	unsigned short	rt_irtt;	/* Initial RTT			*/
 };

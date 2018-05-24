@@ -279,7 +279,7 @@ typedef __u32 kernel_cap_t;
 
 #define CAP_LEASE            28
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 /* 
  * Bounding set
  */
@@ -348,6 +348,6 @@ static inline kernel_cap_t cap_invert(kernel_cap_t c)
 
 #define cap_is_fs_cap(c)     (CAP_TO_MASK(c) & CAP_FS_MASK)
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* !_LINUX_CAPABILITY_H */
