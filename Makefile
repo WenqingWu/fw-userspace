@@ -1,7 +1,7 @@
 VERSION = 2.4.20
 TOPDIR = $(shell /bin/pwd)
 
-CC = gCC
+CC = gcc
 TARGET = main
 
 SRC = $(shell find . -name "*.c")

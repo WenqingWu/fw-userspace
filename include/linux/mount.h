@@ -10,7 +10,7 @@
  */
 #ifndef _LINUX_MOUNT_H
 #define _LINUX_MOUNT_H
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #define MNT_NOSUID	1
 #define MNT_NODEV	2
@@ -48,5 +48,5 @@ static inline void mntput(struct vfsmount *mnt)
 	}
 }
 
-#endif
+//#endif
 #endif /* _LINUX_MOUNT_H */
