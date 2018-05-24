@@ -19,7 +19,7 @@ struct notifier_block
 };
 
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 extern int notifier_chain_register(struct notifier_block **list, struct notifier_block *n);
 extern int notifier_chain_unregister(struct notifier_block **nl, struct notifier_block *n);
@@ -60,5 +60,5 @@ extern int notifier_call_chain(struct notifier_block **n, unsigned long val, voi
 
 #define NETLINK_URELEASE	0x0001	/* Unicast netlink socket released */
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 #endif /* _LINUX_NOTIFIER_H */
