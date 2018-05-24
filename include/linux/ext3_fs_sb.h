@@ -16,10 +16,10 @@
 #ifndef _LINUX_EXT3_FS_SB
 #define _LINUX_EXT3_FS_SB
 
-#ifdef __KERNEL__
-#include <linux/timer.h>
-#include <linux/wait.h>
-#endif
+//#ifdef __KERNEL__
+#include "timer.h"
+#include "wait.h"
+//#endif
 
 /*
  * The following is not needed anymore since the descriptors buffer
