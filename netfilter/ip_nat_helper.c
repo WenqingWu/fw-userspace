@@ -466,8 +466,9 @@ void ip_nat_helper_unregister(struct ip_nat_helper *me)
 		if ((ct_helper = ip_ct_find_helper(&me->tuple))
 		    && ct_helper->me) {
 			__MOD_DEC_USE_COUNT(ct_helper->me);
-		} else 
+		} else {
 			// printk(__FUNCTION__ ": unable to decrement usage count"
 			//        " of conntrack helper %s\n", me->me->name);
+		}
 	}
 }
