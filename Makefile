@@ -1,16 +1,18 @@
-cc = gcc
+VERSION = 2.4.20
+TOPDIR = $(shell /bin/pwd)
+
+CC = gCC
 TARGET = main
 
-deps = $(shell find . -name "*.h")
-src = $(shell find . -name "*.c")
+SRC = $(shell find . -name "*.c")
 
-obj = $(src:%.c=%.o) 
+OBJ = $(SRC:%.c=%.o) 
 
-$(TARGET): $(obj)
-	$(cc)  -o $(TARGET) $(obj)
+$(TARGET):$(OBJ)
+	$(CC) -o $(TARGET) $(OBJ)
 
-%.o: %.c
-	$(cc)  -c $^ -o $@
+%*.o:%*.c
+	$(CC) -c $^ -o $@
 
 clean:
 	rm -f *.o netfilter/*.o
