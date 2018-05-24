@@ -2,7 +2,7 @@ VERSION = 2.4.20
 TOPDIR = $(shell /bin/pwd)
 
 CC = gcc
-CFLAGS = -fPIC -fno-builtin-FUNCTION
+CFLAGS = -fPIC
 TARGET = main
 
 SRC = $(shell find . -name "*.c")
