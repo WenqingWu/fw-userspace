@@ -1,7 +1,7 @@
 #ifndef _LINUX_INETDEVICE_H
 #define _LINUX_INETDEVICE_H
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 struct ipv4_devconf
 {
@@ -149,7 +149,7 @@ in_dev_put(struct in_device *idev)
 #define __in_dev_put(idev)  atomic_dec(&(idev)->refcnt)
 #define in_dev_hold(idev)   atomic_inc(&(idev)->refcnt)
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 static __inline__ __u32 inet_make_mask(int logmask)
 {
