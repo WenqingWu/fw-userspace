@@ -33,9 +33,9 @@
 #include "../linux/ip.h"
 #include "../linux/cache.h"
 
-#ifndef __KERNEL__
-#warning This file is not supposed to be used outside of kernel.
-#endif
+// #ifndef __KERNEL__
+// #warning This file is not supposed to be used outside of kernel.
+// #endif
 
 #define RTO_ONLINK	0x01
 
