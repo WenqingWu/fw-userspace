@@ -220,13 +220,13 @@ struct sk_buff {
 #define SK_WMEM_MAX	65535
 #define SK_RMEM_MAX	65535
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 /*
  *	Handling routines are only of interest to the kernel
  */
-#include <linux/slab.h>
+#include "slab.h"
 
-#include <asm/system.h>
+#include "../asm/system.h"
 
 extern void			__kfree_skb(struct sk_buff *skb);
 extern struct sk_buff *		alloc_skb(unsigned int size, int priority);
@@ -1146,5 +1146,5 @@ nf_conntrack_get(struct nf_ct_info *nfct)
 }
 #endif
 
-#endif	/* __KERNEL__ */
+//#endif	/* __KERNEL__ */
 #endif	/* _LINUX_SKBUFF_H */
