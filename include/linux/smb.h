@@ -60,7 +60,7 @@ struct smb_conn_opt {
 	__s16              serverzone;
 };
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 #define SMB_NLS_MAXNAMELEN 20
 struct smb_nls_codepage {
@@ -113,5 +113,5 @@ enum smb_conn_state {
    than 10 or so, but OS/2 seems happier like this. */
 #define SMB_TRANS2_MAX_PARAM 64
 
-#endif
+//#endif
 #endif
