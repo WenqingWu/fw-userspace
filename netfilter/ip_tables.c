@@ -59,8 +59,8 @@ static DECLARE_MUTEX(ipt_mutex);
 /* Must have mutex */
 #define ASSERT_READ_LOCK(x) IP_NF_ASSERT(down_trylock(&ipt_mutex) != 0)
 #define ASSERT_WRITE_LOCK(x) IP_NF_ASSERT(down_trylock(&ipt_mutex) != 0)
-#include <linux/netfilter_ipv4/lockhelp.h>
-#include <linux/netfilter_ipv4/listhelp.h>
+#include "../include/linux/netfilter_ipv4/lockhelp.h"
+#include "../include/linux/netfilter_ipv4/listhelp.h"
 
 #if 0
 /* All the better to debug you with... */
