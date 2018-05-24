@@ -4,9 +4,9 @@
 #ifndef _LINUX_REISER_FS_SB
 #define _LINUX_REISER_FS_SB
 
-#ifdef __KERNEL__
-#include <linux/tqueue.h>
-#endif
+//#ifdef __KERNEL__
+#include "tqueue.h"
+//#endif
 
 //
 // super block's field values
