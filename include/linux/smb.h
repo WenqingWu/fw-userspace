@@ -9,7 +9,7 @@
 #ifndef _LINUX_SMB_H
 #define _LINUX_SMB_H
 
-#include <linux/types.h>
+#include "types.h"
 
 enum smb_protocol { 
 	SMB_PROTOCOL_NONE, 
