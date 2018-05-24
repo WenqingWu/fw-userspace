@@ -24,6 +24,7 @@
 
 #include "../linux/udp.h"
 #include "sock.h"
+#include "snmp.h"
 
 #define UDP_HTABLE_SIZE		128
 
