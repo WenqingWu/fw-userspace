@@ -115,7 +115,7 @@
  * 	character to the device.
  */
 
-#include <linux/fs.h>
+#include "fs.h"
 
 struct tty_driver {
 	int	magic;		/* magic number for this structure */

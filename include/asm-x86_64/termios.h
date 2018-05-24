@@ -1,8 +1,8 @@
 #ifndef _X8664_TERMIOS_H
 #define _X8664_TERMIOS_H
 
-#include <asm/termbits.h>
-#include <asm/ioctls.h>
+#include "termbits.h"
+#include "ioctls.h"
 
 struct winsize {
 	unsigned short ws_row;

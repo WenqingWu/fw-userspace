@@ -15,16 +15,16 @@
 		/* Note: the ioctl VT_GETSTATE does not work for
 		   consoles 16 and higher (since it returns a short) */
 
-#ifdef __KERNEL__
-#include <linux/config.h>
-#include <linux/fs.h>
-#include <linux/major.h>
-#include <linux/termios.h>
-#include <linux/tqueue.h>
-#include <linux/tty_driver.h>
-#include <linux/tty_ldisc.h>
+//#ifdef __KERNEL__
+#include "config.h"
+#include "fs.h"
+#include "major.h"
+#include "termios.h"
+#include "tqueue.h"
+#include "tty_driver.h"
+#include "tty_ldisc.h"
 
-#include <asm/system.h>
+#include "../asm/system.h"
 
 
 /*
@@ -421,5 +421,5 @@ extern void console_print(const char *);
 extern int vt_ioctl(struct tty_struct *tty, struct file * file,
 		    unsigned int cmd, unsigned long arg);
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 #endif

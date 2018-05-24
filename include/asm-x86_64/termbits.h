@@ -1,7 +1,7 @@
 #ifndef __ARCH_X8664_TERMBITS_H__
 #define __ARCH_X8664_TERMBITS_H__
 
-#include <linux/posix_types.h>
+#include "../linux/posix_types.h"
 
 typedef unsigned char	cc_t;
 typedef unsigned int	speed_t;

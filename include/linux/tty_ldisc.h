@@ -97,8 +97,8 @@
  * 	not have any more data to send, it can just return.
  */
 
-#include <linux/fs.h>
-#include <linux/wait.h>
+#include "fs.h"
+#include "wait.h"
 
 struct tty_ldisc {
 	int	magic;
