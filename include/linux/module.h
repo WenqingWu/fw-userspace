@@ -352,10 +352,10 @@ extern struct module *module_list;
 
 #elif !defined(AUTOCONF_INCLUDED)
 
-#define __EXPORT_SYMBOL(sym,str)   error config_must_be_included_before_module
-#define EXPORT_SYMBOL(var)	   error config_must_be_included_before_module
-#define EXPORT_SYMBOL_NOVERS(var)  error config_must_be_included_before_module
-#define EXPORT_SYMBOL_GPL(var)  error config_must_be_included_before_module
+#define __EXPORT_SYMBOL(sym,str)  // error config_must_be_included_before_module
+#define EXPORT_SYMBOL(var)	  // error config_must_be_included_before_module
+#define EXPORT_SYMBOL_NOVERS(var) // error config_must_be_included_before_module
+#define EXPORT_SYMBOL_GPL(var) // error config_must_be_included_before_module
 
 #elif !defined(CONFIG_MODULES)
 
@@ -366,10 +366,10 @@ extern struct module *module_list;
 
 #elif !defined(EXPORT_SYMTAB)
 
-#define __EXPORT_SYMBOL(sym,str)   error this_object_must_be_defined_as_export_objs_in_the_Makefile
-#define EXPORT_SYMBOL(var)	   error this_object_must_be_defined_as_export_objs_in_the_Makefile
-#define EXPORT_SYMBOL_NOVERS(var)  error this_object_must_be_defined_as_export_objs_in_the_Makefile
-#define EXPORT_SYMBOL_GPL(var)  error this_object_must_be_defined_as_export_objs_in_the_Makefile
+#define __EXPORT_SYMBOL(sym,str)   //error this_object_must_be_defined_as_export_objs_in_the_Makefile
+#define EXPORT_SYMBOL(var)	   //error this_object_must_be_defined_as_export_objs_in_the_Makefile
+#define EXPORT_SYMBOL_NOVERS(var)  //error this_object_must_be_defined_as_export_objs_in_the_Makefile
+#define EXPORT_SYMBOL_GPL(var)  //error this_object_must_be_defined_as_export_objs_in_the_Makefile
 
 #else
 
