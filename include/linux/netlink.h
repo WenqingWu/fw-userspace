@@ -15,6 +15,10 @@
 
 #define MAX_LINKS 32		
 
+#include "types.h"
+#include "socket.h"
+#include "capability.h"
+
 struct sockaddr_nl
 {
 	sa_family_t	nl_family;	/* AF_NETLINK	*/
@@ -84,7 +88,7 @@ struct nlmsgerr
 
 #define NET_MAJOR 36		/* Major 36 is reserved for networking 						*/
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 struct netlink_skb_parms
 {
@@ -166,6 +170,6 @@ extern int netlink_dump_start(struct sock *ssk, struct sk_buff *skb,
 extern void netlink_set_nonroot(int protocol, unsigned flag);
 
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif	/* __LINUX_NETLINK_H */
