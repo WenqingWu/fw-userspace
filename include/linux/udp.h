@@ -14,15 +14,17 @@
  *		as published by the Free Software Foundation; either version
  *		2 of the License, or (at your option) any later version.
  */
-#ifndef _UDP_H
-#define _UDP_H
+#ifndef _LINUX_UDP_H
+#define _LINUX_UDP_H
+
+#include "types.h"
 
 
 struct udphdr {
-	unsigned short	source;
-	unsigned short	dest;
-	unsigned short	len;
-	unsigned short	check;
+	__u16	source;
+	__u16	dest;
+	__u16	len;
+	__u16	check;
 };
 
 

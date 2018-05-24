@@ -10,8 +10,6 @@
 #include "../include/net/tcp.h"
 #include "../include/linux/netfilter_ipv4/ip_tables.h"
 
-#include "../include/linux/udp.h"
-
 struct in_device;
 #include "../include/net/route.h"
 #include "../include/linux/netfilter_ipv4/ipt_LOG.h"
