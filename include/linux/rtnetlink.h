@@ -2,6 +2,7 @@
 #define __LINUX_RTNETLINK_H
 
 #include "netlink.h"
+#include "types.h"
 
 #define RTNL_DEBUG 1
 
@@ -536,9 +537,9 @@ enum
 
 /* End of information exported to user level */
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/config.h>
+#include "config.h"
 
 static __inline__ int rtattr_strcmp(struct rtattr *rta, char *str)
 {
@@ -593,7 +594,7 @@ printk("RTNL: assertion failed at " __FILE__ "(%d)\n", __LINE__); } \
 #define BUG_TRAP(x) if (!(x)) { printk("KERNEL: assertion (" #x ") failed at " __FILE__ "(%d)\n", __LINE__); }
 
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 
 #endif	/* __LINUX_RTNETLINK_H */
