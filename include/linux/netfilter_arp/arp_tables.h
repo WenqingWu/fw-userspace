@@ -9,13 +9,13 @@
 #ifndef _ARPTABLES_H
 #define _ARPTABLES_H
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 #include "../if.h"
 #include "../types.h"
 #include "../in.h"
 #include "../if_arp.h"
 #include "../skbuff.h"
-#endif
+//#endif
 
 #include "../netfilter_arp.h"
 
@@ -267,7 +267,7 @@ static __inline__ struct arpt_entry_target *arpt_get_target(struct arpt_entry *e
 /*
  *	Main firewall chains definitions and global var's definitions.
  */
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /* Registration hooks for targets. */
 struct arpt_target
@@ -338,5 +338,5 @@ extern unsigned int arpt_do_table(struct sk_buff **pskb,
 				  void *userdata);
 
 #define ARPT_ALIGN(s) (((s) + (__alignof__(struct arpt_entry)-1)) & ~(__alignof__(struct arpt_entry)-1))
-#endif /*__KERNEL__*/
+//#endif /*__KERNEL__*/
 #endif /* _ARPTABLES_H */
