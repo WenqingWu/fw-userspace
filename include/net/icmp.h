@@ -23,6 +23,7 @@
 
 #include "sock.h"
 #include "protocol.h"
+#include "snmp.h"
 
 struct icmp_err {
   int		errno;
