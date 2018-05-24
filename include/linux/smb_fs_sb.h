@@ -9,10 +9,10 @@
 #ifndef _SMB_FS_SB
 #define _SMB_FS_SB
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/types.h>
-#include <linux/smb.h>
+#include "types.h"
+#include "smb.h"
 
 /* structure access macros */
 #define server_from_inode(inode) (&(inode)->i_sb->u.smbfs_sb)
@@ -71,6 +71,6 @@ smb_unlock_server(struct smb_sb_info *server)
 	up(&(server->sem));
 }
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif

@@ -154,7 +154,7 @@ typedef struct sigaltstack {
 
 #undef __HAVE_ARCH_SIG_BITOPS
 
-
+#if 0
 extern __inline__ void sigaddset(sigset_t *set, int _sig)
 {
 	__asm__("btsq %1,%0" : "=m"(*set) : "Ir"(_sig - 1) : "cc");
@@ -191,7 +191,7 @@ extern __inline__ int sigfindinword(unsigned long word)
 	__asm__("bsfq %1,%0" : "=r"(word) : "rm"(word) : "cc");
 	return word;
 }
-
+#endif
 //#endif /* __KERNEL__ */
 
 #endif

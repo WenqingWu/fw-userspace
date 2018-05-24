@@ -8,6 +8,8 @@
  * Ingo Molnar <mingo@redhat.com>, 1999, 2000
  */
 
+#include "fixmap.h"
+
 #define		APIC_DEFAULT_PHYS_BASE	0xfee00000
  
 #define		APIC_ID		0x20

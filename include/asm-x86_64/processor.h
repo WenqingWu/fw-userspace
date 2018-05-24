@@ -64,6 +64,22 @@ struct cpuinfo_x86 {
 #define X86_VENDOR_TRANSMETA 7
 #define X86_VENDOR_UNKNOWN 0xff
 
+#define IO_BITMAP_SIZE	32
+
+struct tss_struct {
+	unsigned int reserved1;
+	unsigned long long rsp0;	
+	unsigned long long rsp1;
+	unsigned long long rsp2;
+	unsigned long long reserved2;
+	unsigned long long ist[7];
+	unsigned int reserved3;
+	unsigned int reserved4;
+	unsigned short reserved5;
+	unsigned short io_map_base;
+	unsigned int io_bitmap[IO_BITMAP_SIZE];
+} __attribute__((packed));
+
 extern struct cpuinfo_x86 boot_cpu_data;
 extern struct tss_struct init_tss[NR_CPUS];
 
@@ -264,7 +280,7 @@ static inline void clear_in_cr4 (unsigned long mask)
 /*
  * Size of io_bitmap in longwords: 32 is ports 0-0x3ff.
  */
-#define IO_BITMAP_SIZE	32
+
 #define IO_BITMAP_OFFSET offsetof(struct tss_struct,io_bitmap)
 #define INVALID_IO_BITMAP_OFFSET 0x8000
 
@@ -290,19 +306,7 @@ typedef struct {
 	unsigned long seg;
 } mm_segment_t;
 
-struct tss_struct {
-	unsigned int reserved1;
-	unsigned long long rsp0;	
-	unsigned long long rsp1;
-	unsigned long long rsp2;
-	unsigned long long reserved2;
-	unsigned long long ist[7];
-	unsigned int reserved3;
-	unsigned int reserved4;
-	unsigned short reserved5;
-	unsigned short io_map_base;
-	unsigned int io_bitmap[IO_BITMAP_SIZE];
-} __attribute__((packed));
+/*tss_struct*/
 
 struct thread_struct {
 	unsigned long	rsp0;
