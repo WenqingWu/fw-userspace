@@ -56,8 +56,8 @@ static DECLARE_MUTEX(arpt_mutex);
 
 #define ASSERT_READ_LOCK(x) ARP_NF_ASSERT(down_trylock(&arpt_mutex) != 0)
 #define ASSERT_WRITE_LOCK(x) ARP_NF_ASSERT(down_trylock(&arpt_mutex) != 0)
-#include <linux/netfilter_ipv4/lockhelp.h>
-#include <linux/netfilter_ipv4/listhelp.h>
+#include "../include/linux/netfilter_ipv4/lockhelp.h"
+#include "../include/linux/netfilter_ipv4/listhelp.h"
 
 struct arpt_table_info {
 	unsigned int size;
