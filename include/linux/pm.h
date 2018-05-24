@@ -21,10 +21,10 @@
 #ifndef _LINUX_PM_H
 #define _LINUX_PM_H
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
-#include <linux/config.h>
-#include <linux/list.h>
+#include "config.h"
+#include "list.h"
 
 /*
  * Power management requests
@@ -188,6 +188,6 @@ static inline void pm_dev_idle(struct pm_dev *dev) {}
 extern void (*pm_idle)(void);
 extern void (*pm_power_off)(void);
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 
 #endif /* _LINUX_PM_H */
