@@ -270,7 +270,7 @@ static unsigned int help(struct ip_conntrack *ct,
 		/* Half a match?  This means a partial retransmisison.
 		   It's a cracker being funky. */
 		if (net_ratelimit()) {
-			printk("FTP_NAT: partial packet %u/%u in %u/%u\n",
+			printk("FTP_NAT: partial packet %u/%u in %lu/%lu\n",
 			       exp->seq, ct_ftp_info->len,
 			       ntohl(tcph->seq),
 			       ntohl(tcph->seq) + datalen);

@@ -89,7 +89,7 @@ static void dump_packet(const struct ipt_log_info *info,
 		       ntohs(tcph->source), ntohs(tcph->dest));
 		/* Max length: 30 "SEQ=4294967295 ACK=4294967295 " */
 		if (info->logflags & IPT_LOG_TCPSEQ)
-			printk("SEQ=%u ACK=%u ",
+			printk("SEQ=%lu ACK=%lu ",
 			       ntohl(tcph->seq), ntohl(tcph->ack_seq));
 		/* Max length: 13 "WINDOW=65535 " */
 		printk("WINDOW=%u ", ntohs(tcph->window));
@@ -202,7 +202,7 @@ static void dump_packet(const struct ipt_log_info *info,
 
 		case ICMP_PARAMETERPROB:
 			/* Max length: 14 "PARAMETER=255 " */
-			printk("PARAMETER=%u ",
+			printk("PARAMETER=%lu ",
 			       ntohl(icmph->un.gateway) >> 24);
 			break;
 		case ICMP_REDIRECT:
@@ -248,7 +248,7 @@ static void dump_packet(const struct ipt_log_info *info,
 		}
 
 		/* Length: 15 "SPI=0xF1234567 " */
-		printk("SPI=0x%x ", ntohl(esph->spi) );
+		printk("SPI=0x%lx ", ntohl(esph->spi) );
 		break;
 	}
 	/* Max length: 10 "PROTO 255 " */
@@ -284,7 +284,7 @@ ipt_log_target(struct sk_buff **pskb,
 
 	level_string[1] = '0' + (loginfo->level % 8);
 	spin_lock_bh(&log_lock);
-	printk(level_string);
+	//printk(level_string);
 	printk("%sIN=%s OUT=%s ",
 	       loginfo->prefix,
 	       in ? in->name : "",

@@ -850,7 +850,7 @@ static inline void tcp_clear_xmit_timer(struct sock *sk, int what)
 #endif
 		break;
 	default:
-		printk(timer_bug_msg);
+		//printk(timer_bug_msg);
 		return;
 	};
 

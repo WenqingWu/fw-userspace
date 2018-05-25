@@ -160,7 +160,7 @@ check_icmp(const struct icmphdr *icmph,
 			/* Code 0 means that upper 8 bits is pointer
                            to problem. */
 			if ((arg >> 24) >= iph->ihl*4) {
-				limpk("ICMP PARAMETERPROB ptr = %u\n",
+				limpk("ICMP PARAMETERPROB ptr = %lu\n",
 				      ntohl(icmph->un.gateway) >> 24);
 				return 0;
 			}
@@ -180,7 +180,7 @@ check_icmp(const struct icmphdr *icmph,
 	case ICMP_SOURCE_QUENCH:
 		/* CHECK: Unused must be zero. */
 		if (icmph->un.gateway != 0) {
-			limpk("ICMP type=%u unused = %u\n",
+			limpk("ICMP type=%u unused = %lu\n",
 			      icmph->type, ntohl(icmph->un.gateway));
 			return 0;
 		}
