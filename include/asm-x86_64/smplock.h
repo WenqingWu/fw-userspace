@@ -1,10 +1,10 @@
 /*
  * <asm/smplock.h>
  */
-#include <linux/interrupt.h>
-#include <linux/spinlock.h>
-#include <linux/sched.h>
-#include <asm/current.h>
+#include "../linux/interrupt.h"
+#include "../linux/spinlock.h"
+#include "../linux/sched.h"
+#include "current.h"
 
 extern spinlock_cacheline_t kernel_flag_cacheline;  
 #define kernel_flag kernel_flag_cacheline.lock      

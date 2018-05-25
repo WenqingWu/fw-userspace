@@ -38,7 +38,10 @@
         "fs.h": "c",
         "ufs_fs_sb.h": "c",
         "ufs_fs.h": "c",
-        "signal.h": "c"
+        "signal.h": "c",
+        "smp_lock.h": "c",
+        "smplock.h": "c",
+        "mmu_context.h": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }

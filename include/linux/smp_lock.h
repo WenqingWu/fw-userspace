@@ -1,7 +1,7 @@
 #ifndef __LINUX_SMPLOCK_H
 #define __LINUX_SMPLOCK_H
 
-#include <linux/config.h>
+#include "config.h"
 
 #ifndef CONFIG_SMP
 
@@ -13,7 +13,7 @@
 
 #else
 
-#include <asm/smplock.h>
+#include "../asm/smplock.h"
 
 #endif /* CONFIG_SMP */
 

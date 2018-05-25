@@ -1,13 +1,13 @@
 #ifndef __X86_64_MMU_CONTEXT_H
 #define __X86_64_MMU_CONTEXT_H
 
-#include <linux/config.h>
-#include <asm/desc.h>
-#include <asm/atomic.h>
-#include <asm/pgalloc.h>
-#include <asm/pda.h>
-#include <asm/pgtable.h>
-#include <linux/spinlock.h>
+#include "../linux/config.h"
+#include "desc.h"
+#include "atomic.h"
+#include "pgalloc.h"
+#include "pda.h"
+#include "pgtable.h"
+#include "../linux/spinlock.h"
 
 /*
  * possibly do the LDT unload here?
