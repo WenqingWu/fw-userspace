@@ -765,6 +765,7 @@ extern struct mm_struct * mm_alloc(void);
 extern struct mm_struct * start_lazy_tlb(void);
 extern void end_lazy_tlb(struct mm_struct *mm);
 
+#if 0
 /* mmdrop drops the mm and the page tables */
 extern inline void FASTCALL(__mmdrop(struct mm_struct *));
 static inline void mmdrop(struct mm_struct * mm)
@@ -772,7 +773,7 @@ static inline void mmdrop(struct mm_struct * mm)
 	if (atomic_dec_and_test(&mm->mm_count))
 		__mmdrop(mm);
 }
-
+#endif
 /* mmput gets rid of the mappings and all user-space */
 extern void mmput(struct mm_struct *);
 /* Remove the current tasks stale references to the old mm_struct */
