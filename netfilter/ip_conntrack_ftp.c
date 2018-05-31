@@ -324,7 +324,7 @@ static int help(const struct iphdr *iph, size_t len,
 		   However, it is neccessary for accurate tracking in
 		   this case. */
 		if (net_ratelimit())
-			printk("conntrack_ftp: partial %s %u+%u\n",
+			printk("conntrack_ftp: partial %s %lu+%u\n",
 			       search[i].pattern,
 			       ntohl(tcph->seq), datalen);
 		return NF_DROP;

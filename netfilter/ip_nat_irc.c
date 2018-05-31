@@ -144,7 +144,7 @@ static int irc_data_fixup(const struct ip_ct_irc_expect *ct_irc_info,
 	 *              0x01, \n:  terminators
 	 */
 
-	sprintf(buffer, "%u %u", ntohl(newip), port);
+	sprintf(buffer, "%lu %u", ntohl(newip), port);
 	DEBUGP("ip_nat_irc: Inserting '%s' == %u.%u.%u.%u, port %u\n",
 	       buffer, NIPQUAD(newip), port);
 
@@ -201,7 +201,7 @@ static unsigned int help(struct ip_conntrack *ct,
 		   It's a cracker being funky. */
 		if (net_ratelimit()) {
 			printk
-			    ("IRC_NAT: partial packet %u/%u in %u/%u\n",
+			    ("IRC_NAT: partial packet %u/%u in %lu/%lu\n",
 			     exp->seq, ct_irc_info->len,
 			     ntohl(tcph->seq),
 			     ntohl(tcph->seq) + datalen);
