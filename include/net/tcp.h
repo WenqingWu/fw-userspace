@@ -597,19 +597,22 @@ struct tcp_func {
  * and worry about wraparound (automatic with unsigned arithmetic).
  */
 
-extern __inline int before(__u32 seq1, __u32 seq2)
+//extern __inline int before(__u32 seq1, __u32 seq2)
+static __inline int before(__u32 seq1, __u32 seq2)
 {
         return (__s32)(seq1-seq2) < 0;
 }
 
-extern __inline int after(__u32 seq1, __u32 seq2)
+//extern __inline int after(__u32 seq1, __u32 seq2)
+static __inline int after(__u32 seq1, __u32 seq2)
 {
 	return (__s32)(seq2-seq1) < 0;
 }
 
 
 /* is s2<=s1<=s3 ? */
-extern __inline int between(__u32 seq1, __u32 seq2, __u32 seq3)
+//extern __inline int between(__u32 seq1, __u32 seq2, __u32 seq3)
+static __inline int between(__u32 seq1, __u32 seq2, __u32 seq3)
 {
 	return seq3 - seq2 >= seq1 - seq2;
 }
