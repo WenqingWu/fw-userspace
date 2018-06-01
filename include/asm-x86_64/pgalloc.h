@@ -17,12 +17,14 @@
 #define pgd_populate(mm, pgd, pmd) \
 		set_pgd(pgd, __pgd(_PAGE_TABLE | __pa(pmd)))
 
-extern __inline__ pmd_t *get_pmd_slow(void)
+//extern __inline__ pmd_t *get_pmd_slow(void)
+static __inline__ pmd_t *get_pmd_slow(void)
 {
 	return (pmd_t *)get_zeroed_page(GFP_KERNEL);
 }
 
-extern __inline__ pmd_t *get_pmd_fast(void)
+//extern __inline__ pmd_t *get_pmd_fast(void)
+static __inline__ pmd_t *get_pmd_fast(void)
 {
 	unsigned long *ret;
 
@@ -35,14 +37,16 @@ extern __inline__ pmd_t *get_pmd_fast(void)
 	return (pmd_t *)ret;
 }
 
-extern __inline__ void pmd_free(pmd_t *pmd)
+//extern __inline__ void pmd_free(pmd_t *pmd)
+static __inline__ void pmd_free(pmd_t *pmd)
 {
 	*(unsigned long *)pmd = (unsigned long) read_pda(pmd_quick);
 	write_pda(pmd_quick,(unsigned long *) pmd);
 	inc_pgcache_size();
 }
 
-extern __inline__ void pmd_free_slow(pmd_t *pmd)
+//extern __inline__ void pmd_free_slow(pmd_t *pmd)
+static __inline__ void pmd_free_slow(pmd_t *pmd)
 {
 	if ((unsigned long)pmd & (PAGE_SIZE-1)) 
 		out_of_line_bug(); 
@@ -210,7 +214,9 @@ extern struct tlb_state cpu_tlbstate[NR_CPUS];
 
 #endif
 
-extern inline void flush_tlb_pgtables(struct mm_struct *mm,
+// extern inline void flush_tlb_pgtables(struct mm_struct *mm,
+// 				      unsigned long start, unsigned long end)
+static inline void flush_tlb_pgtables(struct mm_struct *mm,
 				      unsigned long start, unsigned long end)
 {
 	flush_tlb_mm(mm);

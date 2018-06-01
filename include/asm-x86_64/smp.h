@@ -48,10 +48,12 @@ extern void zap_low_mappings (void);
  * This simplifies scheduling and IPI sending and
  * compresses data structures.
  */
+//extern inline int cpu_logical_map(int cpu)
 extern inline int cpu_logical_map(int cpu)
 {
 	return cpu;
 }
+//extern inline int cpu_number_map(int cpu)
 extern inline int cpu_number_map(int cpu)
 {
 	return cpu;
@@ -81,8 +83,8 @@ extern void smp_store_cpu_info(int id);		/* Store per CPU info (like the initial
 
 #define stack_smp_processor_id() (stack_current()->processor)
 
-
-extern __inline int hard_smp_processor_id(void)
+//extern __inline int hard_smp_processor_id(void)
+static inline int hard_smp_processor_id(void)
 {
 	/* we don't want to mark this access volatile - bad code generation */
 	return GET_APIC_ID(*(unsigned long *)(APIC_BASE+APIC_ID));
