@@ -92,7 +92,8 @@ struct bug_frame {
 #define PAGE_BUG(page) BUG()
 
 /* Pure 2^n version of get_order */
-extern __inline__ int get_order(unsigned long size)
+/* extern __inline__ int get_order(unsigned long size)*/
+static __inline__ int get_order(unsigned long size)
 {
 	int order;
 

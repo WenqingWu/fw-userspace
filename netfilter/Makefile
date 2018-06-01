@@ -104,7 +104,7 @@ iptable_nat-objs	:= ip_nat_standalone.o ip_nat_rule.o $(ip_nf_nat-objs)
 
 # obj-$(CONFIG_IP_NF_QUEUE) += ip_queue.o
 
-# include ../Rules.make
+ include ../Rules.make
 
 obj-y += ip_conntrack.o
 obj-y += iptable_nat.o
