@@ -149,7 +149,8 @@ typedef struct {
  */
 /* the spinlock helpers are in arch/x86_64/kernel/semaphore.S */
 
-extern inline void read_lock(rwlock_t *rw)
+//extern inline void read_lock(rwlock_t *rw)
+static inline void read_lock(rwlock_t *rw)
 {
 #if SPINLOCK_DEBUG
 	if (rw->magic != RWLOCK_MAGIC)
