@@ -113,7 +113,8 @@ static inline pte_t *pte_alloc_one(struct mm_struct *mm, unsigned long address)
 	return (pte_t *)get_zeroed_page(GFP_KERNEL); 
 }
 
-extern __inline__ pte_t *pte_alloc_one_fast(struct mm_struct *mm, unsigned long address)
+//extern __inline__ pte_t *pte_alloc_one_fast(struct mm_struct *mm, unsigned long address)
+static __inline__ pte_t *pte_alloc_one_fast(struct mm_struct *mm, unsigned long address)
 {
 	unsigned long *ret;
 
@@ -128,14 +129,16 @@ extern __inline__ pte_t *pte_alloc_one_fast(struct mm_struct *mm, unsigned long 
 /* Should really implement gc for free page table pages. This could be done with 
    a reference count in struct page. */
 
-extern __inline__ void pte_free(pte_t *pte)
+//extern __inline__ void pte_free(pte_t *pte)
+static __inline__ void pte_free(pte_t *pte)
 {	
 	*(unsigned long *)pte = (unsigned long) read_pda(pte_quick);
 	write_pda(pte_quick, (unsigned long *) pte); 
 	inc_pgcache_size();
 }
 
-extern __inline__ void pte_free_slow(pte_t *pte)
+//extern __inline__ void pte_free_slow(pte_t *pte)
+static __inline__ void pte_free_slow(pte_t *pte)
 {
 	if ((unsigned long)pte & (PAGE_SIZE-1))
 		out_of_line_bug();
