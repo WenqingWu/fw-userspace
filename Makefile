@@ -13,7 +13,7 @@ OBJDUMP		= $(CROSS_COMPILE)objdump
 export AS LD CC CPP AR NM
 export STRIP OBJCOPY OBJDUMP
 
-CFLAGS := -Wall
+CFLAGS := -Wall -Iinclude
 
 LDFLAGS := 
 

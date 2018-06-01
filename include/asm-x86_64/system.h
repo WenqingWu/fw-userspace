@@ -116,7 +116,7 @@ extern void load_gs_index(unsigned);
 
 #define __xg(x) ((volatile long *)(x))
 
-/* extern inline void set_64bit(volatile unsigned long *ptr, unsigned long val)*/
+/* extern inline void (volatile unsigned long *ptr, unsigned long val)*/
 static inline void set_64bit(volatile unsigned long *ptr, unsigned long val)
 {
 	*ptr = val;
