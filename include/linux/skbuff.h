@@ -827,7 +827,7 @@ static inline char *__skb_pull(struct sk_buff *skb, unsigned int len)
 	skb->len-=len;
 	if (skb->len < skb->data_len)
 		out_of_line_bug();
-	return 	skb->data+=len;
+	return 	(char *)(skb->data+=len);
 }
 
 /**
@@ -845,7 +845,7 @@ static inline unsigned char * skb_pull(struct sk_buff *skb, unsigned int len)
 {	
 	if (len > skb->len)
 		return NULL;
-	return __skb_pull(skb,len);
+	return (unsigned char *)(__skb_pull(skb,len));
 }
 
 extern unsigned char * __pskb_pull_tail(struct sk_buff *skb, int delta);
@@ -856,14 +856,14 @@ static inline char *__pskb_pull(struct sk_buff *skb, unsigned int len)
 	    __pskb_pull_tail(skb, len-skb_headlen(skb)) == NULL)
 		return NULL;
 	skb->len -= len;
-	return 	skb->data += len;
+	return 	(char *)(skb->data += len);
 }
 
 static inline unsigned char * pskb_pull(struct sk_buff *skb, unsigned int len)
 {	
 	if (len > skb->len)
 		return NULL;
-	return __pskb_pull(skb,len);
+	return (unsigned char*)(__pskb_pull(skb,len));
 }
 
 static inline int pskb_may_pull(struct sk_buff *skb, unsigned int len)
