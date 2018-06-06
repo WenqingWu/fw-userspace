@@ -1,9 +1,9 @@
 #ifndef _TYPES_H
 #define _TYPES_H
 
-#ifdef	__KERNEL__
+//#ifdef	__KERNEL__
 #include "config.h"
-#endif
+//#endif
 
 #include "posix_types.h"
 #include "../asm/types.h"
