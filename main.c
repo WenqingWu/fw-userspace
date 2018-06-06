@@ -1,4 +1,4 @@
-//#include <stdio.h>
+#include <stdio.h>
 //#include <stdlib.h>
 //#include <string.h>
 //#include <stddef.h>
@@ -26,7 +26,7 @@ int main()
 //    struct net_device *dev1;
 //   struct net_device *dev2;
     int ret;
- //   char *packet = "0x6a8d01e7080045003e234500008011";
+//   char *packet = "0x6a8d01e7080045003e234500008011";
     
 //    memcpy(skb, packet, sizeof(struct sk_buff));
 

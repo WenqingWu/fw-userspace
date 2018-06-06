@@ -25,12 +25,12 @@
 #ifndef _INTERMEZZO_LIB_H
 #define _INTERMEZZO_LIB_H
 
-#ifdef __KERNEL__
-# include <linux/types.h>
-#else
-# include <string.h>
-# include <sys/types.h>
-#endif
+//#ifdef __KERNEL__
+# include "types.h"
+//#else
+// # include <string.h>
+// # include <sys/types.h>
+//#endif
 
 #undef MIN
 #define MIN(a,b) (((a)<(b)) ? (a): (b))
@@ -55,18 +55,18 @@ static inline size_t round_strlen(char *fset)
 	return size_round(strlen(fset) + 1);
 }
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 # define NTOH__u32(var) le32_to_cpu(var)
 # define NTOH__u64(var) le64_to_cpu(var)
 # define HTON__u32(var) cpu_to_le32(var)
 # define HTON__u64(var) cpu_to_le64(var)
-#else
-# include <glib.h>
-# define NTOH__u32(var) GUINT32_FROM_LE(var)
-# define NTOH__u64(var) GUINT64_FROM_LE(var)
-# define HTON__u32(var) GUINT32_TO_LE(var)
-# define HTON__u64(var) GUINT64_TO_LE(var)
-#endif
+// #else
+// # include <glib.h>
+// # define NTOH__u32(var) GUINT32_FROM_LE(var)
+// # define NTOH__u64(var) GUINT64_FROM_LE(var)
+// # define HTON__u32(var) GUINT32_TO_LE(var)
+// # define HTON__u64(var) GUINT64_TO_LE(var)
+// #endif
 
 /* 
  * copy sizeof(type) bytes from pointer to var and move ptr forward.

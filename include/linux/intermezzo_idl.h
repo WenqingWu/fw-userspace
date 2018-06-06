@@ -23,8 +23,8 @@
 #ifndef __INTERMEZZO_IDL_H__
 #define __INTERMEZZO_IDL_H__
 
-#include <linux/ioctl.h>
-#include <linux/types.h>
+#include "ioctl.h"
+#include "types.h"
 
 /* this file contains all data structures used in InterMezzo's interfaces:
  * - upcalls

@@ -27,15 +27,15 @@
 #ifndef __INTERMEZZO_FS_H_
 #define __INTERMEZZO_FS_H_ 1
 
-#include <linux/intermezzo_lib.h>
-#include <linux/intermezzo_idl.h>
+#include "intermezzo_lib.h"
+#include "intermezzo_idl.h"
 
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 typedef __u8 uuid_t[16];
-#else
-# include <uuid/uuid.h>
-#endif
+// #else
+// # include <uuid/uuid.h>
+// #endif
 
 struct lento_vfs_context {
         __u64 kml_offset;
@@ -51,12 +51,12 @@ struct lento_vfs_context {
 
 static inline int izo_ioctl_is_invalid(struct izo_ioctl_data *data);
 
-#ifdef __KERNEL__
-# include <linux/smp.h>
-# include <linux/fsfilter.h>
-# include <linux/slab.h>
-# include <linux/vmalloc.h>
-# include <linux/smp_lock.h>
+//#ifdef __KERNEL__
+# include "smp.h"
+# include "fsfilter.h"
+# include "slab.h"
+# include "vmalloc.h"
+# include "smp_lock.h"
 
 /* fixups for fs.h */
 # ifndef fs_down
@@ -780,62 +780,62 @@ int kml_reint_rec(struct file *dir, struct izo_ioctl_data *data);
 int izo_get_fileid(struct file *dir, struct izo_ioctl_data *data);
 int izo_set_fileid(struct file *dir, struct izo_ioctl_data *data);
 
-#else /* __KERNEL__ */
-# include <stdlib.h>
-# include <stdio.h>
-# include <sys/types.h>
-# include <sys/ioctl.h>
-# include <string.h>
+// #else /* __KERNEL__ */
+// # include <stdlib.h>
+// # include <stdio.h>
+// # include <sys/types.h>
+// # include <sys/ioctl.h>
+// # include <string.h>
 
-# define printk printf
-# ifndef CERROR
-#   define CERROR printf
-# endif
-# define kmalloc(a,b) malloc(a)
+// # define printk printf
+// # ifndef CERROR
+// #   define CERROR printf
+// # endif
+// # define kmalloc(a,b) malloc(a)
 
-void init_fsreintdata (void);
-int kml_fsreint(struct kml_rec *rec, char *basedir);
-int kml_iocreint(__u32 size, char *ptr, __u32 offset, int dird,
-                 uuid_t uuid, __u32 generate_kml);
+// void init_fsreintdata (void);
+// int kml_fsreint(struct kml_rec *rec, char *basedir);
+// int kml_iocreint(__u32 size, char *ptr, __u32 offset, int dird,
+//                  uuid_t uuid, __u32 generate_kml);
 
-static inline int izo_ioctl_packlen(struct izo_ioctl_data *data);
+// static inline int izo_ioctl_packlen(struct izo_ioctl_data *data);
 
-static inline void izo_ioctl_init(struct izo_ioctl_data *data)
-{
-        memset(data, 0, sizeof(*data));
-        data->ioc_len = sizeof(*data);
-        data->ioc_version = IZO_IOCTL_VERSION;
-}
+// static inline void izo_ioctl_init(struct izo_ioctl_data *data)
+// {
+//         memset(data, 0, sizeof(*data));
+//         data->ioc_len = sizeof(*data);
+//         data->ioc_version = IZO_IOCTL_VERSION;
+// }
 
-static inline int
-izo_ioctl_pack(struct izo_ioctl_data *data, char **pbuf, int max)
-{
-        char *ptr;
-        struct izo_ioctl_data *overlay;
-        data->ioc_len = izo_ioctl_packlen(data);
-        data->ioc_version = IZO_IOCTL_VERSION;
+// static inline int
+// izo_ioctl_pack(struct izo_ioctl_data *data, char **pbuf, int max)
+// {
+//         char *ptr;
+//         struct izo_ioctl_data *overlay;
+//         data->ioc_len = izo_ioctl_packlen(data);
+//         data->ioc_version = IZO_IOCTL_VERSION;
 
-        if (*pbuf && izo_ioctl_packlen(data) > max)
-                return 1;
-        if (*pbuf == NULL)
-                *pbuf = malloc(data->ioc_len);
-        if (*pbuf == NULL)
-                return 1;
-        overlay = (struct izo_ioctl_data *)*pbuf;
-        memcpy(*pbuf, data, sizeof(*data));
+//         if (*pbuf && izo_ioctl_packlen(data) > max)
+//                 return 1;
+//         if (*pbuf == NULL)
+//                 *pbuf = malloc(data->ioc_len);
+//         if (*pbuf == NULL)
+//                 return 1;
+//         overlay = (struct izo_ioctl_data *)*pbuf;
+//         memcpy(*pbuf, data, sizeof(*data));
 
-        ptr = overlay->ioc_bulk;
-        if (data->ioc_inlbuf1)
-                LOGL(data->ioc_inlbuf1, data->ioc_inllen1, ptr);
-        if (data->ioc_inlbuf2)
-                LOGL(data->ioc_inlbuf2, data->ioc_inllen2, ptr);
-        if (izo_ioctl_is_invalid(overlay))
-                return 1;
+//         ptr = overlay->ioc_bulk;
+//         if (data->ioc_inlbuf1)
+//                 LOGL(data->ioc_inlbuf1, data->ioc_inllen1, ptr);
+//         if (data->ioc_inlbuf2)
+//                 LOGL(data->ioc_inlbuf2, data->ioc_inllen2, ptr);
+//         if (izo_ioctl_is_invalid(overlay))
+//                 return 1;
 
-        return 0;
-}
+//         return 0;
+// }
 
-#endif /* __KERNEL__*/
+// #endif /* __KERNEL__*/
 
 #define IZO_ERROR_NAME 1
 #define IZO_ERROR_UPDATE 2
@@ -844,10 +844,10 @@ izo_ioctl_pack(struct izo_ioctl_data *data, char **pbuf, int max)
 
 static inline char *izo_error(int err)
 {
-#ifndef __KERNEL__
-        if (err <= 0)
-                return strerror(-err);
-#endif
+// #ifndef __KERNEL__
+//         if (err <= 0)
+//                 return strerror(-err);
+// #endif
         switch (err) {
         case IZO_ERROR_NAME:
                 return "InterMezzo name/name conflict";

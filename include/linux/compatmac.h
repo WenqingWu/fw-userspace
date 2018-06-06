@@ -46,7 +46,7 @@
 #ifndef COMPATMAC_H
 #define COMPATMAC_H
 
-#include <linux/version.h>
+#include "version.h"
 
 #if LINUX_VERSION_CODE < 0x020100    /* Less than 2.1.0 */
 #define TWO_ZERO
@@ -71,7 +71,7 @@
 /* Some 200 days (on intel) */
 #define MAX_SCHEDULE_TIMEOUT     ((long)(~0UL>>1))
 
-#include <linux/bios32.h>
+#include "bios32.h"
 
 #define Get_user(a,b)                a = get_user(b)
 #define Put_user(a,b)                0,put_user(a,b)
@@ -134,7 +134,7 @@ static inline void *ioremap(unsigned long base, long length)
 #else
 
 /* The 2.2.x compatibility section. */
-#include <asm/uaccess.h>
+#include "../asm/uaccess.h"
 
 
 #define Get_user(a,b)         get_user(a,b)
