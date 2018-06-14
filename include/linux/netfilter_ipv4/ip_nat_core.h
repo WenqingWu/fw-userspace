@@ -31,8 +31,7 @@ static void place_in_hashes(struct ip_conntrack *conntrack,
 			    struct ip_nat_info *info);
 
 /* Built-in protocols. */
-//extern struct ip_nat_protocol ip_nat_protocol_tcp;
-static struct ip_nat_protocol ip_nat_protocol_tcp;
+extern struct ip_nat_protocol ip_nat_protocol_tcp;
 extern struct ip_nat_protocol ip_nat_protocol_udp;
 extern struct ip_nat_protocol ip_nat_protocol_icmp;
 #endif /* _IP_NAT_CORE_H */
