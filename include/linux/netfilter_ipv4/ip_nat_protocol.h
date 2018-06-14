@@ -52,6 +52,7 @@ extern void ip_nat_protocol_unregister(struct ip_nat_protocol *proto);
 
 extern int init_protocols(void) __init;
 extern void cleanup_protocols(void);
-extern struct ip_nat_protocol *find_nat_proto(u_int16_t protonum);
+//extern struct ip_nat_protocol *find_nat_proto(u_int16_t protonum);
+static struct ip_nat_protocol *find_nat_proto(u_int16_t protonum);
 
 #endif /*_IP_NAT_PROTO_H*/

@@ -30,7 +30,7 @@ TARGET := netfilter-test
  obj-y += netfilter/
 
 all : 
-	make ./ -f $(TOPDIR)/Makefile.build
+	make -C ./ -f $(TOPDIR)/Makefile.build
 	$(CC) $(LDFLAGS) -o $(TARGET) built-in.o
 
 

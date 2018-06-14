@@ -220,7 +220,8 @@ extern struct ip_conntrack *
 ip_conntrack_get(struct sk_buff *skb, enum ip_conntrack_info *ctinfo);
 
 /* decrement reference count on a conntrack */
-extern inline void ip_conntrack_put(struct ip_conntrack *ct);
+//extern inline void ip_conntrack_put(struct ip_conntrack *ct);
+static inline void ip_conntrack_put(struct ip_conntrack *ct);
 
 /* find unconfirmed expectation based on tuple */
 struct ip_conntrack_expect *
@@ -231,7 +232,8 @@ void ip_conntrack_expect_put(struct ip_conntrack_expect *exp);
 
 extern struct module *ip_conntrack_module;
 
-extern int invert_tuplepr(struct ip_conntrack_tuple *inverse,
+//extern int invert_tuplepr(struct ip_conntrack_tuple *inverse,
+static int invert_tuplepr(struct ip_conntrack_tuple *inverse,
 			  const struct ip_conntrack_tuple *orig);
 
 /* Refresh conntrack for this many jiffies */
@@ -247,7 +249,8 @@ struct sk_buff *
 ip_ct_gather_frags(struct sk_buff *skb);
 
 /* Delete all conntracks which match. */
-extern void
+//extern void
+static void
 ip_ct_selective_cleanup(int (*kill)(const struct ip_conntrack *i, void *data),
 			void *data);
 

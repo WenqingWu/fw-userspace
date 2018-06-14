@@ -66,7 +66,8 @@ static atomic_t ip_conntrack_count = ATOMIC_INIT(0);
 struct list_head *ip_conntrack_hash;
 static kmem_cache_t *ip_conntrack_cachep;
 
-extern struct ip_conntrack_protocol ip_conntrack_generic_protocol;
+//extern struct ip_conntrack_protocol ip_conntrack_generic_protocol;
+static struct ip_conntrack_protocol ip_conntrack_generic_protocol;
 
 static inline int proto_cmpfn(const struct ip_conntrack_protocol *curr,
 			      u_int8_t protocol)
@@ -184,7 +185,7 @@ destroy_expect(struct ip_conntrack_expect *exp)
 }
 
 
-inline void ip_conntrack_expect_put(struct ip_conntrack_expect *exp)
+static inline void ip_conntrack_expect_put(struct ip_conntrack_expect *exp)
 {
 	IP_NF_ASSERT(exp);
 

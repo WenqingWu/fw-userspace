@@ -48,8 +48,8 @@ static struct list_head *byipsproto;
 LIST_HEAD(protos);
 LIST_HEAD(helpers);
 
-extern struct ip_nat_protocol unknown_nat_protocol;
-
+//extern struct ip_nat_protocol unknown_nat_protocol;
+static struct ip_nat_protocol unknown_nat_protocol;
 /* We keep extra hashes for each conntrack, for fast searching. */
 static inline size_t
 hash_by_ipsproto(u_int32_t src, u_int32_t dst, u_int16_t proto)

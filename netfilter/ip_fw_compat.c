@@ -38,7 +38,8 @@ check_for_unredirect(struct sk_buff *skb);
 extern unsigned int
 do_masquerade(struct sk_buff **pskb, const struct net_device *dev);
 
-extern unsigned int
+//extern unsigned int
+static unsigned int
 check_for_masq_error(struct sk_buff *pskb);
 
 extern unsigned int

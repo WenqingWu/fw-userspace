@@ -30,8 +30,10 @@ struct ip_conntrack_helper
 		    enum ip_conntrack_info conntrackinfo);
 };
 
-extern int ip_conntrack_helper_register(struct ip_conntrack_helper *);
-extern void ip_conntrack_helper_unregister(struct ip_conntrack_helper *);
+//extern int ip_conntrack_helper_register(struct ip_conntrack_helper *);
+static int ip_conntrack_helper_register(struct ip_conntrack_helper *);
+//extern void ip_conntrack_helper_unregister(struct ip_conntrack_helper *);
+static void ip_conntrack_helper_unregister(struct ip_conntrack_helper *);
 
 extern struct ip_conntrack_helper *ip_ct_find_helper(const struct ip_conntrack_tuple *tuple);
 
