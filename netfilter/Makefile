@@ -25,10 +25,10 @@ ip_conntrack-objs	:= ip_conntrack_standalone.o $(ip_nf_conntrack-objs)
 iptable_nat-objs	:= ip_nat_standalone.o ip_nat_rule.o $(ip_nf_nat-objs)
 
 # objects for backwards compatibility mode
- ip_nf_compat-objs	:= ip_fw_compat.o ip_fw_compat_redir.o ip_fw_compat_masq.o $(ip_nf_conntrack-objs) $(ip_nf_nat-objs)
+#  ip_nf_compat-objs	:= ip_fw_compat.o ip_fw_compat_redir.o ip_fw_compat_masq.o $(ip_nf_conntrack-objs) $(ip_nf_nat-objs)
 
- ipfwadm-objs		:= $(ip_nf_compat-objs) ipfwadm_core.o
- ipchains-objs		:= $(ip_nf_compat-objs) ipchains_core.o
+#  ipfwadm-objs		:= $(ip_nf_compat-objs) ipfwadm_core.o
+#  ipchains-objs		:= $(ip_nf_compat-objs) ipchains_core.o
 
 # # connection tracking
 # obj-$(CONFIG_IP_NF_CONNTRACK) += ip_conntrack.o
@@ -117,8 +117,8 @@ ip_conntrack.o: $(ip_conntrack-objs)
 iptable_nat.o: $(iptable_nat-objs)
 	$(LD) -r -o $@ $(iptable_nat-objs)
 
-ipfwadm.o: $(ipfwadm-objs)
-	$(LD) -r -o $@ $(ipfwadm-objs)
+# ipfwadm.o: $(ipfwadm-objs)
+# 	$(LD) -r -o $@ $(ipfwadm-objs)
 
-ipchains.o: $(ipchains-objs)
-	$(LD) -r -o $@ $(ipchains-objs)
+# ipchains.o: $(ipchains-objs)
+# 	$(LD) -r -o $@ $(ipchains-objs)
