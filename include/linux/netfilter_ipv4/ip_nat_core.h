@@ -16,8 +16,7 @@ static unsigned int do_bindings(struct ip_conntrack *ct,
 				unsigned int hooknum,
 				struct sk_buff **pskb);
 
-//extern struct list_head protos;
-static struct list_head protos;
+extern struct list_head protos;
 
 extern unsigned int icmp_reply_translation(struct sk_buff *skb,
 					   struct ip_conntrack *conntrack,
