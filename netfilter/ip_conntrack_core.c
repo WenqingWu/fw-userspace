@@ -185,7 +185,7 @@ destroy_expect(struct ip_conntrack_expect *exp)
 }
 
 
-static inline void ip_conntrack_expect_put(struct ip_conntrack_expect *exp)
+inline void ip_conntrack_expect_put(struct ip_conntrack_expect *exp)
 {
 	IP_NF_ASSERT(exp);
 
