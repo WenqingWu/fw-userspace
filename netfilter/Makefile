@@ -117,8 +117,8 @@ ip_conntrack.o: $(ip_conntrack-objs)
 iptable_nat.o: $(iptable_nat-objs)
 	$(LD) -r -o $@ $(iptable_nat-objs)
 
- ipfwadm.o: $(ipfwadm-objs)
- 	$(LD) -r -o $@ $(ipfwadm-objs)
+ipfwadm.o: $(ipfwadm-objs)
+	$(LD) -r -o $@ $(ipfwadm-objs)
 
- ipchains.o: $(ipchains-objs)
- 	$(LD) -r -o $@ $(ipchains-objs)
+ipchains.o: $(ipchains-objs)
+	$(LD) -r -o $@ $(ipchains-objs)

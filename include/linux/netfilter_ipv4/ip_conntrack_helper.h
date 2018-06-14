@@ -36,7 +36,8 @@ extern void ip_conntrack_helper_unregister(struct ip_conntrack_helper *);
 extern struct ip_conntrack_helper *ip_ct_find_helper(const struct ip_conntrack_tuple *tuple);
 
 /* Add an expected connection: can have more than one per connection */
-extern int ip_conntrack_expect_related(struct ip_conntrack *related_to,
+//extern int ip_conntrack_expect_related(struct ip_conntrack *related_to,
+static int ip_conntrack_expect_related(struct ip_conntrack *related_to,
 				       struct ip_conntrack_expect *exp);
 extern int ip_conntrack_change_expect(struct ip_conntrack_expect *expect,
 				      struct ip_conntrack_tuple *newtuple);

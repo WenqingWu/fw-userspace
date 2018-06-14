@@ -6,7 +6,8 @@
 /* This header used to share core functionality between the standalone
    NAT module, and the compatibility layer's use of NAT for masquerading. */
 extern int ip_nat_init(void);
-extern void ip_nat_cleanup(void);
+//extern void ip_nat_cleanup(void);
+static void ip_nat_cleanup(void);
 
 extern unsigned int do_bindings(struct ip_conntrack *ct,
 				enum ip_conntrack_info conntrackinfo,
@@ -23,7 +24,8 @@ extern unsigned int icmp_reply_translation(struct sk_buff *skb,
 
 extern void replace_in_hashes(struct ip_conntrack *conntrack,
 			      struct ip_nat_info *info);
-extern void place_in_hashes(struct ip_conntrack *conntrack,
+//extern void place_in_hashes(struct ip_conntrack *conntrack,
+static void place_in_hashes(struct ip_conntrack *conntrack,
 			    struct ip_nat_info *info);
 
 /* Built-in protocols. */

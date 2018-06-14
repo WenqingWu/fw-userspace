@@ -11,7 +11,8 @@ extern unsigned int ip_conntrack_in(unsigned int hooknum,
 				    const struct net_device *out,
 				    int (*okfn)(struct sk_buff *));
 
-extern int ip_conntrack_init(void);
+//extern int ip_conntrack_init(void);
+static int ip_conntrack_init(void);
 extern void ip_conntrack_cleanup(void);
 
 struct ip_conntrack_protocol;

@@ -50,7 +50,8 @@ extern int ip_nat_mangle_tcp_packet(struct sk_buff **skb,
 				unsigned int match_len,
 				char *rep_buffer,
 				unsigned int rep_len);
-extern int ip_nat_seq_adjust(struct sk_buff *skb,
+//extern int ip_nat_seq_adjust(struct sk_buff *skb,
+static int ip_nat_seq_adjust(struct sk_buff *skb,
 				struct ip_conntrack *ct,
 				enum ip_conntrack_info ctinfo);
 extern void ip_nat_delete_sack(struct sk_buff *skb);
