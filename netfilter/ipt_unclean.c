@@ -9,11 +9,13 @@
 
 #include "../include/linux/netfilter_ipv4/ip_tables.h"
 
-#include "../include/linux/wanpipe.h"
+#include "../include/linux/kernel.h"
 
 #define limpk(format, args...)						 \
 do {									 \
 	if (net_ratelimit())						 \
+		printk("ipt_unclean: %s" format,			 \
+		       embedded ? "(embedded packet) " : "" , ## args);  \
 } while(0)
 
 enum icmp_error_status
