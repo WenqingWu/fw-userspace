@@ -35,7 +35,7 @@
 * Jan 15, 1997	Gene Kozin	Version 3.1.0
 *				 o added UDP management stuff
 * Jan 02, 1997	Gene Kozin	Version 3.0.0
-*****************************************************************************/
+**************************************************************************** */
 #ifndef	_WANPIPE_H
 #define	_WANPIPE_H
 
@@ -45,8 +45,8 @@
   #define KERNEL_VERSION(a,b,c) (((a) << 16) + ((b) << 8) + (c))
 #endif
 
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,3,0)
- 
+//#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,3,0)
+#if 1 
  #define LINUX_2_4
  #define netdevice_t struct net_device
 
@@ -60,6 +60,7 @@
  #define is_dev_running(a)	netif_running(a)
  #define wan_dev_kfree_skb(a,b)	dev_kfree_skb_any(a)
 
+ #define net_ratelimit() 1 
 
 #elif LINUX_VERSION_CODE >= KERNEL_VERSION(2,1,0)
 
@@ -193,7 +194,7 @@ typedef struct wum_header
 
 /*************************************************************************
  Data Structure for global statistics
-*************************************************************************/
+************************************************************************ */
 
 typedef struct global_stats
 {
