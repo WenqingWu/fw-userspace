@@ -13,12 +13,12 @@
 #include "../include/linux/wanpipe.h"
 #include "../include/linux/net.h"
 
-#define limpk(format, args...)						 \
-do {									 \
-	if (net_ratelimit())						 \
-		printk("ipt_unclean: %s" format,			 \
-		       embedded ? "(embedded packet) " : "" , ## args);  \
-} while(0)
+// #define limpk(format, args...)						 \
+// do {									 \
+// 	if (net_ratelimit())						 \
+// 		printk("ipt_unclean: %s" format,			 \
+// 		       embedded ? "(embedded packet) " : "" , ## args);  \
+// } while(0)
 
 enum icmp_error_status
 {
@@ -85,7 +85,7 @@ check_icmp(const struct icmphdr *icmph,
 
 	/* Must cover type and code. */
 	if (datalen < 2) {
-		limpk("ICMP len=%u too short\n", datalen);
+//		limpk("ICMP len=%u too short\n", datalen);
 		return 0;
 	}
 
@@ -100,8 +100,8 @@ check_icmp(const struct icmphdr *icmph,
 		if (icmph->type < sizeof(info)/sizeof(struct icmp_info)
 		    && info[icmph->type].min_len != 0
 		    && datalen < info[icmph->type].min_len) {
-			limpk("ICMP type %u len %u too short\n",
-			      icmph->type, datalen);
+			// limpk("ICMP type %u len %u too short\n",
+			//       icmph->type, datalen);
 			return 0;
 		}
 
@@ -115,11 +115,11 @@ check_icmp(const struct icmphdr *icmph,
 			/* datalen > 8 since all ICMP_IS_ERROR types
                            have min length > 8 */
 			if (datalen - 8 < sizeof(struct iphdr)) {
-				limpk("ICMP error internal way too short\n");
+//				limpk("ICMP error internal way too short\n");
 				return 0;
 			}
 			if (datalen - 8 < inner->ihl*4 + 8) {
-				limpk("ICMP error internal too short\n");
+//				limpk("ICMP error internal too short\n");
 				return 0;
 			}
 			if (!check_ip(inner, datalen - 8, 1))
@@ -129,8 +129,8 @@ check_icmp(const struct icmphdr *icmph,
 		/* CHECK: Can't embed ICMP unless known non-error. */
 		if (icmph->type >= sizeof(info)/sizeof(struct icmp_info)
 		    || info[icmph->type].err != ICMP_NOT_ERROR) {
-			limpk("ICMP type %u not embeddable\n",
-			      icmph->type);
+			// limpk("ICMP type %u not embeddable\n",
+			//       icmph->type);
 			return 0;
 		}
 	}
@@ -139,8 +139,8 @@ check_icmp(const struct icmphdr *icmph,
 	if (icmph->type < sizeof(info)/sizeof(struct icmp_info)
 	    && (icmph->code < info[icmph->type].min_code
 		|| icmph->code > info[icmph->type].max_code)) {
-		limpk("ICMP type=%u code=%u\n",
-		      icmph->type, icmph->code);
+		// limpk("ICMP type=%u code=%u\n",
+		//       icmph->type, icmph->code);
 		return 0;
 	}
 
@@ -148,8 +148,8 @@ check_icmp(const struct icmphdr *icmph,
 	if (icmph->type < sizeof(info)/sizeof(struct icmp_info)
 	    && info[icmph->type].max_len != 0
 	    && datalen > info[icmph->type].max_len) {
-		limpk("ICMP type=%u too long: %u bytes\n",
-		      icmph->type, datalen);
+		// limpk("ICMP type=%u too long: %u bytes\n",
+		//       icmph->type, datalen);
 		return 0;
 	}
 
@@ -164,8 +164,8 @@ check_icmp(const struct icmphdr *icmph,
 			/* Code 0 means that upper 8 bits is pointer
                            to problem. */
 			if ((arg >> 24) >= iph->ihl*4) {
-				limpk("ICMP PARAMETERPROB ptr = %lu\n",
-				      ntohl(icmph->un.gateway) >> 24);
+				// limpk("ICMP PARAMETERPROB ptr = %lu\n",
+				//       ntohl(icmph->un.gateway) >> 24);
 				return 0;
 			}
 			arg &= 0x00FFFFFF;
@@ -173,8 +173,8 @@ check_icmp(const struct icmphdr *icmph,
 
 		/* CHECK: Rest must be zero. */
 		if (arg) {
-			limpk("ICMP PARAMETERPROB nonzero arg = %u\n",
-			      arg);
+			// limpk("ICMP PARAMETERPROB nonzero arg = %u\n",
+			//       arg);
 			return 0;
 		}
 		break;
@@ -184,8 +184,8 @@ check_icmp(const struct icmphdr *icmph,
 	case ICMP_SOURCE_QUENCH:
 		/* CHECK: Unused must be zero. */
 		if (icmph->un.gateway != 0) {
-			limpk("ICMP type=%u unused = %lu\n",
-			      icmph->type, ntohl(icmph->un.gateway));
+			// limpk("ICMP type=%u unused = %lu\n",
+			//       icmph->type, ntohl(icmph->un.gateway));
 			return 0;
 		}
 		break;
@@ -209,7 +209,7 @@ check_udp(const struct iphdr *iph,
 
 	/* CHECK: Must cover UDP header. */
 	if (datalen < sizeof(struct udphdr)) {
-		limpk("UDP len=%u too short\n", datalen);
+		// limpk("UDP len=%u too short\n", datalen);
 		return 0;
 	}
 
@@ -222,7 +222,7 @@ check_udp(const struct iphdr *iph,
 
 	/* CHECK: Destination port can't be zero. */
 	if (!udph->dest) {
-		limpk("UDP zero destination port\n");
+//		limpk("UDP zero destination port\n");
 		return 0;
 	}
 
@@ -230,23 +230,23 @@ check_udp(const struct iphdr *iph,
 		if (!embedded) {
 			/* CHECK: UDP length must match. */
 			if (ntohs(udph->len) != datalen) {
-				limpk("UDP len too short %u vs %u\n",
-				      ntohs(udph->len), datalen);
+				// limpk("UDP len too short %u vs %u\n",
+				//       ntohs(udph->len), datalen);
 				return 0;
 			}
 		} else {
 			/* CHECK: UDP length be >= this truncated pkt. */
 			if (ntohs(udph->len) < datalen) {
-				limpk("UDP len too long %u vs %u\n",
-				      ntohs(udph->len), datalen);
+				// limpk("UDP len too long %u vs %u\n",
+				//       ntohs(udph->len), datalen);
 				return 0;
 			}
 		}
 	} else {
 		/* CHECK: UDP length must be > this frag's length. */
 		if (ntohs(udph->len) <= datalen) {
-			limpk("UDP fragment len too short %u vs %u\n",
-			      ntohs(udph->len), datalen);
+			// limpk("UDP fragment len too short %u vs %u\n",
+			//       ntohs(udph->len), datalen);
 			return 0;
 		}
 	}
@@ -288,15 +288,15 @@ check_tcp(const struct iphdr *iph,
 	/* CHECK: Smaller than minimal TCP hdr. */
 	if (datalen < sizeof(struct tcphdr)) {
 		if (!embedded) {
-			limpk("Packet length %u < TCP header.\n", datalen);
+//			limpk("Packet length %u < TCP header.\n", datalen);
 			return 0;
 		}
 		/* Must have ports available (datalen >= 8), from
                    check_icmp which set embedded = 1 */
 		/* CHECK: TCP ports inside ICMP error */
 		if (!tcph->source || !tcph->dest) {
-			limpk("Zero TCP ports %u/%u.\n",
-			      htons(tcph->source), htons(tcph->dest));
+			// limpk("Zero TCP ports %u/%u.\n",
+			//       htons(tcph->source), htons(tcph->dest));
 			return 0;
 		}
 		return 1;
@@ -305,8 +305,8 @@ check_tcp(const struct iphdr *iph,
 	/* CHECK: Smaller than actual TCP hdr. */
 	if (datalen < tcph->doff * 4) {
 		if (!embedded) {
-			limpk("Packet length %u < actual TCP header.\n",
-			      datalen);
+			// limpk("Packet length %u < actual TCP header.\n",
+			//       datalen);
 			return 0;
 		} else
 			return 1;
@@ -321,14 +321,14 @@ check_tcp(const struct iphdr *iph,
 
 	/* CHECK: TCP ports non-zero */
 	if (!tcph->source || !tcph->dest) {
-		limpk("Zero TCP ports %u/%u.\n",
-		      htons(tcph->source), htons(tcph->dest));
+		// limpk("Zero TCP ports %u/%u.\n",
+		//       htons(tcph->source), htons(tcph->dest));
 		return 0;
 	}
 
 	/* CHECK: TCP reserved bits zero. */
 	if(tcp_flag_word(tcph) & TCP_RESERVED_BITS) {
-		limpk("TCP reserved bits not zero\n");
+//		limpk("TCP reserved bits not zero\n");
 		return 0;
 	}
 
@@ -347,7 +347,7 @@ check_tcp(const struct iphdr *iph,
 	    && tcpflags != (TH_FIN|TH_ACK|TH_PUSH)
 	    && tcpflags != (TH_FIN|TH_ACK|TH_URG)
 	    && tcpflags != (TH_FIN|TH_ACK|TH_URG|TH_PUSH)) {
-		limpk("TCP flags bad: %u\n", tcpflags);
+//		limpk("TCP flags bad: %u\n", tcpflags);
 		return 0;
 	}
 
@@ -363,26 +363,26 @@ check_tcp(const struct iphdr *iph,
 		default:
 			/* CHECK: options after EOO. */
 			if (end_of_options) {
-				limpk("TCP option %u after end\n",
-				      opt[i]);
+				// limpk("TCP option %u after end\n",
+				//       opt[i]);
 				return 0;
 			}
 			/* CHECK: options at tail. */
 			else if (i+1 >= tcph->doff * 4) {
-				limpk("TCP option %u at tail\n",
-				      opt[i]);
+				// limpk("TCP option %u at tail\n",
+				//       opt[i]);
 				return 0;
 			}
 			/* CHECK: zero-length options. */
 			else if (opt[i+1] == 0) {
-				limpk("TCP option %u 0 len\n",
-				      opt[i]);
+				// limpk("TCP option %u 0 len\n",
+				//       opt[i]);
 				return 0;
 			}
 			/* CHECK: oversize options. */
 			else if (&opt[i] + opt[i+1] > endhdr) {
-				limpk("TCP option %u at %Zu too long\n",
-				      (unsigned int) opt[i], i);
+				// limpk("TCP option %u at %Zu too long\n",
+				//       (unsigned int) opt[i], i);
 				return 0;
 			}
 			/* Move to next option */
@@ -409,7 +409,7 @@ check_ip(struct iphdr *iph, size_t length, int embedded)
 	/* Should only happen for local outgoing raw-socket packets. */
 	/* CHECK: length >= ip header. */
 	if (length < sizeof(struct iphdr) || length < iph->ihl * 4) {
-		limpk("Packet length %Zu < IP header.\n", length);
+//		limpk("Packet length %Zu < IP header.\n", length);
 		return 0;
 	}
 
@@ -419,7 +419,7 @@ check_ip(struct iphdr *iph, size_t length, int embedded)
 
 	/* CHECK: Embedded fragment. */
 	if (embedded && offset) {
-		limpk("Embedded fragment.\n");
+//		limpk("Embedded fragment.\n");
 		return 0;
 	}
 
@@ -435,26 +435,26 @@ check_ip(struct iphdr *iph, size_t length, int embedded)
 		default:
 			/* CHECK: options after EOO. */
 			if (end_of_options) {
-				limpk("IP option %u after end\n",
-				      opt[i]);
+				// limpk("IP option %u after end\n",
+				//       opt[i]);
 				return 0;
 			}
 			/* CHECK: options at tail. */
 			else if (i+1 >= iph->ihl * 4) {
-				limpk("IP option %u at tail\n",
-				      opt[i]);
+				// limpk("IP option %u at tail\n",
+				//       opt[i]);
 				return 0;
 			}
 			/* CHECK: zero-length or one-length options. */
 			else if (opt[i+1] < 2) {
-				limpk("IP option %u %u len\n",
-				      opt[i], opt[i+1]);
+				// limpk("IP option %u %u len\n",
+				//       opt[i], opt[i+1]);
 				return 0;
 			}
 			/* CHECK: oversize options. */
 			else if (&opt[i] + opt[i+1] > endhdr) {
-				limpk("IP option %u at %u too long\n",
-				      opt[i], i);
+				// limpk("IP option %u at %u too long\n",
+				//       opt[i], i);
 				return 0;
 			}
 			/* Move to next option */
@@ -467,28 +467,28 @@ check_ip(struct iphdr *iph, size_t length, int embedded)
 	/* CHECK: More fragments, but doesn't fill 8-byte boundary. */
 	if ((ntohs(iph->frag_off) & IP_MF)
 	    && (ntohs(iph->tot_len) % 8) != 0) {
-		limpk("Truncated fragment %u long.\n", ntohs(iph->tot_len));
+//		limpk("Truncated fragment %u long.\n", ntohs(iph->tot_len));
 		return 0;
 	}
 
 	/* CHECK: Oversize fragment a-la Ping of Death. */
 	if (offset * 8 + datalen > 65535) {
-		limpk("Oversize fragment to %u.\n", offset * 8);
+//		limpk("Oversize fragment to %u.\n", offset * 8);
 		return 0;
 	}
 
 	/* CHECK: DF set and offset or MF set. */
 	if ((ntohs(iph->frag_off) & IP_DF)
 	    && (offset || (ntohs(iph->frag_off) & IP_MF))) {
-		limpk("DF set and offset=%u, MF=%u.\n",
-		      offset, ntohs(iph->frag_off) & IP_MF);
+		// limpk("DF set and offset=%u, MF=%u.\n",
+		//       offset, ntohs(iph->frag_off) & IP_MF);
 		return 0;
 	}
 
 	/* CHECK: Zero-sized fragments. */
 	if ((offset || (ntohs(iph->frag_off) & IP_MF))
 	    && datalen == 0) {
-		limpk("Zero size fragment offset=%u\n", offset);
+//		limpk("Zero size fragment offset=%u\n", offset);
 		return 0;
 	}
 
@@ -507,21 +507,21 @@ check_ip(struct iphdr *iph, size_t length, int embedded)
 	if ((ntohs(iph->frag_off) & IP_MF)
 	    && offset == 0
 	    && ntohs(iph->tot_len) < MIN_LIKELY_MTU) {
-		limpk("First fragment size %u < %u\n", ntohs(iph->tot_len),
-		      MIN_LIKELY_MTU);
+		// limpk("First fragment size %u < %u\n", ntohs(iph->tot_len),
+		//       MIN_LIKELY_MTU);
 		return 0;
 	}
 
 	/* CHECK: Min offset of frag = 128 - IP hdr len. */
 	if (offset && offset * 8 < MIN_LIKELY_MTU - iph->ihl * 4) {
-		limpk("Fragment starts at %u < %u\n", offset * 8,
-		      MIN_LIKELY_MTU - iph->ihl * 4);
+		// limpk("Fragment starts at %u < %u\n", offset * 8,
+		//       MIN_LIKELY_MTU - iph->ihl * 4);
 		return 0;
 	}
 
 	/* CHECK: Protocol specification non-zero. */
 	if (iph->protocol == 0) {
-		limpk("Zero protocol\n");
+//		limpk("Zero protocol\n");
 		return 0;
 	}
 
