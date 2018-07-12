@@ -10,6 +10,8 @@
 #include "../include/linux/netfilter_ipv4/ip_tables.h"
 
 #include "../include/linux/kernel.h"
+#include "../include/linux/wanpipe.h"
+#include "../include/linux/net.h"
 
 #define limpk(format, args...)						 \
 do {									 \
