@@ -1,34 +1,32 @@
 #ifndef __ASM_SMP_H
 #define __ASM_SMP_H
 
-
-#include "smp.h"
 /*
  * We need the APIC definitions automatically as part of 'smp.h'
  */
-//#ifndef __ASSEMBLY__
+#ifndef __ASSEMBLY__
 #include "../linux/config.h"
 #include "../linux/threads.h"
 #include "../linux/ptrace.h"
-//#endif
+#endif
 
-//#ifdef CONFIG_X86_LOCAL_APIC
-//#ifndef __ASSEMBLY__
+#ifdef CONFIG_X86_LOCAL_APIC
+#ifndef __ASSEMBLY__
 #include "fixmap.h"
 #include "bitops.h"
 #include "mpspec.h"
-//#ifdef CONFIG_X86_IO_APIC
+#ifdef CONFIG_X86_IO_APIC
 #include "io_apic.h"
-//#endif
+#endif
 #include "apic.h"
-//#endif
-//#endif
+#endif
+#endif
 
 #ifdef CONFIG_SMP
 #ifndef ASSEMBLY
 
 #include "pda.h"
-
+#include "apicdef.h"
 /*
  * Private routines/data
  */
@@ -81,7 +79,8 @@ extern void smp_store_cpu_info(int id);		/* Store per CPU info (like the initial
  * so this is correct in the x86 case.
  */
 
-#define smp_processor_id() read_pda(cpunumber)
+//#define smp_processor_id() read_pda(cpunumber)
+#define smp_processor_id() 0
 
 #define stack_smp_processor_id() (stack_current()->processor)
 
