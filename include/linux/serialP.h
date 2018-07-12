@@ -19,15 +19,15 @@
  * For definitions of the flags field, see tty.h
  */
 
-#include <linux/config.h>
-#include <linux/termios.h>
-#include <linux/tqueue.h>
-#include <linux/circ_buf.h>
-#include <linux/wait.h>
+#include "config.h"
+#include "termios.h"
+#include "tqueue.h"
+#include "circ_buf.h"
+#include "wait.h"
 #if (LINUX_VERSION_CODE < 0x020300)
 /* Unfortunate, but Linux 2.2 needs async_icount defined here and
  * it got moved in 2.3 */
-#include <linux/serial.h>
+#include "serial.h"
 #endif
 
 struct serial_state {

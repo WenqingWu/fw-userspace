@@ -44,7 +44,9 @@
         "mmu_context.h": "c",
         "kernel.h": "c",
         "ip_tables.h": "c",
-        "wanpipe.h": "c"
+        "wanpipe.h": "c",
+        "serialp.h": "c",
+        "wanrouter.h": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }

@@ -10,8 +10,9 @@
 #ifndef _LINUX_SERIAL_H
 #define _LINUX_SERIAL_H
 
-#ifdef __KERNEL__
-#include <asm/page.h>
+//#ifdef __KERNEL__
+#include "../asm/page.h"
+#include "../asm/types.h"
 
 /*
  * Counters of the input lines (CTS, DSR, RI, CD) interrupts
@@ -184,5 +185,5 @@ extern int early_serial_setup(struct serial_struct *req);
 /* tty port reserved for the HCDP serial console port */
 #define HCDP_SERIAL_CONSOLE_PORT	4
 
-#endif /* __KERNEL__ */
+//#endif /* __KERNEL__ */
 #endif /* _LINUX_SERIAL_H */
