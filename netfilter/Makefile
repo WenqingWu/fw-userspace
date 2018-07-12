@@ -32,35 +32,48 @@ iptable_nat-objs	:= ip_nat_standalone.o ip_nat_rule.o $(ip_nf_nat-objs)
 
 # # connection tracking
 # obj-$(CONFIG_IP_NF_CONNTRACK) += ip_conntrack.o
+obj-y += ip_conntrack.o
 
 # # connection tracking helpers
 # obj-$(CONFIG_IP_NF_FTP) += ip_conntrack_ftp.o
 # ifdef CONFIG_IP_NF_NAT_FTP
 # 	export-objs += ip_conntrack_ftp.o
 # endif
+obj-y += ip_conntrack_ftp.o
 
 # obj-$(CONFIG_IP_NF_IRC) += ip_conntrack_irc.o
 # ifdef CONFIG_IP_NF_NAT_IRC
 # 	export-objs += ip_conntrack_irc.o
 # endif
+export-objs += += ip_conntrack_irc.o
 
 # # NAT helpers 
 # obj-$(CONFIG_IP_NF_NAT_FTP) += ip_nat_ftp.o
 # obj-$(CONFIG_IP_NF_NAT_IRC) += ip_nat_irc.o
+obj-y += ip_nat_ftp.o
+obj-y += ip_nat_irc.o
 
 # # generic IP tables 
 # obj-$(CONFIG_IP_NF_IPTABLES) += ip_tables.o
+obj-y += ip_tables.o
 
 # # the three instances of ip_tables
 # obj-$(CONFIG_IP_NF_FILTER) += iptable_filter.o
 # obj-$(CONFIG_IP_NF_MANGLE) += iptable_mangle.o
 # obj-$(CONFIG_IP_NF_NAT) += iptable_nat.o
+obj-y += iptable_filter.o
+obj-y += iptable_mangle.o
+obj-y += iptable_nat.o
 
 # # matches
 # obj-$(CONFIG_IP_NF_MATCH_HELPER) += ipt_helper.o
 # obj-$(CONFIG_IP_NF_MATCH_LIMIT) += ipt_limit.o
 # obj-$(CONFIG_IP_NF_MATCH_MARK) += ipt_mark.o
 # obj-$(CONFIG_IP_NF_MATCH_MAC) += ipt_mac.o
+obj-y += ipt_helper.o
+obj-y += ipt_limit.o
+obj-y += ipt_mark.o
+obj-y += ipt_mac.o
 
 # obj-$(CONFIG_IP_NF_MATCH_PKTTYPE) += ipt_pkttype.o
 # obj-$(CONFIG_IP_NF_MATCH_MULTIPORT) += ipt_multiport.o
@@ -69,14 +82,27 @@ iptable_nat-objs	:= ip_nat_standalone.o ip_nat_rule.o $(ip_nf_nat-objs)
 # obj-$(CONFIG_IP_NF_MATCH_ECN) += ipt_ecn.o
 # obj-$(CONFIG_IP_NF_MATCH_DSCP) += ipt_dscp.o
 # obj-$(CONFIG_IP_NF_MATCH_AH_ESP) += ipt_ah.o ipt_esp.o
+obj-y += ipt_pkttype.o
+obj-y += ipt_multiport.o
+obj-y += ipt_owner.o
+obj-y += ipt_tos.o
+obj-y += ipt_dscp.o
+obj-y += ipt_ah.o ipt_esp.o
+obj-y += ipt_ecn.o
 
 # obj-$(CONFIG_IP_NF_MATCH_LENGTH) += ipt_length.o
+obj-y += ipt_length.o
 
 # obj-$(CONFIG_IP_NF_MATCH_TTL) += ipt_ttl.o
 # obj-$(CONFIG_IP_NF_MATCH_STATE) += ipt_state.o
 # obj-$(CONFIG_IP_NF_MATCH_CONNTRACK) += ipt_conntrack.o
 # obj-$(CONFIG_IP_NF_MATCH_UNCLEAN) += ipt_unclean.o
 # obj-$(CONFIG_IP_NF_MATCH_TCPMSS) += ipt_tcpmss.o
+obj-y += ipt_ttl.o
+obj-y += ipt_state.o
+obj-y += ipt_conntrack.o
+obj-y += ipt_unclean.o
+obj-y += ipt_tcpmss.o
 
 # # targets
 # obj-$(CONFIG_IP_NF_TARGET_REJECT) += ipt_REJECT.o
@@ -91,25 +117,40 @@ iptable_nat-objs	:= ip_nat_standalone.o ip_nat_rule.o $(ip_nf_nat-objs)
 # obj-$(CONFIG_IP_NF_TARGET_LOG) += ipt_LOG.o
 # obj-$(CONFIG_IP_NF_TARGET_ULOG) += ipt_ULOG.o
 # obj-$(CONFIG_IP_NF_TARGET_TCPMSS) += ipt_TCPMSS.o
+obj-y += ipt_REJECT.o
+obj-y += ipt_MIRROR.o
+obj-y += ipt_MASQUERADE.o
+obj-y += ipt_REDIRECT.o
+obj-y += ip_nat_snmp_basic.o
+obj-y += ipt_LOG.o
+obj-y += ipt_ULOG.o
+# obj-y += 
+# obj-y += 
+# obj-y += 
+# obj-y += 
+# obj-y += 
 
 # # generic ARP tables
 # obj-$(CONFIG_IP_NF_ARPTABLES) += arp_tables.o
+obj-y += arp_tables.o
 
 # # just filtering instance of ARP tables for now
 # obj-$(CONFIG_IP_NF_ARPFILTER) += arptable_filter.o
+obj-y += arptable_filter.o
 
 # # backwards compatibility 
 # # obj-$(CONFIG_IP_NF_COMPAT_IPCHAINS) += ipchains.o
 # # obj-$(CONFIG_IP_NF_COMPAT_IPFWADM) += ipfwadm.o
 
 # obj-$(CONFIG_IP_NF_QUEUE) += ip_queue.o
+obj-y += ip_queue.o
 
 # include ../Rules.make
 
-obj-y += ip_conntrack.o
-obj-y += iptable_nat.o
-obj-y += ipfwadm.o
-obj-y += ipchains.o
+# obj-y += ip_conntrack.o
+# obj-y += iptable_nat.o
+# obj-y += ipfwadm.o
+# obj-y += ipchains.o
 
 ip_conntrack.o: $(ip_conntrack-objs)
 	$(LD) -r -o $@ $(ip_conntrack-objs)
