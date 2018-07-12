@@ -39,7 +39,7 @@
 #ifndef	_WANPIPE_H
 #define	_WANPIPE_H
 
-#include <linux/version.h>
+#include "version.h"
 
 #ifndef KERNEL_VERSION
   #define KERNEL_VERSION(a,b,c) (((a) << 16) + ((b) << 8) + (c))
@@ -93,7 +93,7 @@
  #define spin_unlock(a)
 #endif
 
-#include <linux/wanrouter.h>
+#include "wanrouter.h"
 
 /* Defines */
 
@@ -315,21 +315,21 @@ typedef struct {
 #define BRIDGE		0x02
 #define BRIDGE_NODE	0x03
 
-#ifdef	__KERNEL__
+//#ifdef	__KERNEL__
 /****** Kernel Interface ****************************************************/
 
-#include <linux/sdladrv.h>	/* SDLA support module API definitions */
-#include <linux/sdlasfm.h>	/* SDLA firmware module definitions */
-#include <linux/tqueue.h>
+#include "sdladrv.h"	/* SDLA support module API definitions *
+#include "sdlasfm.h"	/* SDLA firmware module definitions *
+#include "tqueue.h"
 #ifdef LINUX_2_4
-  #include <linux/serial.h>
-  #include <linux/serialP.h>
-  #include <linux/serial_reg.h>
-  #include <asm/serial.h>
+  #include "serial.h"
+  #include "serialP.h"
+  #include "serial_reg.h"
+  #include "../asm/serial.h"
 #endif
-#include <linux/tty.h>
-#include <linux/tty_driver.h>
-#include <linux/tty_flip.h>
+#include "tty.h"
+#include "tty_driver.h"
+#include "tty_flip.h"
 
 
 #define	is_digit(ch) (((ch)>=(unsigned)'0'&&(ch)<=(unsigned)'9')?1:0)
@@ -553,6 +553,6 @@ extern unsigned long get_ip_address (netdevice_t *dev, int option);
 extern void add_gateway(sdla_t *, netdevice_t *);
 
 
-#endif	/* __KERNEL__ */
+//#endif	/* __KERNEL__ */
 #endif	/* _WANPIPE_H */
 

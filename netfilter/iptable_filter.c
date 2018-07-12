@@ -6,6 +6,8 @@
 #include "../include/linux/module.h"
 #include "../include/linux/netfilter_ipv4/ip_tables.h"
 
+#include "../include/linux/wanpipe.h"
+
 #define FILTER_VALID_HOOKS ((1 << NF_IP_LOCAL_IN) | (1 << NF_IP_FORWARD) | (1 << NF_IP_LOCAL_OUT))
 
 /* Standard entry. */
@@ -130,7 +132,7 @@ static int __init init(void)
 	int ret;
 
 	if (forward < 0 || forward > NF_MAX_VERDICT) {
-		printk("iptables forward must be 0 or 1\n");
+	//	printk("iptables forward must be 0 or 1\n");
 		return -EINVAL;
 	}
 
