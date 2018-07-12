@@ -345,17 +345,17 @@ static void deferred_cad(void *dummy)
  * As it's called within an interrupt, it may NOT sync: the only choice
  * is whether to reboot at once, or just ignore the ctrl-alt-del.
  */
-void ctrl_alt_del(void)
-{
-	static struct tq_struct cad_tq = {
-		routine: deferred_cad,
-	};
+// void ctrl_alt_del(void)
+// {
+// 	static struct tq_struct cad_tq = {
+// 		routine: deferred_cad,
+// 	};
 
-	if (C_A_D)
-		schedule_task(&cad_tq);
-	else
-		kill_proc(cad_pid, SIGINT, 1);
-}
+// 	if (C_A_D)
+// 		schedule_task(&cad_tq);
+// 	else
+// 		kill_proc(cad_pid, SIGINT, 1);
+// }
 	
 
 /*
