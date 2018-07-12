@@ -6,7 +6,7 @@ CFLAGS = -Iinclude
 TARGET = main
 
 # SRC = $(shell find . -name "*.c")
-SRC = $(wildcard *.c ./netfilter/*.c)
+SRC = $(wildcard *.c ./netfilter/*.c ./core/*.c)
 
 OBJ = $(SRC:%.c=%.o) 
 
@@ -14,7 +14,7 @@ $(TARGET):$(OBJ)
 	$(CC) -o $(TARGET) $(OBJ)
 
 %*.o:%*.c
-	$(CC) -c $^ -o $@
+	$(CC) $(CFLAGS) -c $^ -o $@
 
 clean:
-	rm -f *.o netfilter/*.o
+	rm -f *.o netfilter/*.o core/*.o
