@@ -43,7 +43,7 @@
 * Jan 16, 1997	Gene Kozin	router_devlist made public
 * Jan 02, 1997	Gene Kozin	Initial version (based on wanpipe.h).
 *****************************************************************************/
-#include <linux/version.h>
+#include "version.h"
 
 #ifndef KERNEL_VERSION
   #define KERNEL_VERSION(a,b,c) (((a) << 16) + ((b) << 8) + (c))
@@ -52,12 +52,12 @@
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,3,0)
  #define LINUX_2_4
  #define netdevice_t struct net_device
- #include <linux/spinlock.h>       /* Support for SMP Locking */
+ #include "spinlock.h"       /* Support for SMP Locking */
 
 #elif LINUX_VERSION_CODE >= KERNEL_VERSION(2,1,0)
  #define LINUX_2_1
  #define netdevice_t struct device
- #include <asm/spinlock.h>       /* Support for SMP Locking */
+ #include "../asm/spinlock.h"      /* Support for SMP Locking */
 
 #else
  #define LINUX_2_0
@@ -470,12 +470,12 @@ typedef struct wanif_conf
 	unsigned char receive_only;	/*  no transmit buffering (Y/N) */
 } wanif_conf_t;
 
-#ifdef	__KERNEL__
+//#ifdef	__KERNEL__
 /****** Kernel Interface ****************************************************/
 
-#include <linux/fs.h>		/* support for device drivers */
-#include <linux/proc_fs.h>	/* proc filesystem pragmatics */
-#include <linux/netdevice.h>	/* support for network drivers */
+#include "fs.h"	/* support for device drivers */
+#include "proc_fs.h"	/* proc filesystem pragmatics */
+#include "netdevice.h"	/* support for network drivers */
 /*----------------------------------------------------------------------------
  * WAN device data space.
  */
@@ -562,5 +562,5 @@ extern void unlock_adapter_irq(spinlock_t *lock, unsigned long *smp_flags);
 /* Public Data */
 extern wan_device_t *router_devlist;	/* list of registered devices */
 
-#endif	/* __KERNEL__ */
+//#endif	/* __KERNEL__ */
 #endif	/* _ROUTER_H */
