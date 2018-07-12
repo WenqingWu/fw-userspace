@@ -318,8 +318,8 @@ typedef struct {
 //#ifdef	__KERNEL__
 /****** Kernel Interface ****************************************************/
 
-#include "sdladrv.h"	/* SDLA support module API definitions *
-#include "sdlasfm.h"	/* SDLA firmware module definitions *
+#include "sdladrv.h"	/* SDLA support module API definitions */
+#include "sdlasfm.h"	/* SDLA firmware module definitions */
 #include "tqueue.h"
 #ifdef LINUX_2_4
   #include "serial.h"
