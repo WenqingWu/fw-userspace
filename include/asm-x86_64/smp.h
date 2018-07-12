@@ -1,6 +1,8 @@
 #ifndef __ASM_SMP_H
 #define __ASM_SMP_H
 
+
+#include "smp.h"
 /*
  * We need the APIC definitions automatically as part of 'smp.h'
  */
