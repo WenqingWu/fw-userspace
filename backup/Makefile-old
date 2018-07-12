@@ -17,4 +17,4 @@ $(TARGET):$(OBJ)
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 clean:
-	rm -f *.o netfilter/*.o core/*.o
+	rm -f *.o netfilter/*.o core/*.o kernel/*.o
