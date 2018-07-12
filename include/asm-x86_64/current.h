@@ -8,8 +8,14 @@ struct task_struct;
 
 static inline struct task_struct *get_current(void) 
 { 
-	struct task_struct *t = read_pda(pcurrent); 
-	return t;
+	// struct task_struct *t = read_pda(pcurrent); 
+	// return t;
+	struct task_struct *current;
+
+	__asm__("stc	r7_bank, %0"
+		:"=r" (current));
+
+	return current;
 } 
 
 
