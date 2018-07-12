@@ -11,9 +11,7 @@ static inline struct task_struct *get_current(void)
 	// struct task_struct *t = read_pda(pcurrent); 
 	// return t;
 	struct task_struct *current;
-
-	__asm__("stc	r7_bank, %0"
-		:"=r" (current));
+	__asm__("andl %%esp,%0; ":"=r" (current) : "0" (~8191UL));
 
 	return current;
 } 
