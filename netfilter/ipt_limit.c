@@ -15,6 +15,8 @@
 #include "../include/linux/netfilter_ipv4/ip_tables.h"
 #include "../include/linux/netfilter_ipv4/ipt_limit.h"
 
+#include "../include/linux/sched.h"
+
 /* The algorithm used is the Simple Token Bucket Filter (TBF)
  * see net/sched/sch_tbf.c in the linux source tree
  */
@@ -97,8 +99,10 @@ ipt_limit_checkentry(const char *tablename,
 	/* Check for overflow. */
 	if (r->burst == 0
 	    || user2credits(r->avg * r->burst) < user2credits(r->avg)) {
+		/*
 		printk("Call rusty: overflow in ipt_limit: %u/%u\n",
 		       r->avg, r->burst);
+			   */
 		return 0;
 	}
 

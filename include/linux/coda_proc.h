@@ -16,9 +16,9 @@ void coda_sysctl_init(void);
 void coda_sysctl_clean(void);
 void coda_upcall_stats(int opcode, unsigned long jiffies);
 
-#include <linux/sysctl.h>
-#include <linux/coda_fs_i.h>
-#include <linux/coda.h>
+#include "sysctl.h"
+#include "coda_fs_i.h"
+#include "coda.h"
 
 /* these four files are presented to show the result of the statistics:
  *

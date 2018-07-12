@@ -12,6 +12,15 @@
 #include "../include/linux/netfilter_ipv4/ip_nat_rule.h"
 #include "../include/linux/netfilter_ipv4/ip_tables.h"
 
+#include "../include/net/route.h"
+#include "../include/linux/irq_cpustat.h"
+#include "../include/linux/netfilter_ipv4/ip_nat.h"
+#include "../include/linux/netfilter_ipv4/ip_conntrack.h"
+#include "../include/linux/netdevice.h"
+#include "../include/linux/inetdevice.h"
+#include "../include/asm/proto.h"
+#include "../include/asm/spinlock.h"
+
 #if 0
 #define DEBUGP printk
 #else
@@ -93,7 +102,7 @@ masquerade_target(struct sk_buff **pskb,
 #endif
 	if (ip_route_output_key(&rt, &key) != 0) {
 		/* Shouldn't happen */
-		printk("MASQUERADE: No route: Rusty's brain broke!\n");
+		/*printk("MASQUERADE: No route: Rusty's brain broke!\n");*/
 		return NF_DROP;
 	}
 
