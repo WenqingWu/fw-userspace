@@ -15,11 +15,11 @@
 * Oct 17, 1996	Gene Kozin	Minor bug fixes.
 * Jun 12, 1996	Gene Kozin 	Added support for S503 card.
 * Dec 06, 1995	Gene Kozin	Initial version.
-*****************************************************************************/
+**************************************************************************** */
 #ifndef	_SDLADRV_H
 #define	_SDLADRV_H
 
-#include <linux/version.h>
+#include "version.h"
 
 #ifndef KERNEL_VERSION
   #define KERNEL_VERSION(a,b,c) (((a) << 16) + ((b) << 8) + (c))

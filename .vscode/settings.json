@@ -50,7 +50,8 @@
         "__mutex_base": "cpp",
         "memory": "cpp",
         "mutex": "cpp",
-        "irq_cpustat.h": "c"
+        "irq_cpustat.h": "c",
+        "sdladrv.h": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }

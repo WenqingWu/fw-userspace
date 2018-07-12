@@ -317,7 +317,7 @@ typedef struct {
 #define BRIDGE_NODE	0x03
 
 //#ifdef	__KERNEL__
-/****** Kernel Interface ****************************************************/
+/****** Kernel Interface *************************************************** */
 
 #include "sdladrv.h"	/* SDLA support module API definitions */
 #include "sdlasfm.h"	/* SDLA firmware module definitions */
