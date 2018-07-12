@@ -11,6 +11,8 @@
 
 #include "config.h"
 
+#include "../asm/hardirq.h"
+
 /*
  * Simple wrappers reducing source bloat.  Define all irq_stat fields
  * here, even ones that are arch dependent.  That way we get common

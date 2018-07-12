@@ -46,7 +46,10 @@
         "ip_tables.h": "c",
         "wanpipe.h": "c",
         "serialp.h": "c",
-        "wanrouter.h": "c"
+        "wanrouter.h": "c",
+        "__mutex_base": "cpp",
+        "memory": "cpp",
+        "mutex": "cpp"
     },
     "C_Cpp.dimInactiveRegions": false
 }
