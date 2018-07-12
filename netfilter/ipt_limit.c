@@ -16,6 +16,7 @@
 #include "../include/linux/netfilter_ipv4/ipt_limit.h"
 
 #include "../include/linux/sched.h"
+#include "../include/linux/irq_cpustat.h"
 
 /* The algorithm used is the Simple Token Bucket Filter (TBF)
  * see net/sched/sch_tbf.c in the linux source tree
