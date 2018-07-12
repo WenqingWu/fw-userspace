@@ -4,11 +4,13 @@
  *
  *		Alan Cox, alan@redhat.com, 1995
  */
- 
+
 /*
  *	This would be much easier but far less clear and easy
  *	to borrow for other processors if it was just assembler.
  */
+
+#include "smp.h"
 
 extern __inline__ void prim_spin_lock(struct spinlock *sp)
 {

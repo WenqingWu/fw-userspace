@@ -3,7 +3,12 @@
 #define __ARCH_DESC_H
 
 #include "../linux/threads.h"
+#include "../linux/types.h"
+
+#include "smp.h"
+#include "string.h"
 #include "ldt.h"
+
 
 #ifndef __ASSEMBLY__
 

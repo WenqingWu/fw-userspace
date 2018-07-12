@@ -8,8 +8,8 @@
 
 #include "config.h"
 
-#ifdef CONFIG_SMP
-
+//#ifdef CONFIG_SMP
+#if 0
 #include "kernel.h"
 #include "../asm/smp.h"
 
