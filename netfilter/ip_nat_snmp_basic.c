@@ -57,7 +57,7 @@
 #include "../include/asm/uaccess.h"
 #include "../include/asm/checksum.h"
 
-
+#include "../include/linux/irq_cpustat.h"
 
 #define SNMP_PORT 161
 #define SNMP_TRAP_PORT 162

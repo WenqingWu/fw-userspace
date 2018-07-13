@@ -11,6 +11,8 @@
 #include "../include/linux/netfilter_ipv4/ipt_owner.h"
 #include "../include/linux/netfilter_ipv4/ip_tables.h"
 
+#include "../include/linux/irq_cpustat.h"
+
 static int
 match_comm(const struct sk_buff *skb, const char *comm)
 {

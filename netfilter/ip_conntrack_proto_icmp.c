@@ -6,6 +6,8 @@
 #include "../include/linux/icmp.h"
 #include "../include/linux/netfilter_ipv4/ip_conntrack_protocol.h"
 
+#include "../include/linux/irq_cpustat.h"
+
 #define ICMP_TIMEOUT (30*HZ)
 
 #if 0

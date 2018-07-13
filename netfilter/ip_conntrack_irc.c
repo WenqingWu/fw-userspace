@@ -33,6 +33,8 @@
 #include "../include/linux/netfilter_ipv4/ip_conntrack_helper.h"
 #include "../include/linux/netfilter_ipv4/ip_conntrack_irc.h"
 
+#include "../include/linux/irq_cpustat.h"
+
 #define MAX_PORTS 8
 static int ports[MAX_PORTS];
 static int ports_c = 0;

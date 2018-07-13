@@ -31,6 +31,8 @@
 #include "../include/linux/netfilter_ipv4/ip_conntrack_helper.h"
 #include "../include/linux/netfilter_ipv4/listhelp.h"
 
+#include "../include/linux/irq_cpustat.h"
+
 #if 0
 #define DEBUGP printk
 #else

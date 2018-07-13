@@ -29,7 +29,7 @@ TARGET := netfilter-test
  obj-y += main.o
  obj-y += core/
  obj-y += netfilter/
- obj-y += kernel/
+#  obj-y += kernel/
 
 all : 
 	make -C ./ -f $(TOPDIR)/Makefile.build
