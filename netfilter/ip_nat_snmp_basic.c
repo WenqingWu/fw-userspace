@@ -1018,7 +1018,7 @@ static void inline mangle_address(unsigned char *begin,
 			          
 		}
 		
-		if (debug)
+		if (debug){}
 			// printk(KERN_DEBUG "bsalg: mapped %u.%u.%u.%u to "
 			//        "%u.%u.%u.%u\n", NIPQUAD(old), NIPQUAD(*addr));
 	}
@@ -1079,7 +1079,7 @@ static int snmp_parse_mangle(unsigned char *msg,
 		unsigned int i;
 		
 		// printk(KERN_DEBUG "bsalg: community: ");
-		for (i = 0; i < comm.len; i++)
+		for (i = 0; i < comm.len; i++){}
 		// 	printk("%c", comm.data[i]);
 		// printk("\n");
 	}
@@ -1104,9 +1104,9 @@ static int snmp_parse_mangle(unsigned char *msg,
 			[SNMP_PDU_TRAP2] = "trapv2"
 		};
 		
-		if (pdutype > SNMP_PDU_TRAP2)
+		if (pdutype > SNMP_PDU_TRAP2){}
 //			printk(KERN_DEBUG "bsalg: bad pdu type %u\n", pdutype);
-		else
+		else{}
 //			printk(KERN_DEBUG "bsalg: pdu: %s\n", pdus[pdutype]);
 	}
 	if (pdutype != SNMP_PDU_RESPONSE &&
@@ -1133,10 +1133,10 @@ static int snmp_parse_mangle(unsigned char *msg,
 		if (!snmp_request_decode(&ctx, &req))
 			return 0;
 			
-		if (debug > 1)
+		if (debug > 1){}
 //			printk(KERN_DEBUG "bsalg: request: id=0x%lx error_status=%u "
-			"error_index=%u\n", req.id, req.error_status,
-			req.error_index);
+			// "error_index=%u\n", req.id, req.error_status,
+			// req.error_index);
 	}
 	
 	/*
@@ -1171,7 +1171,7 @@ static int snmp_parse_mangle(unsigned char *msg,
 		if (debug > 1) {
 	//		printk(KERN_DEBUG "bsalg: object: ");
 			for (i = 0; i < (*obj)->id_len; i++) {
-				if (i > 0)
+				if (i > 0){}
 				// 	printk(".");
 				// printk("%lu", (*obj)->id[i]);
 			}
