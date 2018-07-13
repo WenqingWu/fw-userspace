@@ -65,7 +65,7 @@ static void dump_packet(const struct ipt_log_info *info,
 
 		/* Max length: 127 "OPT (" 15*4*2chars ") " */
 	//	printk("OPT (");
-		for (i = sizeof(struct iphdr); i < iph->ihl * 4; i++)
+		for (i = sizeof(struct iphdr); i < iph->ihl * 4; i++){}
 		// 	printk("%02X", ((u_int8_t *)iph)[i]);
 		// printk(") ");
 	}
@@ -123,7 +123,7 @@ static void dump_packet(const struct ipt_log_info *info,
 
 			/* Max length: 127 "OPT (" 15*4*2chars ") " */
 //			printk("OPT (");
-			for (i =sizeof(struct tcphdr); i < tcph->doff * 4; i++)
+			for (i =sizeof(struct tcphdr); i < tcph->doff * 4; i++){}
 			// 	printk("%02X", ((u_int8_t *)tcph)[i]);
 			// printk(") ");
 		}
@@ -226,7 +226,7 @@ static void dump_packet(const struct ipt_log_info *info,
 
 			/* Max length: 10 "MTU=65535 " */
 			if (icmph->type == ICMP_DEST_UNREACH
-			    && icmph->code == ICMP_FRAG_NEEDED)
+			    && icmph->code == ICMP_FRAG_NEEDED){}
 //				printk("MTU=%u ", ntohs(icmph->un.frag.mtu));
 		}
 		break;
@@ -254,7 +254,7 @@ static void dump_packet(const struct ipt_log_info *info,
 		break;
 	}
 	/* Max length: 10 "PROTO 255 " */
-	default:
+	default:{}
 //		printk("PROTO=%u ", iph->protocol);
 	}
 
@@ -297,11 +297,11 @@ ipt_log_target(struct sk_buff **pskb,
 		if ((*pskb)->dev && (*pskb)->dev->hard_header_len && (*pskb)->mac.raw != (void*)iph) {
 			int i;
 			unsigned char *p = (*pskb)->mac.raw;
-			for (i = 0; i < (*pskb)->dev->hard_header_len; i++,p++)
+			for (i = 0; i < (*pskb)->dev->hard_header_len; i++,p++){}
 				// printk("%02x%c", *p,
 				//        i==(*pskb)->dev->hard_header_len - 1
 				//        ? ' ':':');
-		} else
+		} else{}
 //			printk(" ");
 	}
 
