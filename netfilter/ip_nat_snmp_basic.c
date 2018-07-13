@@ -946,7 +946,7 @@ static void hex_dump(unsigned char *buf, size_t len)
 	size_t i;
 	
 	for (i = 0; i < len; i++) {
-		if (i && !(i % 16))
+		if (i && !(i % 16)){}
 		// 	printk("\n");
 		// printk("%02x ", *(buf + i));
 	}
