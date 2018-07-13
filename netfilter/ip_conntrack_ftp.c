@@ -11,6 +11,8 @@
 #include "../include/linux/netfilter_ipv4/ip_conntrack_helper.h"
 #include "../include/linux/netfilter_ipv4/ip_conntrack_ftp.h"
 
+#include "../include/linux/kernel.h"
+
 DECLARE_LOCK(ip_ftp_lock);
 struct module *ip_conntrack_ftp = THIS_MODULE;
 

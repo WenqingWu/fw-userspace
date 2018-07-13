@@ -39,8 +39,8 @@ static int match(const struct sk_buff *skb, const struct net_device *in,
 			return (iph->ttl > info->ttl);
 			break;
 		default:
-			printk(KERN_WARNING "ipt_ttl: unknown mode %d\n", 
-				info->mode);
+			// printk(KERN_WARNING "ipt_ttl: unknown mode %d\n", 
+			// 	info->mode);
 			return 0;
 	}
 

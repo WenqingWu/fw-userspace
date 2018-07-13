@@ -37,7 +37,7 @@ ipt_mac_checkentry(const char *tablename,
 	if (hook_mask
 	    & ~((1 << NF_IP_PRE_ROUTING) | (1 << NF_IP_LOCAL_IN)
 		| (1 << NF_IP_FORWARD))) {
-		printk("ipt_mac: only valid for PRE_ROUTING, LOCAL_IN or FORWARD.\n");
+//		printk("ipt_mac: only valid for PRE_ROUTING, LOCAL_IN or FORWARD.\n");
 		return 0;
 	}
 

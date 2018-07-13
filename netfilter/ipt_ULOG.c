@@ -52,6 +52,8 @@
 #include "../include/net/sock.h"
 #include "../include/linux/bitops.h"
 
+#include "../include/linux/kernel.h"
+
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Harald Welte <laforge@gnumonks.org>");
 MODULE_DESCRIPTION("IP tables userspace logging module");

@@ -14,6 +14,8 @@ struct in_device;
 #include "../include/net/route.h"
 #include "../include/linux/netfilter_ipv4/ipt_LOG.h"
 
+#include "../include/linux/kernel.h"
+
 #if 0
 #define DEBUGP printk
 #else

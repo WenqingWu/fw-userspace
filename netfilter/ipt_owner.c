@@ -167,7 +167,7 @@ checkentry(const char *tablename,
 {
         if (hook_mask
             & ~((1 << NF_IP_LOCAL_OUT) | (1 << NF_IP_POST_ROUTING))) {
-                printk("ipt_owner: only valid for LOCAL_OUT or POST_ROUTING.\n");
+ //               printk("ipt_owner: only valid for LOCAL_OUT or POST_ROUTING.\n");
                 return 0;
         }
 

@@ -24,6 +24,7 @@
 #include "../include/linux/proc_fs.h"
 
 #include "../include/linux/netfilter_ipv4/ip_tables.h"
+#include "../include/linux/kernel.h"
 
 /*#define DEBUG_IP_FIREWALL*/
 /*#define DEBUG_ALLOW_ALL*/ /* Useful for remote debugging */

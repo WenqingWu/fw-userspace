@@ -46,6 +46,7 @@
 #include "../include/linux/netfilter_ipv4/listhelp.h"
 
 #include "../include/linux/irq_cpustat.h"
+#include "../include/linux/kernel.h"
 
 #define IP_CONNTRACK_VERSION	"2.1"
 

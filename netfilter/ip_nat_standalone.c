@@ -37,6 +37,8 @@
 #include "../include/linux/netfilter_ipv4/ip_conntrack_core.h"
 #include "../include/linux/netfilter_ipv4/listhelp.h"
 
+#include "../include/linux/kernel.h"
+
 #if 0
 #define DEBUGP printk
 #else

@@ -202,11 +202,11 @@ static unsigned int help(struct ip_conntrack *ct,
 		/* Half a match?  This means a partial retransmisison.
 		   It's a cracker being funky. */
 		if (net_ratelimit()) {
-			printk
-			    ("IRC_NAT: partial packet %u/%u in %lu/%lu\n",
-			     exp->seq, ct_irc_info->len,
-			     ntohl(tcph->seq),
-			     ntohl(tcph->seq) + datalen);
+			// printk
+			//     ("IRC_NAT: partial packet %u/%u in %lu/%lu\n",
+			//      exp->seq, ct_irc_info->len,
+			//      ntohl(tcph->seq),
+			//      ntohl(tcph->seq) + datalen);
 		}
 		UNLOCK_BH(&ip_irc_lock);
 		return NF_DROP;
@@ -270,9 +270,9 @@ static int __init init(void)
 		ret = ip_nat_helper_register(hlpr);
 
 		if (ret) {
-			printk
-			    ("ip_nat_irc: error registering helper for port %d\n",
-			     ports[i]);
+			// printk
+			//     ("ip_nat_irc: error registering helper for port %d\n",
+			//      ports[i]);
 			fini();
 			return 1;
 		}
