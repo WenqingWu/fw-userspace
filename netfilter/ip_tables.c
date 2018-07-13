@@ -25,30 +25,32 @@
 
 #include "../include/linux/netfilter_ipv4/ip_tables.h"
 #include "../include/linux/kernel.h"
+#include "../include/linux/irq_cpustat.h"
 
 /*#define DEBUG_IP_FIREWALL*/
 /*#define DEBUG_ALLOW_ALL*/ /* Useful for remote debugging */
 /*#define DEBUG_IP_FIREWALL_USER*/
 
 #ifdef DEBUG_IP_FIREWALL
-#define dprintf(format, args...)  printk(format , ## args)
+//#define dprintf(format, args...)  printk(format , ## args)
 #else
 #define dprintf(format, args...)
 #endif
 
 #ifdef DEBUG_IP_FIREWALL_USER
-#define duprintf(format, args...) printk(format , ## args)
+//#define duprintf(format, args...) printk(format , ## args)
 #else
 #define duprintf(format, args...)
 #endif
 
 #ifdef CONFIG_NETFILTER_DEBUG
-#define IP_NF_ASSERT(x)						\
-do {								\
+// #define IP_NF_ASSERT(x)						\
+//do {								\
 	if (!(x))						\
 		printk("IP_NF_ASSERT: %s:%s:%u\n",		\
 		       __FUNCTION__, __FILE__, __LINE__);	\
 } while(0)
+#define IP_NF_ASSERT(x)
 #else
 #define IP_NF_ASSERT(x)
 #endif
@@ -223,7 +225,7 @@ ipt_error(struct sk_buff **pskb,
 	  void *userinfo)
 {
 	if (net_ratelimit())
-		printk("ip_tables: error: `%s'\n", (char *)targinfo);
+	//	printk("ip_tables: error: `%s'\n", (char *)targinfo);
 
 	return NF_DROP;
 }
@@ -298,11 +300,11 @@ ipt_do_table(struct sk_buff **pskb,
 	/* Check noone else using our table */
 	if (((struct ipt_entry *)table_base)->comefrom != 0xdead57ac
 	    && ((struct ipt_entry *)table_base)->comefrom != 0xeeeeeeec) {
-		printk("ASSERT: CPU #%u, %s comefrom(%p) = %X\n",
-		       smp_processor_id(),
-		       table->name,
-		       &((struct ipt_entry *)table_base)->comefrom,
-		       ((struct ipt_entry *)table_base)->comefrom);
+		// printk("ASSERT: CPU #%u, %s comefrom(%p) = %X\n",
+		//        smp_processor_id(),
+		//        table->name,
+		//        &((struct ipt_entry *)table_base)->comefrom,
+		//        ((struct ipt_entry *)table_base)->comefrom);
 	}
 	((struct ipt_entry *)table_base)->comefrom = 0x57acc001;
 #endif
@@ -372,8 +374,8 @@ ipt_do_table(struct sk_buff **pskb,
 				if (((struct ipt_entry *)table_base)->comefrom
 				    != 0xeeeeeeec
 				    && verdict == IPT_CONTINUE) {
-					printk("Target %s reentered!\n",
-					       t->u.kernel.target->name);
+					// printk("Target %s reentered!\n",
+					//        t->u.kernel.target->name);
 					verdict = NF_DROP;
 				}
 				((struct ipt_entry *)table_base)->comefrom
@@ -521,8 +523,8 @@ mark_source_chains(struct ipt_table_info *newinfo, unsigned int valid_hooks)
 				= (void *)ipt_get_target(e);
 
 			if (e->comefrom & (1 << NF_IP_NUMHOOKS)) {
-				printk("iptables: loop hook %u pos %u %08X.\n",
-				       hook, pos, e->comefrom);
+				// printk("iptables: loop hook %u pos %u %08X.\n",
+				//        hook, pos, e->comefrom);
 				return 0;
 			}
 			e->comefrom
@@ -1769,7 +1771,7 @@ static int __init init(void)
 	}
 #endif
 
-	printk("ip_tables: (C) 2000-2002 Netfilter core team\n");
+//	printk("ip_tables: (C) 2000-2002 Netfilter core team\n");
 	return 0;
 }
 

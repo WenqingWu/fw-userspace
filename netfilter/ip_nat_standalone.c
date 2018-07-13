@@ -40,7 +40,7 @@
 #include "../include/linux/kernel.h"
 
 #if 0
-#define DEBUGP printk
+// #define DEBUGP printk
 #else
 #define DEBUGP(format, args...)
 #endif
@@ -285,33 +285,33 @@ static int init_or_cleanup(int init)
 
 	ret = ip_nat_rule_init();
 	if (ret < 0) {
-		printk("ip_nat_init: can't setup rules.\n");
+//		printk("ip_nat_init: can't setup rules.\n");
 		goto cleanup_nothing;
 	}
 	ret = ip_nat_init();
 	if (ret < 0) {
-		printk("ip_nat_init: can't setup rules.\n");
+//		printk("ip_nat_init: can't setup rules.\n");
 		goto cleanup_rule_init;
 	}
 	ret = nf_register_hook(&ip_nat_in_ops);
 	if (ret < 0) {
-		printk("ip_nat_init: can't register in hook.\n");
+//		printk("ip_nat_init: can't register in hook.\n");
 		goto cleanup_nat;
 	}
 	ret = nf_register_hook(&ip_nat_out_ops);
 	if (ret < 0) {
-		printk("ip_nat_init: can't register out hook.\n");
+//		printk("ip_nat_init: can't register out hook.\n");
 		goto cleanup_inops;
 	}
 	ret = nf_register_hook(&ip_nat_local_out_ops);
 	if (ret < 0) {
-		printk("ip_nat_init: can't register local out hook.\n");
+//		printk("ip_nat_init: can't register local out hook.\n");
 		goto cleanup_outops;
 	}
 #ifdef CONFIG_IP_NF_NAT_LOCAL
 	ret = nf_register_hook(&ip_nat_local_in_ops);
 	if (ret < 0) {
-		printk("ip_nat_init: can't register local in hook.\n");
+//		printk("ip_nat_init: can't register local in hook.\n");
 		goto cleanup_localoutops;
 	}
 #endif

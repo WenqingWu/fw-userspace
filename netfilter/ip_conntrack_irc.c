@@ -68,8 +68,8 @@ DECLARE_LOCK(ip_irc_lock);
 struct module *ip_conntrack_irc = THIS_MODULE;
 
 #if 0
-#define DEBUGP(format, args...) printk(KERN_DEBUG __FILE__ ":" __FUNCTION__ \
-					":" format, ## args)
+// #define DEBUGP(format, args...) printk(KERN_DEBUG __FILE__ ":" __FUNCTION__ \
+// 					":" format, ## args)
 #else
 #define DEBUGP(format, args...)
 #endif
@@ -188,11 +188,11 @@ static int help(const struct iphdr *iph, size_t len,
 
 			if (ct->tuplehash[dir].tuple.src.ip != htonl(dcc_ip)) {
 				if (net_ratelimit())
-					printk(KERN_WARNING
-						"Forged DCC command from "
-						"%u.%u.%u.%u: %u.%u.%u.%u:%u\n",
-				NIPQUAD(ct->tuplehash[dir].tuple.src.ip),
-						HIPQUAD(dcc_ip), dcc_port);
+				// 	printk(KERN_WARNING
+				// 		"Forged DCC command from "
+				// 		"%u.%u.%u.%u: %u.%u.%u.%u:%u\n",
+				// NIPQUAD(ct->tuplehash[dir].tuple.src.ip),
+				// 		HIPQUAD(dcc_ip), dcc_port);
 
 				continue;
 			}
@@ -248,11 +248,11 @@ static int __init init(void)
 	char *tmpname;
 
 	if (max_dcc_channels < 1) {
-		printk("ip_conntrack_irc: max_dcc_channels must be a positive integer\n");
+//		printk("ip_conntrack_irc: max_dcc_channels must be a positive integer\n");
 		return -EBUSY;
 	}
 	if (dcc_timeout < 0) {
-		printk("ip_conntrack_irc: dcc_timeout must be a positive integer\n");
+//		printk("ip_conntrack_irc: dcc_timeout must be a positive integer\n");
 		return -EBUSY;
 	}
 	
@@ -286,8 +286,8 @@ static int __init init(void)
 		ret = ip_conntrack_helper_register(hlpr);
 
 		if (ret) {
-			printk("ip_conntrack_irc: ERROR registering port %d\n",
-				ports[i]);
+			// printk("ip_conntrack_irc: ERROR registering port %d\n",
+			// 	ports[i]);
 			fini();
 			return -EBUSY;
 		}

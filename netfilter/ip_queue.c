@@ -71,8 +71,8 @@ __ipq_enqueue_entry(struct ipq_queue_entry *entry)
 {
        if (queue_total >= queue_maxlen) {
                if (net_ratelimit()) 
-                       printk(KERN_WARNING "ip_queue: full at %d entries, "
-                              "dropping packet(s).\n", queue_total);
+                    //    printk(KERN_WARNING "ip_queue: full at %d entries, "
+                    //           "dropping packet(s).\n", queue_total);
                return -ENOSPC;
        }
        list_add(&entry->list, &queue_list);
@@ -262,7 +262,7 @@ nlmsg_failure:
 	if (skb)
 		kfree_skb(skb);
 	*errp = -EINVAL;
-	printk(KERN_ERR "ip_queue: error creating packet message\n");
+//	printk(KERN_ERR "ip_queue: error creating packet message\n");
 	return NULL;
 }
 
@@ -278,7 +278,7 @@ ipq_enqueue_packet(struct sk_buff *skb, struct nf_info *info, void *data)
 
 	entry = kmalloc(sizeof(*entry), GFP_ATOMIC);
 	if (entry == NULL) {
-		printk(KERN_ERR "ip_queue: OOM in ipq_enqueue_packet()\n");
+//		printk(KERN_ERR "ip_queue: OOM in ipq_enqueue_packet()\n");
 		return -ENOMEM;
 	}
 
@@ -343,8 +343,8 @@ ipq_mangle_ipv4(ipq_verdict_msg_t *v, struct ipq_queue_entry *e)
 			                         diff,
 			                         GFP_ATOMIC);
 			if (newskb == NULL) {
-				printk(KERN_WARNING "ip_queue: OOM "
-				      "in mangle, dropping packet\n");
+				// printk(KERN_WARNING "ip_queue: OOM "
+				//       "in mangle, dropping packet\n");
 				return -ENOMEM;
 			}
 			if (e->skb->sk)
@@ -642,7 +642,7 @@ init_or_cleanup(int init)
 	netlink_register_notifier(&ipq_nl_notifier);
 	ipqnl = netlink_kernel_create(NETLINK_FIREWALL, ipq_rcv_sk);
 	if (ipqnl == NULL) {
-		printk(KERN_ERR "ip_queue: failed to create netlink socket\n");
+//		printk(KERN_ERR "ip_queue: failed to create netlink socket\n");
 		goto cleanup_netlink_notifier;
 	}
 
@@ -650,7 +650,7 @@ init_or_cleanup(int init)
 	if (proc)
 		proc->owner = THIS_MODULE;
 	else {
-		printk(KERN_ERR "ip_queue: failed to create proc entry\n");
+//		printk(KERN_ERR "ip_queue: failed to create proc entry\n");
 		goto cleanup_ipqnl;
 	}
 	
@@ -659,7 +659,7 @@ init_or_cleanup(int init)
 	
 	status = nf_register_queue_handler(PF_INET, ipq_enqueue_packet, NULL);
 	if (status < 0) {
-		printk(KERN_ERR "ip_queue: failed to register queue handler\n");
+//		printk(KERN_ERR "ip_queue: failed to register queue handler\n");
 		goto cleanup_sysctl;
 	}
 	return status;

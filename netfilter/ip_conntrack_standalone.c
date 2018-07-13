@@ -28,9 +28,10 @@
 #include "../include/linux/netfilter_ipv4/listhelp.h"
 
 #include "../include/linux/kernel.h"
+#include "../include/linux/irq_cpustat.h"
 
 #if 0
-#define DEBUGP printk
+// #define DEBUGP printk
 #else
 #define DEBUGP(format, args...)
 #endif
@@ -221,7 +222,7 @@ static unsigned int ip_conntrack_local(unsigned int hooknum,
 	if ((*pskb)->len < sizeof(struct iphdr)
 	    || (*pskb)->nh.iph->ihl * 4 < sizeof(struct iphdr)) {
 		if (net_ratelimit())
-			printk("ipt_hook: happy cracking.\n");
+//			printk("ipt_hook: happy cracking.\n");
 		return NF_ACCEPT;
 	}
 	return ip_conntrack_in(hooknum, pskb, in, out, okfn);
@@ -258,22 +259,22 @@ static int init_or_cleanup(int init)
 
 	ret = nf_register_hook(&ip_conntrack_in_ops);
 	if (ret < 0) {
-		printk("ip_conntrack: can't register pre-routing hook.\n");
+//		printk("ip_conntrack: can't register pre-routing hook.\n");
 		goto cleanup_proc;
 	}
 	ret = nf_register_hook(&ip_conntrack_local_out_ops);
 	if (ret < 0) {
-		printk("ip_conntrack: can't register local out hook.\n");
+//		printk("ip_conntrack: can't register local out hook.\n");
 		goto cleanup_inops;
 	}
 	ret = nf_register_hook(&ip_conntrack_out_ops);
 	if (ret < 0) {
-		printk("ip_conntrack: can't register post-routing hook.\n");
+//		printk("ip_conntrack: can't register post-routing hook.\n");
 		goto cleanup_inandlocalops;
 	}
 	ret = nf_register_hook(&ip_conntrack_local_in_ops);
 	if (ret < 0) {
-		printk("ip_conntrack: can't register local in hook.\n");
+//		printk("ip_conntrack: can't register local in hook.\n");
 		goto cleanup_inoutandlocalops;
 	}
 

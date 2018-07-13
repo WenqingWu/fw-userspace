@@ -34,7 +34,8 @@
  * this is zero, but that sucks.  Now, we simply check when the
  * packets come back: if the hook is gone, the packet is discarded. */
 #ifdef CONFIG_NETFILTER_DEBUG
-#define NFDEBUG(format, args...)  printk(format , ## args)
+//#define NFDEBUG(format, args...)  printk(format , ## args)
+#define NFDEBUG(format, args...)
 #else
 #define NFDEBUG(format, args...)
 #endif
@@ -145,37 +146,37 @@ void nf_unregister_sockopt(struct nf_sockopt_ops *reg)
 static void debug_print_hooks_ip(unsigned int nf_debug)
 {
 	if (nf_debug & (1 << NF_IP_PRE_ROUTING)) {
-		printk("PRE_ROUTING ");
+//		printk("PRE_ROUTING ");
 		nf_debug ^= (1 << NF_IP_PRE_ROUTING);
 	}
 	if (nf_debug & (1 << NF_IP_LOCAL_IN)) {
-		printk("LOCAL_IN ");
+//		printk("LOCAL_IN ");
 		nf_debug ^= (1 << NF_IP_LOCAL_IN);
 	}
 	if (nf_debug & (1 << NF_IP_FORWARD)) {
-		printk("FORWARD ");
+//		printk("FORWARD ");
 		nf_debug ^= (1 << NF_IP_FORWARD);
 	}
 	if (nf_debug & (1 << NF_IP_LOCAL_OUT)) {
-		printk("LOCAL_OUT ");
+//		printk("LOCAL_OUT ");
 		nf_debug ^= (1 << NF_IP_LOCAL_OUT);
 	}
 	if (nf_debug & (1 << NF_IP_POST_ROUTING)) {
-		printk("POST_ROUTING ");
+//		printk("POST_ROUTING ");
 		nf_debug ^= (1 << NF_IP_POST_ROUTING);
 	}
 	if (nf_debug)
-		printk("Crap bits: 0x%04X", nf_debug);
-	printk("\n");
+	// 	printk("Crap bits: 0x%04X", nf_debug);
+	// printk("\n");
 }
 
 void nf_dump_skb(int pf, struct sk_buff *skb)
 {
-	printk("skb: pf=%i %s dev=%s len=%u\n", 
-	       pf,
-	       skb->sk ? "(owned)" : "(unowned)",
-	       skb->dev ? skb->dev->name : "(no dev)",
-	       skb->len);
+	// printk("skb: pf=%i %s dev=%s len=%u\n", 
+	//        pf,
+	//        skb->sk ? "(owned)" : "(unowned)",
+	//        skb->dev ? skb->dev->name : "(no dev)",
+	//        skb->len);
 	switch (pf) {
 	case PF_INET: {
 		const struct iphdr *ip = skb->nh.iph;
@@ -189,7 +190,7 @@ void nf_dump_skb(int pf, struct sk_buff *skb)
 			src_port = ntohs(tcp->source);
 			dst_port = ntohs(tcp->dest);
 		}
-	
+	#if 0
 		printk("PROTO=%d %u.%u.%u.%u:%hu %u.%u.%u.%u:%hu"
 		       " L=%hu S=0x%2.2hX I=%hu F=0x%4.4hX T=%hu",
 		       ip->protocol, NIPQUAD(ip->saddr),
@@ -197,10 +198,10 @@ void nf_dump_skb(int pf, struct sk_buff *skb)
 		       dst_port,
 		       ntohs(ip->tot_len), ip->tos, ntohs(ip->id),
 		       ntohs(ip->frag_off), ip->ttl);
-
+	#endif
 		for (opti = 0; opti < (ip->ihl - sizeof(struct iphdr) / 4); opti++)
-			printk(" O=0x%8.8X", *opt++);
-		printk("\n");
+		// 	printk(" O=0x%8.8X", *opt++);
+		// printk("\n");
 	}
 	}
 }
@@ -212,14 +213,14 @@ void nf_debug_ip_local_deliver(struct sk_buff *skb)
 	 * NF_IP_LOCAL_IN.  Otherwise, must have gone through
 	 * NF_IP_RAW_INPUT and NF_IP_PRE_ROUTING.  */
 	if (!skb->dev) {
-		printk("ip_local_deliver: skb->dev is NULL.\n");
+//		printk("ip_local_deliver: skb->dev is NULL.\n");
 	}
 	else if (strcmp(skb->dev->name, "lo") == 0) {
 		if (skb->nf_debug != ((1 << NF_IP_LOCAL_OUT)
 				      | (1 << NF_IP_POST_ROUTING)
 				      | (1 << NF_IP_PRE_ROUTING)
 				      | (1 << NF_IP_LOCAL_IN))) {
-			printk("ip_local_deliver: bad loopback skb: ");
+//			printk("ip_local_deliver: bad loopback skb: ");
 			debug_print_hooks_ip(skb->nf_debug);
 			nf_dump_skb(PF_INET, skb);
 		}
@@ -227,7 +228,7 @@ void nf_debug_ip_local_deliver(struct sk_buff *skb)
 	else {
 		if (skb->nf_debug != ((1<<NF_IP_PRE_ROUTING)
 				      | (1<<NF_IP_LOCAL_IN))) {
-			printk("ip_local_deliver: bad non-lo skb: ");
+	//		printk("ip_local_deliver: bad non-lo skb: ");
 			debug_print_hooks_ip(skb->nf_debug);
 			nf_dump_skb(PF_INET, skb);
 		}
@@ -238,7 +239,7 @@ void nf_debug_ip_loopback_xmit(struct sk_buff *newskb)
 {
 	if (newskb->nf_debug != ((1 << NF_IP_LOCAL_OUT)
 				 | (1 << NF_IP_POST_ROUTING))) {
-		printk("ip_dev_loopback_xmit: bad owned skb = %p: ", 
+	//	printk("ip_dev_loopback_xmit: bad owned skb = %p: ", 
 		       newskb);
 		debug_print_hooks_ip(newskb->nf_debug);
 		nf_dump_skb(PF_INET, newskb);
@@ -257,7 +258,7 @@ void nf_debug_ip_finish_output2(struct sk_buff *skb)
 	if (skb->sk) {
 		if (skb->nf_debug != ((1 << NF_IP_LOCAL_OUT)
 				      | (1 << NF_IP_POST_ROUTING))) {
-			printk("ip_finish_output: bad owned skb = %p: ", skb);
+	//		printk("ip_finish_output: bad owned skb = %p: ", skb);
 			debug_print_hooks_ip(skb->nf_debug);
 			nf_dump_skb(PF_INET, skb);
 		}
@@ -270,8 +271,8 @@ void nf_debug_ip_finish_output2(struct sk_buff *skb)
                            owners, but still may be local */
 			if (skb->nf_debug != ((1 << NF_IP_LOCAL_OUT)
 					      | (1 << NF_IP_POST_ROUTING))){
-				printk("ip_finish_output:"
-				       " bad unowned skb = %p: ",skb);
+				// printk("ip_finish_output:"
+				//        " bad unowned skb = %p: ",skb);
 				debug_print_hooks_ip(skb->nf_debug);
 				nf_dump_skb(PF_INET, skb);
 			}
@@ -422,8 +423,8 @@ static void nf_queue(struct sk_buff *skb,
 	info = kmalloc(sizeof(*info), GFP_ATOMIC);
 	if (!info) {
 		if (net_ratelimit())
-			printk(KERN_ERR "OOM queueing packet %p\n",
-			       skb);
+			// printk(KERN_ERR "OOM queueing packet %p\n",
+			//        skb);
 		kfree_skb(skb);
 		return;
 	}
@@ -473,7 +474,7 @@ int nf_hook_slow(int pf, unsigned int hook, struct sk_buff *skb,
 
 #ifdef CONFIG_NETFILTER_DEBUG
 	if (skb->nf_debug & (1 << hook)) {
-		printk("nf_hook: hook %i already set.\n", hook);
+	//	printk("nf_hook: hook %i already set.\n", hook);
 		nf_dump_skb(pf, skb);
 	}
 	skb->nf_debug |= (1 << hook);
@@ -582,16 +583,16 @@ int ip_route_me_harder(struct sk_buff **pskb)
 		key.src = 0;
 
 	if ((err=ip_route_output_key(&rt, &key)) != 0) {
-		printk("route_me_harder: ip_route_output_key(dst=%u.%u.%u.%u, src=%u.%u.%u.%u, oif=%d, tos=0x%x, fwmark=0x%lx) error %d\n",
-			NIPQUAD(iph->daddr), NIPQUAD(iph->saddr),
-			(*pskb)->sk ? (*pskb)->sk->bound_dev_if : 0,
-			RT_TOS(iph->tos)|RTO_CONN,
-#ifdef CONFIG_IP_ROUTE_FWMARK
-			(*pskb)->nfmark,
-#else
-			0UL,
-#endif
-			err);
+// 		printk("route_me_harder: ip_route_output_key(dst=%u.%u.%u.%u, src=%u.%u.%u.%u, oif=%d, tos=0x%x, fwmark=0x%lx) error %d\n",
+// 			NIPQUAD(iph->daddr), NIPQUAD(iph->saddr),
+// 			(*pskb)->sk ? (*pskb)->sk->bound_dev_if : 0,
+// 			RT_TOS(iph->tos)|RTO_CONN,
+// #ifdef CONFIG_IP_ROUTE_FWMARK
+// 			(*pskb)->nfmark,
+// #else
+// 			0UL,
+// #endif
+// 			err);
 		goto out;
 	}
 

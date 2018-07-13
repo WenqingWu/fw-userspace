@@ -34,9 +34,10 @@
 #include "../include/linux/netfilter_ipv4/ip_nat_helper.h"
 #include "../include/linux/netfilter_ipv4/listhelp.h"
 
+#include "../include/linux/irq_cpustat.h"
+#include "../include/linux/kernel.h"
+
 #if 0
-#define DEBUGP printk
-#define DUMP_OFFSET(x)	printk("offset_before=%d, offset_after=%d, correction_pos=%u\n", x->offset_before, x->offset_after, x->correction_pos);
 #else
 #define DEBUGP(format, args...)
 #define DUMP_OFFSET(x)
@@ -75,7 +76,7 @@ ip_nat_resize_packet(struct sk_buff **skb,
 					 GFP_ATOMIC);
 
 		if (!newskb) {
-			printk("ip_nat_resize_packet: oom\n");
+//			printk("ip_nat_resize_packet: oom\n");
 			return 0;
 		} else {
 			kfree_skb(*skb);
@@ -140,14 +141,14 @@ ip_nat_mangle_tcp_packet(struct sk_buff **skb,
 
 	if (newlen > 65535) {
 		if (net_ratelimit())
-			printk("ip_nat_mangle_tcp_packet: nat'ed packet "
-				"exceeds maximum packet size\n");
+			// printk("ip_nat_mangle_tcp_packet: nat'ed packet "
+			// 	"exceeds maximum packet size\n");
 		return 0;
 	}
 
 	if ((*skb)->len != newlen) {
 		if (!ip_nat_resize_packet(skb, ct, ctinfo, newlen)) {
-			printk("resize_packet failed!!\n");
+//			printk("resize_packet failed!!\n");
 			return 0;
 		}
 	}
@@ -158,7 +159,7 @@ ip_nat_mangle_tcp_packet(struct sk_buff **skb,
 		struct sk_buff *nskb = skb_copy(*skb, GFP_ATOMIC);
 		if (!nskb) {
 			if (net_ratelimit())
-				printk("Out of memory cloning TCP packet\n");
+//				printk("Out of memory cloning TCP packet\n");
 			return 0;
 		}
 		/* Rest of kernel will get very unhappy if we pass it
@@ -395,13 +396,13 @@ int ip_nat_helper_register(struct ip_nat_helper *me)
 			    && ct_helper->me) {
 				__MOD_INC_USE_COUNT(ct_helper->me);
 			} else {
-				printk("unable to load module %s\n", name);
+//				printk("unable to load module %s\n", name);
 				return -EBUSY;
 			}
 #else
-			printk("unable to load module %s automatically "
-			       "because kernel was compiled without kernel "
-			       "module loader support\n", name);
+			// printk("unable to load module %s automatically "
+			//        "because kernel was compiled without kernel "
+			//        "module loader support\n", name);
 			return -EBUSY;
 #endif
 		}

@@ -391,7 +391,7 @@ static unsigned char asn1_octets_decode(struct asn1_ctx *ctx,
 	*octets = kmalloc(eoc - ctx->pointer, GFP_ATOMIC);
 	if (*octets == NULL) {
 		if (net_ratelimit())
-			printk("OOM in bsalg (%d)\n", __LINE__);
+//			printk("OOM in bsalg (%d)\n", __LINE__);
 		return 0;
 	}
 	
@@ -437,7 +437,7 @@ static unsigned char asn1_oid_decode(struct asn1_ctx *ctx,
 	*oid = kmalloc(size * sizeof(unsigned long), GFP_ATOMIC);
 	if (*oid == NULL) {
 		if (net_ratelimit())
-			printk("OOM in bsalg (%d)\n", __LINE__);
+//			printk("OOM in bsalg (%d)\n", __LINE__);
 		return 0;
 	}
 	
@@ -713,7 +713,7 @@ static unsigned char snmp_object_decode(struct asn1_ctx *ctx,
 			if (*obj == NULL) {
 				kfree(id);
 				if (net_ratelimit())
-					printk("OOM in bsalg (%d)\n", __LINE__);
+//					printk("OOM in bsalg (%d)\n", __LINE__);
 				return 0;
 			}
 			(*obj)->syntax.l[0] = l;
@@ -729,7 +729,7 @@ static unsigned char snmp_object_decode(struct asn1_ctx *ctx,
 			if (*obj == NULL) {
 				kfree(id);
 				if (net_ratelimit())
-					printk("OOM in bsalg (%d)\n", __LINE__);
+//					printk("OOM in bsalg (%d)\n", __LINE__);
 				return 0;
 			}
 			memcpy((*obj)->syntax.c, p, len);
@@ -744,7 +744,7 @@ static unsigned char snmp_object_decode(struct asn1_ctx *ctx,
 			if (*obj == NULL) {
 				kfree(id);
 				if (net_ratelimit())
-					printk("OOM in bsalg (%d)\n", __LINE__);
+//					printk("OOM in bsalg (%d)\n", __LINE__);
 				return 0;
 			}
 			if (!asn1_null_decode(ctx, end)) {
@@ -764,7 +764,7 @@ static unsigned char snmp_object_decode(struct asn1_ctx *ctx,
 			if (*obj == NULL) {
 				kfree(id);
 				if (net_ratelimit())
-					printk("OOM in bsalg (%d)\n", __LINE__);
+//					printk("OOM in bsalg (%d)\n", __LINE__);
 				return 0;
 			}
 			memcpy((*obj)->syntax.ul, lp, len);
@@ -785,7 +785,7 @@ static unsigned char snmp_object_decode(struct asn1_ctx *ctx,
 				kfree(p);
 				kfree(id);
 				if (net_ratelimit())
-					printk("OOM in bsalg (%d)\n", __LINE__);
+//					printk("OOM in bsalg (%d)\n", __LINE__);
 				return 0;
 			}
 			memcpy((*obj)->syntax.uc, p, len);
@@ -803,7 +803,7 @@ static unsigned char snmp_object_decode(struct asn1_ctx *ctx,
 			if (*obj == NULL) {
 				kfree(id);
 				if (net_ratelimit())
-					printk("OOM in bsalg (%d)\n", __LINE__);
+//					printk("OOM in bsalg (%d)\n", __LINE__);
 				return 0;
 			}
 			(*obj)->syntax.ul[0] = ul;
@@ -939,7 +939,7 @@ err_addr_free:
  *
  * Misc. routines
  *
- *****************************************************************************/
+ ****************************************************************************  */
 
 static void hex_dump(unsigned char *buf, size_t len)
 {
@@ -947,10 +947,10 @@ static void hex_dump(unsigned char *buf, size_t len)
 	
 	for (i = 0; i < len; i++) {
 		if (i && !(i % 16))
-			printk("\n");
-		printk("%02x ", *(buf + i));
+		// 	printk("\n");
+		// printk("%02x ", *(buf + i));
 	}
-	printk("\n");
+//	printk("\n");
 }
 
 /* 
@@ -1019,8 +1019,8 @@ static void inline mangle_address(unsigned char *begin,
 		}
 		
 		if (debug)
-			printk(KERN_DEBUG "bsalg: mapped %u.%u.%u.%u to "
-			       "%u.%u.%u.%u\n", NIPQUAD(old), NIPQUAD(*addr));
+			// printk(KERN_DEBUG "bsalg: mapped %u.%u.%u.%u to "
+			//        "%u.%u.%u.%u\n", NIPQUAD(old), NIPQUAD(*addr));
 	}
 }
 
@@ -1062,7 +1062,7 @@ static int snmp_parse_mangle(unsigned char *msg,
 	if (!asn1_uint_decode (&ctx, end, &vers))
 		return 0;
 	if (debug > 1)
-		printk(KERN_DEBUG "bsalg: snmp version: %u\n", vers + 1);
+//		printk(KERN_DEBUG "bsalg: snmp version: %u\n", vers + 1);
 	if (vers > 1)
 		return 1;
 	
@@ -1078,10 +1078,10 @@ static int snmp_parse_mangle(unsigned char *msg,
 	if (debug > 1) {
 		unsigned int i;
 		
-		printk(KERN_DEBUG "bsalg: community: ");
+		// printk(KERN_DEBUG "bsalg: community: ");
 		for (i = 0; i < comm.len; i++)
-			printk("%c", comm.data[i]);
-		printk("\n");
+		// 	printk("%c", comm.data[i]);
+		// printk("\n");
 	}
 	kfree(comm.data);
 	
@@ -1105,9 +1105,9 @@ static int snmp_parse_mangle(unsigned char *msg,
 		};
 		
 		if (pdutype > SNMP_PDU_TRAP2)
-			printk(KERN_DEBUG "bsalg: bad pdu type %u\n", pdutype);
+//			printk(KERN_DEBUG "bsalg: bad pdu type %u\n", pdutype);
 		else
-			printk(KERN_DEBUG "bsalg: pdu: %s\n", pdus[pdutype]);
+//			printk(KERN_DEBUG "bsalg: pdu: %s\n", pdus[pdutype]);
 	}
 	if (pdutype != SNMP_PDU_RESPONSE &&
 	    pdutype != SNMP_PDU_TRAP1 && pdutype != SNMP_PDU_TRAP2)
@@ -1134,7 +1134,7 @@ static int snmp_parse_mangle(unsigned char *msg,
 			return 0;
 			
 		if (debug > 1)
-			printk(KERN_DEBUG "bsalg: request: id=0x%lx error_status=%u "
+//			printk(KERN_DEBUG "bsalg: request: id=0x%lx error_status=%u "
 			"error_index=%u\n", req.id, req.error_status,
 			req.error_index);
 	}
@@ -1151,7 +1151,7 @@ static int snmp_parse_mangle(unsigned char *msg,
 	obj = kmalloc(sizeof(struct snmp_object), GFP_ATOMIC);
 	if (obj == NULL) {
 		if (net_ratelimit())
-			printk(KERN_WARNING "OOM in bsalg(%d)\n", __LINE__);
+//			printk(KERN_WARNING "OOM in bsalg(%d)\n", __LINE__);
 		return 0;	
 	}
 
@@ -1169,13 +1169,13 @@ static int snmp_parse_mangle(unsigned char *msg,
 		}
 
 		if (debug > 1) {
-			printk(KERN_DEBUG "bsalg: object: ");
+	//		printk(KERN_DEBUG "bsalg: object: ");
 			for (i = 0; i < (*obj)->id_len; i++) {
 				if (i > 0)
-					printk(".");
-				printk("%lu", (*obj)->id[i]);
+				// 	printk(".");
+				// printk("%lu", (*obj)->id[i]);
 			}
-			printk(": type=%u\n", (*obj)->type);
+//			printk(": type=%u\n", (*obj)->type);
 			
 		}
 
@@ -1234,7 +1234,7 @@ static int snmp_translate(struct ip_conntrack *ct,
 	
 	if (!snmp_parse_mangle((unsigned char *)udph + sizeof(struct udphdr),
 	                       paylen, &map, &udph->check)) {
-		printk(KERN_WARNING "bsalg: parser failed\n");
+//		printk(KERN_WARNING "bsalg: parser failed\n");
 		return NF_DROP;
 	}
 	return NF_ACCEPT;
@@ -1269,20 +1269,20 @@ static unsigned int nat_help(struct ip_conntrack *ct,
 	}
 
 	if (debug > 1) {
-		printk(KERN_DEBUG "bsalg: dir=%s hook=%d manip=%s len=%d "
-		       "src=%u.%u.%u.%u:%u dst=%u.%u.%u.%u:%u "
-		       "osrc=%u.%u.%u.%u odst=%u.%u.%u.%u "
-		       "rsrc=%u.%u.%u.%u rdst=%u.%u.%u.%u "
-		       "\n", 
-		       dir == IP_CT_DIR_REPLY ? "reply" : "orig", hooknum, 
-		       HOOK2MANIP(hooknum) == IP_NAT_MANIP_SRC ? "snat" :
-		       "dnat", (*pskb)->len,
-		       NIPQUAD(iph->saddr), ntohs(udph->source),
-		       NIPQUAD(iph->daddr), ntohs(udph->dest),
-		       NIPQUAD(ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple.src.ip),
-		       NIPQUAD(ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple.dst.ip),
-		       NIPQUAD(ct->tuplehash[IP_CT_DIR_REPLY].tuple.src.ip),
-		       NIPQUAD(ct->tuplehash[IP_CT_DIR_REPLY].tuple.dst.ip));
+		// printk(KERN_DEBUG "bsalg: dir=%s hook=%d manip=%s len=%d "
+		//        "src=%u.%u.%u.%u:%u dst=%u.%u.%u.%u:%u "
+		//        "osrc=%u.%u.%u.%u odst=%u.%u.%u.%u "
+		//        "rsrc=%u.%u.%u.%u rdst=%u.%u.%u.%u "
+		//        "\n", 
+		//        dir == IP_CT_DIR_REPLY ? "reply" : "orig", hooknum, 
+		//        HOOK2MANIP(hooknum) == IP_NAT_MANIP_SRC ? "snat" :
+		//        "dnat", (*pskb)->len,
+		//        NIPQUAD(iph->saddr), ntohs(udph->source),
+		//        NIPQUAD(iph->daddr), ntohs(udph->dest),
+		//        NIPQUAD(ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple.src.ip),
+		//        NIPQUAD(ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple.dst.ip),
+		//        NIPQUAD(ct->tuplehash[IP_CT_DIR_REPLY].tuple.src.ip),
+		//        NIPQUAD(ct->tuplehash[IP_CT_DIR_REPLY].tuple.dst.ip));
 	}
 	
 	/* 
@@ -1298,9 +1298,9 @@ static unsigned int nat_help(struct ip_conntrack *ct,
 	}
 	
 	if (net_ratelimit())
-		printk(KERN_WARNING "bsalg: dropping malformed packet "
-		       "src=%u.%u.%u.%u dst=%u.%u.%u.%u\n",
-		       NIPQUAD(iph->saddr), NIPQUAD(iph->daddr));
+		// printk(KERN_WARNING "bsalg: dropping malformed packet "
+		//        "src=%u.%u.%u.%u dst=%u.%u.%u.%u\n",
+		//        NIPQUAD(iph->saddr), NIPQUAD(iph->daddr));
 	spin_unlock_bh(&snmp_lock);
 	return NF_DROP;
 }

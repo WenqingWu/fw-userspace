@@ -51,7 +51,7 @@
 #define IP_CONNTRACK_VERSION	"2.1"
 
 #if 0
-#define DEBUGP printk
+// #define DEBUGP printk
 #else
 #define DEBUGP(format, args...)
 #endif
@@ -136,8 +136,8 @@ get_tuple(const struct iphdr *iph, size_t len,
 
 	/* Never happen */
 	if (iph->frag_off & htons(IP_OFFSET)) {
-		printk("ip_conntrack_core: Frag of proto %u.\n",
-		       iph->protocol);
+		// printk("ip_conntrack_core: Frag of proto %u.\n",
+		//        iph->protocol);
 		return 0;
 	}
 	/* Guarantee 8 protocol bytes: if more wanted, use len param */
@@ -654,9 +654,9 @@ init_conntrack(const struct ip_conntrack_tuple *tuple,
 		if (!early_drop(&ip_conntrack_hash[next])
 		    && !early_drop(&ip_conntrack_hash[hash])) {
 			if (net_ratelimit())
-				printk(KERN_WARNING
-				       "ip_conntrack: table full, dropping"
-				       " packet.\n");
+				// printk(KERN_WARNING
+				//        "ip_conntrack: table full, dropping"
+				//        " packet.\n");
 			return ERR_PTR(-ENOMEM);
 		}
 	}
@@ -809,17 +809,6 @@ unsigned int ip_conntrack_in(unsigned int hooknum,
 
 /* Doesn't cover locally-generated broadcast, so not worth it. */
 #if 0
-	/* Ignore broadcast: no `connection'. */
-	if ((*pskb)->pkt_type == PACKET_BROADCAST) {
-		printk("Broadcast packet!\n");
-		return NF_ACCEPT;
-	} else if (((*pskb)->nh.iph->daddr & htonl(0x000000FF)) 
-		   == htonl(0x000000FF)) {
-		printk("Should bcast: %u.%u.%u.%u->%u.%u.%u.%u (sk=%p, ptype=%u)\n",
-		       NIPQUAD((*pskb)->nh.iph->saddr),
-		       NIPQUAD((*pskb)->nh.iph->daddr),
-		       (*pskb)->sk, (*pskb)->pkt_type);
-	}
 #endif
 
 	/* Previously seen (loopback)?  Ignore.  Do this before
@@ -971,6 +960,7 @@ int ip_conntrack_expect_related(struct ip_conntrack *related_to,
 		struct list_head *cur_item;
 		/* old == NULL */
 	    	if (net_ratelimit())
+			#if 0
 		    	printk(KERN_WARNING 
 		    	       "ip_conntrack: max number of expected "
 			       "connections %i of %s reached for "
@@ -981,6 +971,7 @@ int ip_conntrack_expect_related(struct ip_conntrack *related_to,
 		    	       NIPQUAD(related_to->tuplehash[IP_CT_DIR_ORIGINAL].tuple.dst.ip),
 		    	       related_to->helper->flags & IP_CT_HELPER_F_REUSE_EXPECT ?
 		    	       ", reusing" : "");
+			#endif
 		if (!(related_to->helper->flags & 
 		      IP_CT_HELPER_F_REUSE_EXPECT)) {
 			WRITE_UNLOCK(&ip_conntrack_lock);
@@ -1426,21 +1417,21 @@ int __init ip_conntrack_init(void)
 	}
 	ip_conntrack_max = 8 * ip_conntrack_htable_size;
 
-	printk("ip_conntrack version %s (%u buckets, %d max)"
-	       " - %ld bytes per conntrack\n", IP_CONNTRACK_VERSION,
-	       ip_conntrack_htable_size, ip_conntrack_max,
-	       sizeof(struct ip_conntrack));
+	// printk("ip_conntrack version %s (%u buckets, %d max)"
+	//        " - %ld bytes per conntrack\n", IP_CONNTRACK_VERSION,
+	//        ip_conntrack_htable_size, ip_conntrack_max,
+	//        sizeof(struct ip_conntrack));
 
 	ret = nf_register_sockopt(&so_getorigdst);
 	if (ret != 0) {
-		printk(KERN_ERR "Unable to register netfilter socket option\n");
+//		printk(KERN_ERR "Unable to register netfilter socket option\n");
 		return ret;
 	}
 
 	ip_conntrack_hash = vmalloc(sizeof(struct list_head)
 				    * ip_conntrack_htable_size);
 	if (!ip_conntrack_hash) {
-		printk(KERN_ERR "Unable to create ip_conntrack_hash\n");
+//		printk(KERN_ERR "Unable to create ip_conntrack_hash\n");
 		goto err_unreg_sockopt;
 	}
 
@@ -1448,7 +1439,7 @@ int __init ip_conntrack_init(void)
 	                                        sizeof(struct ip_conntrack), 0,
 	                                        SLAB_HWCACHE_ALIGN, NULL, NULL);
 	if (!ip_conntrack_cachep) {
-		printk(KERN_ERR "Unable to create ip_conntrack slab cache\n");
+//		printk(KERN_ERR "Unable to create ip_conntrack slab cache\n");
 		goto err_free_hash;
 	}
 	/* Don't NEED lock here, but good form anyway. */
