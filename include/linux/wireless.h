@@ -67,13 +67,13 @@
  * work in progress. Contact me if you have ideas of improvements...
  */
 
-/***************************** INCLUDES *****************************/
+/***************************** INCLUDES **************************** */
 
-#include <linux/types.h>		/* for "caddr_t" et al		*/
-#include <linux/socket.h>		/* for "struct sockaddr" et al	*/
-#include <linux/if.h>			/* for IFNAMSIZ and co... */
+#include "types.h"		/* for "caddr_t" et al		*/
+#include "socket.h"		/* for "struct sockaddr" et al	*/
+#include "if.h"			/* for IFNAMSIZ and co... */
 
-/***************************** VERSION *****************************/
+/***************************** VERSION **************************** */
 /*
  * This constant is used to know the availability of the wireless
  * extensions and to know which version of wireless extensions it is

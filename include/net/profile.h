@@ -1,16 +1,16 @@
-#include <linux/config.h> /* for CONFIG_NET_PROFILE */
+#include "../linux/config.h" /* for CONFIG_NET_PROFILE */
 #ifndef _NET_PROFILE_H_
 #define _NET_PROFILE_H_ 1
 
 #ifdef CONFIG_NET_PROFILE
 
-#include <linux/types.h>
-#include <linux/time.h>
-#include <linux/kernel.h>
-#include <asm/system.h>
+#include "../linux/types.h"
+#include "../linux/time.h"
+#include "../linux/kernel.h"
+#include "../asm/system.h"
 
 #ifdef CONFIG_X86_TSC
-#include <asm/msr.h>
+#include "../asm/msr.h"
 #endif
 
 struct net_profile_slot

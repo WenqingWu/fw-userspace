@@ -52,7 +52,14 @@
         "mutex": "cpp",
         "irq_cpustat.h": "c",
         "sdladrv.h": "c",
-        "checksum.h": "c"
+        "checksum.h": "c",
+        "profile.h": "c",
+        "divert.h": "c",
+        "etherdevice.h": "c",
+        "wireless.h": "c",
+        "iw_handler.h": "c",
+        "mman.h": "c",
+        "highuid.h": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }

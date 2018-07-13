@@ -195,11 +195,11 @@
  * That's a feature. Comments won't bloat the resulting kernel binary.
  */
 
-/***************************** INCLUDES *****************************/
+/***************************** INCLUDES **************************** */
 
-#include <linux/wireless.h>		/* IOCTL user space API */
+#include "../linux/wireless.h"		/* IOCTL user space API */
 
-/***************************** VERSION *****************************/
+/***************************** VERSION **************************** */
 /*
  * This constant is used to know which version of the driver API is
  * available. Hopefully, this will be pretty stable and no changes

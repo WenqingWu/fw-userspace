@@ -24,9 +24,12 @@
 #ifndef _LINUX_ETHERDEVICE_H
 #define _LINUX_ETHERDEVICE_H
 
-#include <linux/if_ether.h>
+#include "if_ether.h"
 
-#ifdef __KERNEL__
+#include "skbuff.h"
+#include "netdevice.h"
+
+//#ifdef __KERNEL__
 extern int		eth_header(struct sk_buff *skb, struct net_device *dev,
 				   unsigned short type, void *daddr,
 				   void *saddr, unsigned len);
@@ -63,6 +66,6 @@ static inline int is_valid_ether_addr( u8 *addr )
 	return !(addr[0]&1) && memcmp( addr, zaddr, 6);
 }
 
-#endif
+//#endif
 
 #endif	/* _LINUX_ETHERDEVICE_H */

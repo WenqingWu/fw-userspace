@@ -9,7 +9,7 @@
 #ifndef _LINUX_DIVERT_H
 #define _LINUX_DIVERT_H
 
-#include <asm/types.h>
+#include "../asm/types.h"
 
 #define	MAX_DIVERT_PORTS	8	/* Max number of ports to divert (tcp, udp) */
 
@@ -103,15 +103,15 @@ struct divert_cf
 #define DIVARG1_REMOVE			3 /* REMOVE something */
 
 
-#ifdef __KERNEL__
+//#ifdef __KERNEL__
 
 /* diverter functions */
-#include <linux/skbuff.h>
+#include "skbuff.h"
 int alloc_divert_blk(struct net_device *);
 void free_divert_blk(struct net_device *);
 int divert_ioctl(unsigned int cmd, struct divert_cf *arg);
 void divert_frame(struct sk_buff *skb);
 
-#endif 
+//#endif 
 
 #endif	/* _LINUX_DIVERT_H */
