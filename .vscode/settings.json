@@ -51,7 +51,8 @@
         "memory": "cpp",
         "mutex": "cpp",
         "irq_cpustat.h": "c",
-        "sdladrv.h": "c"
+        "sdladrv.h": "c",
+        "checksum.h": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }
