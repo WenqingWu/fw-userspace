@@ -5,13 +5,14 @@
 struct task_struct;
 
 #include "pda.h"
+#include "page.h"
 
 static inline struct task_struct *get_current(void) 
 { 
 	// struct task_struct *t = read_pda(pcurrent); 
 	// return t;
 	struct task_struct *current;
-	__asm__("andq %%esp,%0; ":"=r" (current) : "0" (~8191UL));
+	__asm__("andq %%rsp,%0; ":"=r" (current) : "0" (~8191UL));
 
 	return current;
 } 
@@ -20,8 +21,7 @@ static inline struct task_struct *get_current(void)
 static inline struct task_struct *stack_current(void)
 {
 	struct task_struct *current;
-	__asm__("andq %%rsp,%0; ":"=r" (current) 
-		: "0" (~(unsigned long)(THREAD_SIZE-1)));
+	__asm__("andq %%rsp,%0; ":"=r" (current) : "0" (~(unsigned long)(THREAD_SIZE-1)));
 	return current;
 }
 
