@@ -117,14 +117,12 @@ struct ip_nat_info
 };
 
 /* Set up the info structure to map into this range. */
-//extern unsigned int ip_nat_setup_info(struct ip_conntrack *conntrack,
-static unsigned int ip_nat_setup_info(struct ip_conntrack *conntrack,
+extern unsigned int ip_nat_setup_info(struct ip_conntrack *conntrack,
 				      const struct ip_nat_multi_range *mr,
 				      unsigned int hooknum);
 
 /* Is this tuple already taken? (not by us)*/
-//extern int ip_nat_used_tuple(const struct ip_conntrack_tuple *tuple,
-static int ip_nat_used_tuple(const struct ip_conntrack_tuple *tuple,
+extern int ip_nat_used_tuple(const struct ip_conntrack_tuple *tuple,
 			     const struct ip_conntrack *ignored_conntrack);
 
 /* Calculate relative checksum. */

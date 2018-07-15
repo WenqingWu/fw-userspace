@@ -27,7 +27,7 @@ static int loose = 0;
 MODULE_PARM(loose, "i");
 
 #if 0
-#define DEBUGP printk
+//#define DEBUGP printk
 #else
 #define DEBUGP(format, args...)
 #endif
@@ -326,9 +326,9 @@ static int help(const struct iphdr *iph, size_t len,
 		   However, it is neccessary for accurate tracking in
 		   this case. */
 		if (net_ratelimit())
-			printk("conntrack_ftp: partial %s %lu+%u\n",
-			       search[i].pattern,
-			       ntohl(tcph->seq), datalen);
+			// printk("conntrack_ftp: partial %s %lu+%u\n",
+			//        search[i].pattern,
+			//        ntohl(tcph->seq), datalen);
 		return NF_DROP;
 	} else if (found == 0) /* No match */
 		return NF_ACCEPT;
