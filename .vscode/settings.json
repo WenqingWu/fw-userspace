@@ -60,7 +60,8 @@
         "iw_handler.h": "c",
         "mman.h": "c",
         "highuid.h": "c",
-        "kernel_stat.h": "c"
+        "kernel_stat.h": "c",
+        "mroute.h": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }

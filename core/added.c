@@ -15,6 +15,45 @@
 #include "../include/linux/init.h"
 #include "../include/linux/tqueue.h"
 
+/* ip_finish_output() */
+#include "../include/asm/uaccess.h"
+#include "../include/asm/system.h"
+#include "../include/linux/types.h"
+#include "../include/linux/kernel.h"
+#include "../include/linux/sched.h"
+#include "../include/linux/mm.h"
+#include "../include/linux/string.h"
+#include "../include/linux/errno.h"
+#include "../include/linux/config.h"
+
+#include "../include/linux/socket.h"
+#include "../include/linux/sockios.h"
+#include "../include/linux/in.h"
+#include "../include/linux/inet.h"
+#include "../include/linux/netdevice.h"
+#include "../include/linux/etherdevice.h"
+#include "../include/linux/proc_fs.h"
+#include "../include/linux/stat.h"
+#include "../include/linux/init.h"
+
+#include "../include/net/snmp.h"
+#include "../include/net/ip.h"
+#include "../include/net/protocol.h"
+#include "../include/net/route.h"
+#include "../include/net/tcp.h"
+#include "../include/net/udp.h"
+#include "../include/linux/skbuff.h"
+#include "../include/net/sock.h"
+#include "../include/net/arp.h"
+#include "../include/net/icmp.h"
+#include "../include/net/raw.h"
+#include "../include/net/checksum.h"
+#include "../include/net/inetpeer.h"
+#include "../include/linux/igmp.h"
+#include "../include/linux/netfilter_ipv4.h"
+#include "../include/linux/mroute.h"
+#include "../include/linux/netlink.h"
+
 static struct softirq_action softirq_vec[32];
 
 #define CHECK_PAGE(pg)	do { } while (0)
@@ -294,4 +333,39 @@ restart:
 	}
 
 	local_irq_restore(flags);
+}
+
+static inline int ip_finish_output2(struct sk_buff *skb)
+{
+	struct dst_entry *dst = skb->dst;
+	struct hh_cache *hh = dst->hh;
+
+#ifdef CONFIG_NETFILTER_DEBUG
+	nf_debug_ip_finish_output2(skb);
+#endif /*CONFIG_NETFILTER_DEBUG*/
+
+	if (hh) {
+		read_lock_bh(&hh->hh_lock);
+  		memcpy(skb->data - 16, hh->hh_data, 16);
+		read_unlock_bh(&hh->hh_lock);
+	        skb_push(skb, hh->hh_len);
+		return hh->hh_output(skb);
+	} else if (dst->neighbour)
+		return dst->neighbour->output(skb);
+
+	if (net_ratelimit())
+		printk(KERN_DEBUG "ip_finish_output2: No header cache and no neighbour!\n");
+	kfree_skb(skb);
+	return -EINVAL;
+}
+
+__inline__ int ip_finish_output(struct sk_buff *skb)
+{
+	struct net_device *dev = skb->dst->dev;
+
+	skb->dev = dev;
+	skb->protocol = htons(ETH_P_IP);
+
+	return NF_HOOK(PF_INET, NF_IP_POST_ROUTING, skb, NULL, dev,
+		       ip_finish_output2);
 }
