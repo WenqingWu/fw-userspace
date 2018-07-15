@@ -143,7 +143,6 @@ obj-y += arptable_filter.o
 # # obj-$(CONFIG_IP_NF_COMPAT_IPFWADM) += ipfwadm.o
 
 # obj-$(CONFIG_IP_NF_QUEUE) += ip_queue.o
-obj-y += ip_queue.o
 
 # include ../Rules.make
 

@@ -117,8 +117,8 @@ static unsigned int ipt_mirror_target(struct sk_buff **pskb,
 			if (iph->ttl <= 1) {
 				/* this will traverse normal stack, and 
 				 * thus call conntrack on the icmp packet */
-				icmp_send(*pskb, ICMP_TIME_EXCEEDED, 
-					  ICMP_EXC_TTL, 0);
+				// icmp_send(*pskb, ICMP_TIME_EXCEEDED, 
+				// 	  ICMP_EXC_TTL, 0);
 				return NF_DROP;
 			}
 			ip_decrease_ttl(iph);

@@ -58,6 +58,36 @@
 /* copy_to/from_user() */
 #include "../include/asm/uaccess.h"
 
+/* __brlock_array __br_write_block  */
+#include "../include/linux/brlock.h"
+#include "../include/linux/smp.h"
+
+/* kfree_skb() */
+#include "../include/linux/skbuff.h"
+
+#include "../include/linux/kernel.h"
+#include "../include/linux/major.h"
+#include "../include/linux/signal.h"
+#include "../include/linux/errno.h"
+#include "../include/linux/stat.h"
+#include "../include/linux/un.h"
+#include "../include/linux/fcntl.h"
+#include "../include/linux/termios.h"
+#include "../include/linux/sockios.h"
+#include "../include/linux/net.h"
+#include "../include/linux/fs.h"
+#include "../include/linux/slab.h"
+#include "../include/linux/rtnetlink.h"
+#include "../include/linux/proc_fs.h"
+#include "../include/net/scm.h"
+
+/* mem_map */
+mem_map_t * mem_map;
+
+int smp_num_cpus = 1;		/* Number that came online.  */
+
+unsigned long volatile jiffies;
+
 #define memcpy_tofs memcpy
 #define memcpy_fromfs memcpy
 
@@ -66,6 +96,7 @@ rwlock_t notifier_lock = RW_LOCK_UNLOCKED;
  *	Our notifier list
  */
 static struct notifier_block *netdev_chain=NULL;
+
 
 static struct softirq_action softirq_vec[32];
 
@@ -291,7 +322,7 @@ void vfree(void * addr)
 	if (!addr)
 		return;
 	if ((PAGE_SIZE-1) & (unsigned long) addr) {
-		printk(KERN_ERR "Trying to vfree() bad address (%p)\n", addr);
+//		printk(KERN_ERR "Trying to vfree() bad address (%p)\n", addr);
 		return;
 	}
 	write_lock(&vmlist_lock);
@@ -493,4 +524,158 @@ unsigned long copy_to_user(void *to_user, const void *from, unsigned len)
 		return len;
 	memcpy_tofs(to_user, from, len);
 	return 0;
+}
+
+#ifdef CONFIG_SMP
+
+
+#ifdef __BRLOCK_USE_ATOMICS
+
+brlock_read_lock_t __brlock_array[NR_CPUS][__BR_IDX_MAX] =
+   { [0 ... NR_CPUS-1] = { [0 ... __BR_IDX_MAX-1] = RW_LOCK_UNLOCKED } };
+
+void __br_write_lock (enum brlock_indices idx)
+{
+	int i;
+
+	for (i = 0; i < smp_num_cpus; i++)
+		write_lock(&__brlock_array[cpu_logical_map(i)][idx]);
+}
+
+void __br_write_unlock (enum brlock_indices idx)
+{
+	int i;
+
+	for (i = 0; i < smp_num_cpus; i++)
+		write_unlock(&__brlock_array[cpu_logical_map(i)][idx]);
+}
+
+#else /* ! __BRLOCK_USE_ATOMICS */
+
+brlock_read_lock_t __brlock_array[NR_CPUS][__BR_IDX_MAX] =
+   { [0 ... NR_CPUS-1] = { [0 ... __BR_IDX_MAX-1] = 0 } };
+
+struct br_wrlock __br_write_locks[__BR_IDX_MAX] =
+   { [0 ... __BR_IDX_MAX-1] = { SPIN_LOCK_UNLOCKED } };
+
+void __br_write_lock (enum brlock_indices idx)
+{
+	int i;
+
+again:
+	spin_lock(&__br_write_locks[idx].lock);
+	for (i = 0; i < smp_num_cpus; i++)
+		if (__brlock_array[cpu_logical_map(i)][idx] != 0) {
+			spin_unlock(&__br_write_locks[idx].lock);
+			barrier();
+			cpu_relax();
+			goto again;
+		}
+}
+
+void __br_write_unlock (enum brlock_indices idx)
+{
+	spin_unlock(&__br_write_locks[idx].lock);
+}
+
+#endif /* __BRLOCK_USE_ATOMICS */
+
+#endif /* CONFIG_SMP */
+
+/*
+ *	Slab constructor for a skb head. 
+ */ 
+static inline void skb_headerinit(void *p, kmem_cache_t *cache, 
+				  unsigned long flags)
+{
+	struct sk_buff *skb = p;
+
+	skb->next = NULL;
+	skb->prev = NULL;
+	skb->list = NULL;
+	skb->sk = NULL;
+	skb->stamp.tv_sec=0;	/* No idea about time */
+	skb->dev = NULL;
+	skb->dst = NULL;
+	memset(skb->cb, 0, sizeof(skb->cb));
+	skb->pkt_type = PACKET_HOST;	/* Default type */
+	skb->ip_summed = 0;
+	skb->priority = 0;
+	skb->security = 0;	/* By default packets are insecure */
+	skb->destructor = NULL;
+
+#ifdef CONFIG_NETFILTER
+	skb->nfmark = skb->nfcache = 0;
+	skb->nfct = NULL;
+#ifdef CONFIG_NETFILTER_DEBUG
+	skb->nf_debug = 0;
+#endif
+#endif
+#ifdef CONFIG_NET_SCHED
+	skb->tc_index = 0;
+#endif
+}
+
+
+/**
+ *	__kfree_skb - private function 
+ *	@skb: buffer
+ *
+ *	Free an sk_buff. Release anything attached to the buffer. 
+ *	Clean the state. This is an internal helper function. Users should
+ *	always call kfree_skb
+ */
+void __kfree_skb(struct sk_buff *skb)
+{
+	if (skb->list) {
+	 	printk(KERN_WARNING "Warning: kfree_skb passed an skb still "
+		       "on a list (from %p).\n", NET_CALLER(skb));
+		BUG();
+	}
+
+	dst_release(skb->dst);
+	if(skb->destructor) {
+		if (in_irq()) {
+			printk(KERN_WARNING "Warning: kfree_skb on hard IRQ %p\n",
+				NET_CALLER(skb));
+		}
+		skb->destructor(skb);
+	}
+#ifdef CONFIG_NETFILTER
+	nf_conntrack_put(skb->nfct);
+#endif
+	skb_headerinit(skb, NULL, 0);  /* clean state */
+	kfree_skbmem(skb);
+}
+
+void skb_under_panic(struct sk_buff *skb, int sz, void *here)
+{
+        // printk("skput:under: %p:%d put:%d dev:%s",
+        //         here, skb->len, sz, skb->dev ? skb->dev->name : "<NULL>");
+	BUG();
+}
+
+
+void netlink_ack(struct sk_buff *in_skb, struct nlmsghdr *nlh, int err)
+{
+	struct sk_buff *skb;
+	struct nlmsghdr *rep;
+	struct nlmsgerr *errmsg;
+	int size;
+
+	if (err == 0)
+		size = NLMSG_SPACE(sizeof(struct nlmsgerr));
+	else
+		size = NLMSG_SPACE(4 + NLMSG_ALIGN(nlh->nlmsg_len));
+
+	skb = alloc_skb(size, GFP_KERNEL);
+	if (!skb)
+		return;
+
+	rep = __nlmsg_put(skb, NETLINK_CB(in_skb).pid, nlh->nlmsg_seq,
+			  NLMSG_ERROR, sizeof(struct nlmsgerr));
+	errmsg = NLMSG_DATA(rep);
+	errmsg->error = err;
+	memcpy(&errmsg->msg, nlh, err ? nlh->nlmsg_len : sizeof(struct nlmsghdr));
+	netlink_unicast(in_skb->sk, skb, NETLINK_CB(in_skb).pid, MSG_DONTWAIT);
 }
