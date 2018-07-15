@@ -24,6 +24,7 @@
 #include "../include/asm/semaphore.h"
 
 #include "../include/linux/netfilter_arp/arp_tables.h"
+#include "../include/linux/compatmac.h"
 
 /*#define DEBUG_ARP_TABLES*/
 /*#define DEBUG_ARP_TABLES_USER*/

@@ -7,24 +7,22 @@
 #include	"../include/linux/seq_file.h"
 #include	"../include/asm/uaccess.h"
 
+/* vfree()  */
+#include "../include/linux/vmalloc.h"
+
 /* do_softirq_thunk()  */
 #include "../include/linux/mm.h"
 #include "../include/linux/kernel_stat.h"
-#include "../include/linux/interrupt.h"
 #include "../include/linux/smp_lock.h"
-#include "../include/linux/init.h"
 #include "../include/linux/tqueue.h"
 
 /* ip_finish_output() */
-#include "../include/asm/uaccess.h"
 #include "../include/asm/system.h"
 #include "../include/linux/types.h"
 #include "../include/linux/kernel.h"
 #include "../include/linux/sched.h"
-#include "../include/linux/mm.h"
 #include "../include/linux/string.h"
 #include "../include/linux/errno.h"
-#include "../include/linux/config.h"
 
 #include "../include/linux/socket.h"
 #include "../include/linux/sockios.h"
@@ -34,7 +32,6 @@
 #include "../include/linux/etherdevice.h"
 #include "../include/linux/proc_fs.h"
 #include "../include/linux/stat.h"
-#include "../include/linux/init.h"
 
 #include "../include/net/snmp.h"
 #include "../include/net/ip.h"
@@ -54,7 +51,19 @@
 #include "../include/linux/mroute.h"
 #include "../include/linux/netlink.h"
 
+/* notifier_chain_register  */
+#include "../include/linux/notifier.h"
+
+rwlock_t notifier_lock = RW_LOCK_UNLOCKED;
+/*
+ *	Our notifier list
+ */
+static struct notifier_block *netdev_chain=NULL;
+
 static struct softirq_action softirq_vec[32];
+
+rwlock_t vmlist_lock = RW_LOCK_UNLOCKED;
+struct vm_struct * vmlist;
 
 #define CHECK_PAGE(pg)	do { } while (0)
 #define STATS_INC_FREEHIT(x)	do { } while (0)
@@ -268,7 +277,29 @@ void kfree (const void *objp)
 	__kmem_cache_free(c, (void*)objp);
 	local_irq_restore(flags);
 }
+void vfree(void * addr)
+{
+	struct vm_struct **p, *tmp;
 
+	if (!addr)
+		return;
+	if ((PAGE_SIZE-1) & (unsigned long) addr) {
+		printk(KERN_ERR "Trying to vfree() bad address (%p)\n", addr);
+		return;
+	}
+	write_lock(&vmlist_lock);
+	for (p = &vmlist ; (tmp = *p) ; p = &tmp->next) {
+		if (tmp->addr == addr) {
+			*p = tmp->next;
+			vmfree_area_pages(VMALLOC_VMADDR(tmp->addr), tmp->size);
+			write_unlock(&vmlist_lock);
+			kfree(tmp);
+			return;
+		}
+	}
+	write_unlock(&vmlist_lock);
+//	printk(KERN_ERR "Trying to vfree() nonexistent vm area (%p)\n", addr);
+}
 /*
  * we cannot loop indefinitely here to avoid userspace starvation,
  * but we also don't want to introduce a worst case 1/HZ latency
@@ -368,4 +399,69 @@ __inline__ int ip_finish_output(struct sk_buff *skb)
 
 	return NF_HOOK(PF_INET, NF_IP_POST_ROUTING, skb, NULL, dev,
 		       ip_finish_output2);
+}
+
+
+int notifier_chain_register(struct notifier_block **list, struct notifier_block *n)
+{
+	write_lock(&notifier_lock);
+	while(*list)
+	{
+		if(n->priority > (*list)->priority)
+			break;
+		list= &((*list)->next);
+	}
+	n->next = *list;
+	*list=n;
+	write_unlock(&notifier_lock);
+	return 0;
+}
+int notifier_chain_unregister(struct notifier_block **nl, struct notifier_block *n)
+{
+	write_lock(&notifier_lock);
+	while((*nl)!=NULL)
+	{
+		if((*nl)==n)
+		{
+			*nl=n->next;
+			write_unlock(&notifier_lock);
+			return 0;
+		}
+		nl=&((*nl)->next);
+	}
+	write_unlock(&notifier_lock);
+	return -ENOENT;
+}
+/*
+ *	Device change register/unregister. These are not inline or static
+ *	as we export them to the world.
+ */
+ 
+/**
+ *	register_netdevice_notifier - register a network notifier block
+ *	@nb: notifier
+ *
+ *	Register a notifier to be called when network device events occur.
+ *	The notifier passed is linked into the kernel structures and must
+ *	not be reused until it has been unregistered. A negative errno code
+ *	is returned on a failure.
+ */
+
+int register_netdevice_notifier(struct notifier_block *nb)
+{
+	return notifier_chain_register(&netdev_chain, nb);
+}
+/**
+ *	unregister_netdevice_notifier - unregister a network notifier block
+ *	@nb: notifier
+ *
+ *	Unregister a notifier previously registered by
+ *	register_netdevice_notifier(). The notifier is unlinked into the
+ *	kernel structures and may then be reused. A negative errno code
+ *	is returned on a failure.
+ */
+
+int unregister_netdevice_notifier(struct notifier_block *nb)
+{
+	return notifier_chain_unregister(&netdev_chain,nb);
 }
