@@ -7,6 +7,16 @@
 #include	"../include/linux/seq_file.h"
 #include	"../include/asm/uaccess.h"
 
+/* do_softirq_thunk()  */
+#include "../include/linux/mm.h"
+#include "../include/linux/kernel_stat.h"
+#include "../include/linux/interrupt.h"
+#include "../include/linux/smp_lock.h"
+#include "../include/linux/init.h"
+#include "../include/linux/tqueue.h"
+
+static struct softirq_action softirq_vec[32];
+
 #define CHECK_PAGE(pg)	do { } while (0)
 #define STATS_INC_FREEHIT(x)	do { } while (0)
 #define STATS_INC_FREEMISS(x)	do { } while (0)
@@ -217,5 +227,71 @@ void kfree (const void *objp)
 	CHECK_PAGE(virt_to_page(objp));
 	c = GET_PAGE_CACHE(virt_to_page(objp));
 	__kmem_cache_free(c, (void*)objp);
+	local_irq_restore(flags);
+}
+
+/*
+ * we cannot loop indefinitely here to avoid userspace starvation,
+ * but we also don't want to introduce a worst case 1/HZ latency
+ * to the pending events, so lets the scheduler to balance
+ * the softirq load for us.
+ */
+static inline void wakeup_softirqd(unsigned cpu)
+{
+	struct task_struct * tsk = ksoftirqd_task(cpu);
+
+	if (tsk && tsk->state != TASK_RUNNING)
+		wake_up_process(tsk);
+}
+/* 
+ * kernel/softirq.c
+ */
+void do_softirq_thunk()
+{
+	int cpu = smp_processor_id();
+	__u32 pending;
+	unsigned long flags;
+	__u32 mask;
+
+	if (in_interrupt())
+		return;
+
+	local_irq_save(flags);
+
+	pending = softirq_pending(cpu);
+
+	if (pending) {
+		struct softirq_action *h;
+
+		mask = ~pending;
+		local_bh_disable();
+restart:
+		/* Reset the pending bitmask before enabling irqs */
+		softirq_pending(cpu) = 0;
+
+		local_irq_enable();
+
+		h = softirq_vec;
+
+		do {
+			if (pending & 1)
+				h->action(h);
+			h++;
+			pending >>= 1;
+		} while (pending);
+
+		local_irq_disable();
+
+		pending = softirq_pending(cpu);
+		if (pending & mask) {
+			mask &= ~pending;
+			goto restart;
+		}
+		__local_bh_enable();
+
+		if (pending)
+			wakeup_softirqd(cpu);
+	}
+
 	local_irq_restore(flags);
 }

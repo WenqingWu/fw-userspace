@@ -1,10 +1,10 @@
 #ifndef _LINUX_KERNEL_STAT_H
 #define _LINUX_KERNEL_STAT_H
 
-#include <linux/config.h>
-#include <asm/irq.h>
-#include <linux/smp.h>
-#include <linux/threads.h>
+#include "config.h"
+#include "../asm/irq.h"
+#include "smp.h"
+#include "threads.h"
 
 /*
  * 'kernel_stat.h' contains the definitions needed for doing
