@@ -50,9 +50,16 @@
 #include "../include/linux/netfilter_ipv4.h"
 #include "../include/linux/mroute.h"
 #include "../include/linux/netlink.h"
+#include "../include/linux/if_ether.h"
 
 /* notifier_chain_register  */
 #include "../include/linux/notifier.h"
+
+/* copy_to/from_user() */
+#include "../include/asm/uaccess.h"
+
+#define memcpy_tofs memcpy
+#define memcpy_fromfs memcpy
 
 rwlock_t notifier_lock = RW_LOCK_UNLOCKED;
 /*
@@ -464,4 +471,26 @@ int register_netdevice_notifier(struct notifier_block *nb)
 int unregister_netdevice_notifier(struct notifier_block *nb)
 {
 	return notifier_chain_unregister(&netdev_chain,nb);
+}
+
+unsigned long copy_from_user(void *to, const void *from_user, unsigned len)
+{
+	int	error;
+
+	error = verify_area(VERIFY_READ, from_user, len);
+	if (error)
+		return len;
+	memcpy_fromfs(to, from_user, len);
+	return 0;
+}
+
+unsigned long copy_to_user(void *to_user, const void *from, unsigned len)
+{
+	int	error;
+	
+	error = verify_area(VERIFY_WRITE, to_user, len);
+	if (error)
+		return len;
+	memcpy_tofs(to_user, from, len);
+	return 0;
 }
