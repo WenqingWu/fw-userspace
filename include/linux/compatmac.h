@@ -48,6 +48,10 @@
 
 #include "version.h"
 
+#include "../asm/uaccess.h"
+#define memcpy_tofs memcpy
+#define memcpy_fromfs memcpy
+
 #if LINUX_VERSION_CODE < 0x020100    /* Less than 2.1.0 */
 #define TWO_ZERO
 #else
@@ -77,8 +81,7 @@
 #define Put_user(a,b)                0,put_user(a,b)
 #define copy_to_user(a,b,c)          memcpy_tofs(a,b,c)
 
-//static inline int copy_from_user(void *to,const void *from, int c) 
-extern int copy_from_user(void *to,const void *from, int c) 
+static inline int copy_from_user(void *to,const void *from, int c) 
 {
   memcpy_fromfs(to, from, c);
   return 0;
@@ -88,8 +91,7 @@ extern int copy_from_user(void *to,const void *from, int c)
 #define pci_read_config_word         pcibios_read_config_word
 #define pci_read_config_dword        pcibios_read_config_dword
 
-//static inline unsigned char get_irq (unsigned char bus, unsigned char fn)
-extern unsigned char get_irq (unsigned char bus, unsigned char fn)
+static inline unsigned char get_irq (unsigned char bus, unsigned char fn)
 {
 	unsigned char t; 
 	pcibios_read_config_byte (bus, fn, PCI_INTERRUPT_LINE, &t);
@@ -157,6 +159,28 @@ static inline void *ioremap(unsigned long base, long length)
 #define DECLARE_MUTEX(name)   struct semaphore name = MUTEX
 #define DECLARE_WAITQUEUE(wait, current) \
                               struct wait_queue wait = { current, NULL }
+
+int copy_from_user(void *to, const void *from_user, unsigned long len)
+{
+	int	error;
+
+	error = verify_area(VERIFY_READ, from_user, len);
+	if (error)
+		return len;
+	memcpy_fromfs(to, from_user, len);
+	return 0;
+}
+
+int copy_to_user(void *to_user, const void *from, unsigned long len)
+{
+	int	error;
+	
+	error = verify_area(VERIFY_WRITE, to_user, len);
+	if (error)
+		return len;
+	memcpy_tofs(to_user, from, len);
+	return 0;
+}
 
 #endif
 

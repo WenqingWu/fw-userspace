@@ -61,7 +61,8 @@
         "mman.h": "c",
         "highuid.h": "c",
         "kernel_stat.h": "c",
-        "mroute.h": "c"
+        "mroute.h": "c",
+        "algorithm": "cpp"
     },
     "C_Cpp.dimInactiveRegions": false
 }
