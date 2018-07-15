@@ -84,8 +84,13 @@
 #include "../include/linux/ctype.h"
 #include "../include/linux/sysctl.h"
 
-/* A sysctl table is an array of struct ctl_table: */
+static union {
+	struct sk_buff_head	list;
+	char			pad[SMP_CACHE_BYTES];
+} skb_head_pool[NR_CPUS];
 
+int sysctl_hot_list_len = 128;
+static kmem_cache_t *skbuff_head_cache;
 
 /* mem_map */
 mem_map_t * mem_map;
@@ -632,19 +637,73 @@ static inline void skb_headerinit(void *p, kmem_cache_t *cache,
  *	Clean the state. This is an internal helper function. Users should
  *	always call kfree_skb
  */
+/*
+ *	Free an skbuff by memory without cleaning the state. 
+ */
+static void skb_drop_fraglist(struct sk_buff *skb)
+{
+	struct sk_buff *list = skb_shinfo(skb)->frag_list;
+
+	skb_shinfo(skb)->frag_list = NULL;
+
+	do {
+		struct sk_buff *this = list;
+		list = list->next;
+		kfree_skb(this);
+	} while (list);
+}
+
+static void skb_release_data(struct sk_buff *skb)
+{
+	if (!skb->cloned ||
+	    atomic_dec_and_test(&(skb_shinfo(skb)->dataref))) {
+		if (skb_shinfo(skb)->nr_frags) {
+			int i;
+			for (i = 0; i < skb_shinfo(skb)->nr_frags; i++)
+				put_page(skb_shinfo(skb)->frags[i].page);
+		}
+
+		if (skb_shinfo(skb)->frag_list)
+			skb_drop_fraglist(skb);
+
+		kfree(skb->head);
+	}
+}
+
+static __inline__ void skb_head_to_pool(struct sk_buff *skb)
+{
+	struct sk_buff_head *list = &skb_head_pool[smp_processor_id()].list;
+
+	if (skb_queue_len(list) < sysctl_hot_list_len) {
+		unsigned long flags;
+
+		local_irq_save(flags);
+		__skb_queue_head(list, skb);
+		local_irq_restore(flags);
+
+		return;
+	}
+	kmem_cache_free(skbuff_head_cache, skb);
+}
+void kfree_skbmem(struct sk_buff *skb)
+{
+	skb_release_data(skb);
+	skb_head_to_pool(skb);
+}
+
 void __kfree_skb(struct sk_buff *skb)
 {
 	if (skb->list) {
-	 	printk(KERN_WARNING "Warning: kfree_skb passed an skb still "
-		       "on a list (from %p).\n", NET_CALLER(skb));
+	 	// printk(KERN_WARNING "Warning: kfree_skb passed an skb still "
+		//        "on a list (from %p).\n", NET_CALLER(skb));
 		BUG();
 	}
 
 	dst_release(skb->dst);
 	if(skb->destructor) {
 		if (in_irq()) {
-			printk(KERN_WARNING "Warning: kfree_skb on hard IRQ %p\n",
-				NET_CALLER(skb));
+			// printk(KERN_WARNING "Warning: kfree_skb on hard IRQ %p\n",
+			// 	NET_CALLER(skb));
 		}
 		skb->destructor(skb);
 	}
