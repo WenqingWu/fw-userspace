@@ -84,6 +84,58 @@
 #include "../include/linux/ctype.h"
 #include "../include/linux/sysctl.h"
 
+#include "../include/linux/compiler.h"
+
+/* Size description struct for general caches. */
+typedef struct cache_sizes {
+	size_t		 cs_size;
+	kmem_cache_t	*cs_cachep;
+	kmem_cache_t	*cs_dmacachep;
+} cache_sizes_t;
+
+static cache_sizes_t cache_sizes[] = {
+#if PAGE_SIZE == 4096
+	{    32,	NULL, NULL},
+#endif
+	{    64,	NULL, NULL},
+	{   128,	NULL, NULL},
+	{   256,	NULL, NULL},
+	{   512,	NULL, NULL},
+	{  1024,	NULL, NULL},
+	{  2048,	NULL, NULL},
+	{  4096,	NULL, NULL},
+	{  8192,	NULL, NULL},
+	{ 16384,	NULL, NULL},
+	{ 32768,	NULL, NULL},
+	{ 65536,	NULL, NULL},
+	{131072,	NULL, NULL},
+	{     0,	NULL, NULL}
+};
+
+#define BUFCTL_END 0xffffFFFF
+
+#if STATS
+#define	STATS_INC_ACTIVE(x)	((x)->num_active++)
+#define	STATS_INC_ALLOCED(x)	((x)->num_allocations++)
+#define	STATS_DEC_ACTIVE(x)	((x)->num_active--)
+#define	STATS_SET_HIGH(x)	do { if ((x)->num_active > (x)->high_mark) \
+					(x)->high_mark = (x)->num_active; \
+				} while (0)
+#else
+#define	STATS_INC_ALLOCED(x)	do { } while (0)
+#define	STATS_INC_ACTIVE(x)	do { } while (0)
+#define	STATS_INC_ALLOCED(x)	do { } while (0)
+#define	STATS_SET_HIGH(x)	do { } while (0)
+#endif
+
+#if STATS && defined(CONFIG_SMP)
+#define STATS_INC_ALLOCHIT(x)	atomic_inc(&(x)->allochit)
+#define STATS_INC_ALLOCMISS(x)	atomic_inc(&(x)->allocmiss)
+#else
+#define STATS_INC_ALLOCHIT(x)	do { } while (0)
+#define STATS_INC_ALLOCMISS(x)	do { } while (0)
+#endif
+
 static union {
 	struct sk_buff_head	list;
 	char			pad[SMP_CACHE_BYTES];
@@ -895,4 +947,193 @@ int proc_dointvec(ctl_table *table, int write, struct file *filp,
 		  void *buffer, size_t *lenp)
 {
 	return -ENOSYS;
+}
+
+/**
+ * kmalloc - allocate memory
+ * @size: how many bytes of memory are required.
+ * @flags: the type of memory to allocate.
+ *
+ * kmalloc is the normal method of allocating memory
+ * in the kernel.
+ *
+ * The @flags argument may be one of:
+ *
+ * %GFP_USER - Allocate memory on behalf of user.  May sleep.
+ *
+ * %GFP_KERNEL - Allocate normal kernel ram.  May sleep.
+ *
+ * %GFP_ATOMIC - Allocation will not sleep.  Use inside interrupt handlers.
+ *
+ * Additionally, the %GFP_DMA flag may be set to indicate the memory
+ * must be suitable for DMA.  This can mean different things on different
+ * platforms.  For example, on i386, it means that the memory must come
+ * from the first 16MB.
+ */
+static inline void * kmem_cache_alloc_one_tail (kmem_cache_t *cachep,
+						slab_t *slabp)
+{
+	void *objp;
+
+	STATS_INC_ALLOCED(cachep);
+	STATS_INC_ACTIVE(cachep);
+	STATS_SET_HIGH(cachep);
+
+	/* get obj pointer */
+	slabp->inuse++;
+	objp = slabp->s_mem + slabp->free*cachep->objsize;
+	slabp->free=slab_bufctl(slabp)[slabp->free];
+
+	if (unlikely(slabp->free == BUFCTL_END)) {
+		list_del(&slabp->list);
+		list_add(&slabp->list, &cachep->slabs_full);
+	}
+#if DEBUG
+	if (cachep->flags & SLAB_POISON)
+		if (kmem_check_poison_obj(cachep, objp))
+			BUG();
+	if (cachep->flags & SLAB_RED_ZONE) {
+		/* Set alloc red-zone, and check old one. */
+		if (xchg((unsigned long *)objp, RED_MAGIC2) !=
+							 RED_MAGIC1)
+			BUG();
+		if (xchg((unsigned long *)(objp+cachep->objsize -
+			  BYTES_PER_WORD), RED_MAGIC2) != RED_MAGIC1)
+			BUG();
+		objp += BYTES_PER_WORD;
+	}
+#endif
+	return objp;
+}
+#define kmem_cache_alloc_one(cachep)				\
+({								\
+	struct list_head * slabs_partial, * entry;		\
+	slab_t *slabp;						\
+								\
+	slabs_partial = &(cachep)->slabs_partial;		\
+	entry = slabs_partial->next;				\
+	if (unlikely(entry == slabs_partial)) {			\
+		struct list_head * slabs_free;			\
+		slabs_free = &(cachep)->slabs_free;		\
+		entry = slabs_free->next;			\
+		if (unlikely(entry == slabs_free))		\
+			goto alloc_new_slab;			\
+		list_del(entry);				\
+		list_add(entry, slabs_partial);			\
+	}							\
+								\
+	slabp = list_entry(entry, slab_t, list);		\
+	kmem_cache_alloc_one_tail(cachep, slabp);		\
+})
+
+static inline void kmem_cache_alloc_head(kmem_cache_t *cachep, int flags)
+{
+	if (flags & SLAB_DMA) {
+		if (!(cachep->gfpflags & GFP_DMA))
+			BUG();
+	} else {
+		if (cachep->gfpflags & GFP_DMA)
+			BUG();
+	}
+}
+
+void* kmem_cache_alloc_batch(kmem_cache_t* cachep, cpucache_t* cc, int flags)
+{
+	int batchcount = cachep->batchcount;
+
+	spin_lock(&cachep->spinlock);
+	while (batchcount--) {
+		struct list_head * slabs_partial, * entry;
+		slab_t *slabp;
+		/* Get slab alloc is to come from. */
+		slabs_partial = &(cachep)->slabs_partial;
+		entry = slabs_partial->next;
+		if (unlikely(entry == slabs_partial)) {
+			struct list_head * slabs_free;
+			slabs_free = &(cachep)->slabs_free;
+			entry = slabs_free->next;
+			if (unlikely(entry == slabs_free))
+				break;
+			list_del(entry);
+			list_add(entry, slabs_partial);
+		}
+
+		slabp = list_entry(entry, slab_t, list);
+		cc_entry(cc)[cc->avail++] =
+				kmem_cache_alloc_one_tail(cachep, slabp);
+	}
+	spin_unlock(&cachep->spinlock);
+
+	if (cc->avail)
+		return cc_entry(cc)[--cc->avail];
+	return NULL;
+}
+
+/*
+ * Grow (by 1) the number of slabs within a cache.  This is called by
+ * kmem_cache_alloc() when there are no active objs left in a cache.
+ */
+static int kmem_cache_grow (kmem_cache_t * cachep, int flags)
+{
+	return 0;
+}
+
+static inline void * __kmem_cache_alloc (kmem_cache_t *cachep, int flags)
+{
+	unsigned long save_flags;
+	void* objp;
+
+	kmem_cache_alloc_head(cachep, flags);
+try_again:
+	local_irq_save(save_flags);
+#ifdef CONFIG_SMP
+	{
+		cpucache_t *cc = cc_data(cachep);
+
+		if (cc) {
+			if (cc->avail) {
+				STATS_INC_ALLOCHIT(cachep);
+				objp = cc_entry(cc)[--cc->avail];
+			} else {
+				STATS_INC_ALLOCMISS(cachep);
+				objp = kmem_cache_alloc_batch(cachep,cc,flags);
+				if (!objp)
+					goto alloc_new_slab_nolock;
+			}
+		} else {
+			spin_lock(&cachep->spinlock);
+			objp = kmem_cache_alloc_one(cachep);
+			spin_unlock(&cachep->spinlock);
+		}
+	}
+#else
+	objp = kmem_cache_alloc_one(cachep);
+#endif
+	local_irq_restore(save_flags);
+	return objp;
+alloc_new_slab:
+#ifdef CONFIG_SMP
+	spin_unlock(&cachep->spinlock);
+alloc_new_slab_nolock:
+#endif
+	local_irq_restore(save_flags);
+	if (kmem_cache_grow(cachep, flags))
+		/* Someone may have stolen our objs.  Doesn't matter, we'll
+		 * just come back here again.
+		 */
+		goto try_again;
+	return NULL;
+}
+
+void * kmalloc (size_t size, int flags)
+{
+	cache_sizes_t *csizep = cache_sizes;
+
+	for (; csizep->cs_size; csizep++) {
+		if (size > csizep->cs_size)
+			continue;
+		return __kmem_cache_alloc(flags & GFP_DMA ?
+			 csizep->cs_dmacachep : csizep->cs_cachep, flags);
+	}
+	return NULL;
 }
