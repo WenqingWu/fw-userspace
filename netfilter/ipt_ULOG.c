@@ -146,7 +146,7 @@ struct sk_buff *ulog_alloc_skb(unsigned int size)
 		 * current packet */
 
 		skb = alloc_skb(size, GFP_ATOMIC);
-		if (!skb)
+		if (!skb){}
 //			PRINTR("ipt_ULOG: can't even allocate %ub\n", size);
 	}
 
