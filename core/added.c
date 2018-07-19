@@ -89,8 +89,6 @@
 
 #include "../include/asm/string.h"
 #include "../include/asm/semaphore.h"
-#include "../include/asm/smplock.h"
-
 
 
 static struct notifier_block *inetaddr_chain;
