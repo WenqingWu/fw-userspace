@@ -92,6 +92,7 @@
 
 
 static struct notifier_block *inetaddr_chain;
+unsigned long max_mapnr;
 
 unsigned long __supported_pte_mask = ~_PAGE_NX; 
 
@@ -1693,4 +1694,114 @@ struct sk_buff *
 skb_realloc_headroom(struct sk_buff *skb, unsigned int headroom)
 {
 	return NULL;
+}
+
+/**
+ * kmem_cache_alloc - Allocate an object
+ * @cachep: The cache to allocate from.
+ * @flags: See kmalloc().
+ *
+ * Allocate an object from this cache.  The flags are only relevant
+ * if the cache has no available objects.
+ */
+void * kmem_cache_alloc (kmem_cache_t *cachep, int flags)
+{
+
+}
+
+/**
+ * kmem_cache_create - Create a cache.
+ * @name: A string which is used in /proc/slabinfo to identify this cache.
+ * @size: The size of objects to be created in this cache.
+ * @offset: The offset to use within the page.
+ * @flags: SLAB flags
+ * @ctor: A constructor for the objects.
+ * @dtor: A destructor for the objects.
+ *
+ * Returns a ptr to the cache on success, NULL on failure.
+ * Cannot be called within a int, but can be interrupted.
+ * The @ctor is run when new pages are allocated by the cache
+ * and the @dtor is run before the pages are handed back.
+ * The flags are
+ *
+ * %SLAB_POISON - Poison the slab with a known test pattern (a5a5a5a5)
+ * to catch references to uninitialised memory.
+ *
+ * %SLAB_RED_ZONE - Insert `Red' zones around the allocated memory to check
+ * for buffer overruns.
+ *
+ * %SLAB_NO_REAP - Don't automatically reap this cache when we're under
+ * memory pressure.
+ *
+ * %SLAB_HWCACHE_ALIGN - Align the objects in this cache to a hardware
+ * cacheline.  This can be beneficial if you're counting cycles as closely
+ * as davem.
+ */
+kmem_cache_t *
+kmem_cache_create (const char *name, size_t size, size_t offset,
+	unsigned long flags, void (*ctor)(void*, kmem_cache_t *, unsigned long),
+	void (*dtor)(void*, kmem_cache_t *, unsigned long))
+{
+	return NULL;
+
+}
+
+/**
+ *	skb_copy_expand	-	copy and expand sk_buff
+ *	@skb: buffer to copy
+ *	@newheadroom: new free bytes at head
+ *	@newtailroom: new free bytes at tail
+ *	@gfp_mask: allocation priority
+ *
+ *	Make a copy of both an &sk_buff and its data and while doing so 
+ *	allocate additional space.
+ *
+ *	This is used when the caller wishes to modify the data and needs a 
+ *	private copy of the data to alter as well as more space for new fields.
+ *	Returns %NULL on failure or the pointer to the buffer
+ *	on success. The returned buffer has a reference count of 1.
+ *
+ *	You must pass %GFP_ATOMIC as the allocation priority if this function
+ *	is called from an interrupt.
+ */
+ 
+
+struct sk_buff *skb_copy_expand(const struct sk_buff *skb,
+				int newheadroom,
+				int newtailroom,
+				int gfp_mask)
+{
+	return NULL;
+}
+
+
+/* Calculate csum in the case, when packet is misrouted.
+ * If it failed by some reason, ignore and send skb with wrong
+ * checksum.
+ */
+struct sk_buff * skb_checksum_help(struct sk_buff *skb)
+{
+	int offset;
+	unsigned int csum;
+
+	offset = skb->h.raw - skb->data;
+	if (offset > (int)skb->len)
+		BUG();
+	csum = skb_checksum(skb, offset, skb->len-offset, 0);
+
+	offset = skb->tail - skb->h.raw;
+	if (offset <= 0)
+		BUG();
+	if (skb->csum+2 > offset)
+		BUG();
+
+	*(u16*)(skb->h.raw + skb->csum) = csum_fold(csum);
+	skb->ip_summed = CHECKSUM_NONE;
+	return skb;
+}
+
+/* Release a nexthop info record */
+
+void free_fib_info(struct fib_info *fi)
+{
 }

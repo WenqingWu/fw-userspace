@@ -18,9 +18,6 @@
 #include "../include/linux/brlock.h"
 #include "../include/net/checksum.h"
 
-#define ASSERT_READ_LOCK(x) MUST_BE_READ_LOCKED(&ip_conntrack_lock)
-#define ASSERT_WRITE_LOCK(x) MUST_BE_WRITE_LOCKED(&ip_conntrack_lock)
-
 #include "../include/linux/netfilter_ipv4/ip_conntrack.h"
 #include "../include/linux/netfilter_ipv4/ip_conntrack_protocol.h"
 #include "../include/linux/netfilter_ipv4/ip_conntrack_core.h"
@@ -31,6 +28,9 @@
 #include "../include/linux/irq_cpustat.h"
 
 #include "../include/linux/netfilter_ipv4/ip_nat_core.h"
+
+#define ASSERT_READ_LOCK(x) MUST_BE_READ_LOCKED(&ip_conntrack_lock)
+#define ASSERT_WRITE_LOCK(x) MUST_BE_WRITE_LOCKED(&ip_conntrack_lock)
 
 #if 0
 // #define DEBUGP printk

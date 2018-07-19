@@ -93,8 +93,8 @@ static int checkentry(const char *tablename, const struct ipt_ip *ip,
 
 	if (info->operation & (IPT_ECN_OP_MATCH_ECE|IPT_ECN_OP_MATCH_CWR)
 	    && ip->proto != IPPROTO_TCP) {
-		printk(KERN_WARNING "ipt_ecn: can't match TCP bits in rule for"
-		       " non-tcp packets\n");
+		// printk(KERN_WARNING "ipt_ecn: can't match TCP bits in rule for"
+		//        " non-tcp packets\n");
 		return 0;
 	}
 

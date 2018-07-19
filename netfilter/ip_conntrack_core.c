@@ -34,11 +34,6 @@
 /* For ERR_PTR().  Yeah, I know... --RR */
 #include "../include/linux/fs.h"
 
-/* This rwlock protects the main hash table, protocol/helper/expected
-   registrations, conntrack timers*/
-#define ASSERT_READ_LOCK(x) MUST_BE_READ_LOCKED(&ip_conntrack_lock)
-#define ASSERT_WRITE_LOCK(x) MUST_BE_WRITE_LOCKED(&ip_conntrack_lock)
-
 #include "../include/linux/netfilter_ipv4/ip_conntrack.h"
 #include "../include/linux/netfilter_ipv4/ip_conntrack_protocol.h"
 #include "../include/linux/netfilter_ipv4/ip_conntrack_helper.h"
@@ -47,6 +42,12 @@
 
 #include "../include/linux/irq_cpustat.h"
 #include "../include/linux/kernel.h"
+
+
+/* This rwlock protects the main hash table, protocol/helper/expected
+   registrations, conntrack timers*/
+#define ASSERT_READ_LOCK(x) MUST_BE_READ_LOCKED(&ip_conntrack_lock)
+#define ASSERT_WRITE_LOCK(x) MUST_BE_WRITE_LOCKED(&ip_conntrack_lock)
 
 #define IP_CONNTRACK_VERSION	"2.1"
 
