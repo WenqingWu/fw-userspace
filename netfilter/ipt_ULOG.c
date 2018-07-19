@@ -62,13 +62,11 @@ MODULE_DESCRIPTION("IP tables userspace logging module");
 #define ULOG_MAXNLGROUPS	32		/* numer of nlgroups */
 
 #if 0
-#define DEBUGP(format, args...)	printk(__FILE__ ":" __FUNCTION__ ":" \
-				       format, ## args)
 #else
 #define DEBUGP(format, args...)
 #endif
 
-#define PRINTR(format, args...) do { if (net_ratelimit()) printk(format, ## args); } while (0)
+//#define PRINTR(format, args...) do { if (net_ratelimit()) printk(format, ## args); } while (0)
 
 static unsigned int nlbufsiz = 4096;
 MODULE_PARM(nlbufsiz, "i");
@@ -141,15 +139,15 @@ struct sk_buff *ulog_alloc_skb(unsigned int size)
 
 	skb = alloc_skb(nlbufsiz, GFP_ATOMIC);
 	if (!skb) {
-		PRINTR("ipt_ULOG: can't alloc whole buffer %ub!\n",
-			nlbufsiz);
+		// PRINTR("ipt_ULOG: can't alloc whole buffer %ub!\n",
+		// 	nlbufsiz);
 
 		/* try to allocate only as much as we need for 
 		 * current packet */
 
 		skb = alloc_skb(size, GFP_ATOMIC);
 		if (!skb)
-			PRINTR("ipt_ULOG: can't even allocate %ub\n", size);
+//			PRINTR("ipt_ULOG: can't even allocate %ub\n", size);
 	}
 
 	return skb;
@@ -266,10 +264,10 @@ static unsigned int ipt_ulog_target(struct sk_buff **pskb,
 
 
 nlmsg_failure:
-	PRINTR("ipt_ULOG: error during NLMSG_PUT\n");
+//	PRINTR("ipt_ULOG: error during NLMSG_PUT\n");
 
 alloc_failure:
-	PRINTR("ipt_ULOG: Error building netlink message\n");
+//	PRINTR("ipt_ULOG: Error building netlink message\n");
 
 	UNLOCK_BH(&ulog_lock);
 
@@ -316,7 +314,7 @@ static int __init init(void)
 	DEBUGP("ipt_ULOG: init module\n");
 
 	if (nlbufsiz >= 128*1024) {
-		printk("Netlink buffer has to be <= 128kB\n");
+//		printk("Netlink buffer has to be <= 128kB\n");
 		return -EINVAL;
 	}
 

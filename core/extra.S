@@ -54,7 +54,7 @@ restore_norax:
 /* Support for read/write spinlocks. */
 	
 /* rax:	pointer to rwlock_t */	
-ENTRY(__write_lock_failed)
+ENTRY (__write_lock_failed)
 	lock
 	addl $RW_LOCK_BIAS,(%rax)
 1:	rep
@@ -67,7 +67,7 @@ ENTRY(__write_lock_failed)
 	ret
 
 /* rax:	pointer to rwlock_t */	
-ENTRY(__read_lock_failed)
+ENTRY (__read_lock_failed)
 	lock
 	incl (%rax)
 1:	rep

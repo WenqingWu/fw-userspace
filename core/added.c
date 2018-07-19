@@ -89,9 +89,6 @@
 #include "../include/asm/string.h"
 #include "../include/asm/semaphore.h"
 
-
-#define net_ratelimit() 1   //temp
-
 unsigned long __supported_pte_mask = ~_PAGE_NX; 
 
 /* Size description struct for general caches. */
@@ -1228,4 +1225,124 @@ void
 __up_wakeup(void)
 {
 	
+}
+
+void __write_lock_failed(void)
+{
+/* temp */
+
+}
+void __read_lock_failed(void)
+{
+/* temp */
+
+}
+
+void __br_lock_usage_bug (void)
+{
+/* temp */
+
+}
+
+int net_ratelimit(void)
+{
+/* temp */
+	return 1;
+}
+
+/**
+ *	netdev_finish_unregister - complete unregistration
+ *	@dev: device
+ *
+ *	Destroy and free a dead device. A value of zero is returned on
+ *	success.
+ */
+ 
+int netdev_finish_unregister(struct net_device *dev)
+{
+
+	return 0;
+}
+/**
+ *	skb_over_panic	- 	private function
+ *	@skb: buffer
+ *	@sz: size
+ *	@here: address
+ *
+ *	Out of line support code for skb_put(). Not user callable.
+ */
+ 
+void skb_over_panic(struct sk_buff *skb, int sz, void *here)
+{
+	// printk("skput:over: %p:%d put:%d dev:%s", 
+	// 	here, skb->len, sz, skb->dev ? skb->dev->name : "<NULL>");
+	BUG();
+}
+
+int del_timer(struct timer_list * timer)
+{
+	return 1;
+}
+
+/**
+ * A BUG() call in an inline function in a header should be avoided,
+ * because it can seriously bloat the kernel.  So here we have
+ * helper functions.
+ * We lose the BUG()-time file-and-line info this way, but it's
+ * usually not very useful from an inline anyway.  The backtrace
+ * tells us what we want to know.
+ */
+
+void __out_of_line_bug(int line)
+{
+	// printk("kernel BUG in header file at line %d\n", line);
+
+	BUG();
+
+	/* Satisfy __attribute__((noreturn)) */
+	for ( ; ; )
+		;
+}
+
+/* 
+ * net_netlink.c
+ */
+void netlink_broadcast(struct sock *ssk, struct sk_buff *skb, u32 pid,
+		       u32 group, int allocation)
+{
+
+}
+
+struct sk_buff *alloc_skb(unsigned int size,int gfp_mask)
+{
+	return NULL;
+
+}
+
+/*
+ * net_netlink.c
+ *	We export these functions to other modules. They provide a 
+ *	complete set of kernel non-blocking support for message
+ *	queueing.
+ */
+
+struct sock *
+netlink_kernel_create(int unit, void (*input)(struct sock *sk, int len))
+{
+	return NULL;
+
+}
+
+/**
+ *	sock_release	-	close a socket
+ *	@sock: socket to close
+ *
+ *	The socket is released from the protocol stack if it has a release
+ *	callback, and the inode is then released if the socket is bound to
+ *	an inode not a file. 
+ */
+ 
+void sock_release(struct socket *sock)
+{
+
 }

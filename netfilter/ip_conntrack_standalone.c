@@ -30,6 +30,8 @@
 #include "../include/linux/kernel.h"
 #include "../include/linux/irq_cpustat.h"
 
+#include "../include/linux/netfilter_ipv4/ip_nat_core.h"
+
 #if 0
 // #define DEBUGP printk
 #else

@@ -26,6 +26,8 @@
 #include "../include/linux/netfilter_arp/arp_tables.h"
 #include "../include/linux/compatmac.h"
 
+#include "../include/linux/proc_fs.h"
+
 /*#define DEBUG_ARP_TABLES*/
 /*#define DEBUG_ARP_TABLES_USER*/
 
@@ -1292,7 +1294,7 @@ static int __init init(void)
 	}
 #endif
 
-	printk("arp_tables: (C) 2002 David S. Miller\n");
+//	printk("arp_tables: (C) 2002 David S. Miller\n");
 	return 0;
 }
 

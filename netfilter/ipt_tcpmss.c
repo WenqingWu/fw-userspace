@@ -84,7 +84,7 @@ checkentry(const char *tablename,
 
 	/* Must specify -p tcp */
 	if (ip->proto != IPPROTO_TCP || (ip->invflags & IPT_INV_PROTO)) {
-		printk("tcpmss: Only works on TCP packets\n");
+//		printk("tcpmss: Only works on TCP packets\n");
 		return 0;
 	}
 
