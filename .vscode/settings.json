@@ -63,7 +63,8 @@
         "kernel_stat.h": "c",
         "mroute.h": "c",
         "algorithm": "cpp",
-        "proc_fs.h": "c"
+        "proc_fs.h": "c",
+        "ip_fib.h": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }

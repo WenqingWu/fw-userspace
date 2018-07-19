@@ -15,7 +15,6 @@ struct in_device;
 #include "../include/linux/netfilter_ipv4/ipt_REJECT.h"
 
 #if 0
-#define DEBUGP printk
 #else
 #define DEBUGP(format, args...)
 #endif
@@ -344,7 +343,7 @@ static int check(const char *tablename,
 	}
 
 	if (rejinfo->with == IPT_ICMP_ECHOREPLY) {
-		printk("REJECT: ECHOREPLY no longer supported.\n");
+//		printk("REJECT: ECHOREPLY no longer supported.\n");
 		return 0;
 	} else if (rejinfo->with == IPT_TCP_RESET) {
 		/* Must specify that it's a TCP packet */

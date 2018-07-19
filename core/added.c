@@ -85,11 +85,20 @@
 #include "../include/linux/sysctl.h"
 
 #include "../include/linux/compiler.h"
+#include "../include/net/ip_fib.h"
 
 #include "../include/asm/string.h"
 #include "../include/asm/semaphore.h"
+#include "../include/asm/smplock.h"
+
+
+
+static struct notifier_block *inetaddr_chain;
 
 unsigned long __supported_pte_mask = ~_PAGE_NX; 
+
+/*temp*/
+struct kernel_stat kstat;
 
 /* Size description struct for general caches. */
 typedef struct cache_sizes {
@@ -1345,4 +1354,345 @@ netlink_kernel_create(int unit, void (*input)(struct sock *sk, int len))
 void sock_release(struct socket *sock)
 {
 
+}
+
+void add_timer(struct timer_list *timer)
+{
+
+}
+
+/* skbuff.c
+ * Trims skb to length len. It can change skb pointers, if "realloc" is 1.
+ * If realloc==0 and trimming is impossible without change of data,
+ * it is BUG().
+ */
+
+int ___pskb_trim(struct sk_buff *skb, unsigned int len, int realloc)
+{
+	return 0;
+}
+
+/* net/ipv4/route.c
+ */
+void __ip_select_ident(struct iphdr *iph, struct dst_entry *dst)
+{
+	
+}
+
+/**
+ *	skb_copy	-	create private copy of an sk_buff
+ *	@skb: buffer to copy
+ *	@gfp_mask: allocation priority
+ *
+ *	Make a copy of both an &sk_buff and its data. This is used when the
+ *	caller wishes to modify the data and needs a private copy of the 
+ *	data to alter. Returns %NULL on failure or the pointer to the buffer
+ *	on success. The returned buffer has a reference count of 1.
+ *
+ *	As by-product this function converts non-linear &sk_buff to linear
+ *	one, so that &sk_buff becomes completely private and caller is allowed
+ *	to modify all the data of returned buffer. This means that this
+ *	function is not recommended for use in circumstances when only
+ *	header is going to be modified. Use pskb_copy() instead.
+ */
+ 
+struct sk_buff *skb_copy(const struct sk_buff *skb, int gfp_mask)
+{
+	return NULL;
+}
+/*
+ *	Check transmit rate limitation for given message.
+ *	The rate information is held in the destination cache now.
+ *	This function is generic and could be used for other purposes
+ *	too. It uses a Token bucket filter as suggested by Alexey Kuznetsov.
+ *
+ *	Note that the same dst_entry fields are modified by functions in 
+ *	route.c too, but these work for packet destinations while xrlim_allow
+ *	works for icmp destinations. This means the rate limiting information
+ *	for one "ip object" is shared - and these ICMPs are twice limited:
+ *	by source and by destination.
+ *
+ *	RFC 1812: 4.3.2.8 SHOULD be able to limit error message rate
+ *			  SHOULD allow setting of rate limits 
+ *
+ * 	Shared between ICMPv4 and ICMPv6.
+ */
+#define XRLIM_BURST_FACTOR 6
+int xrlim_allow(struct dst_entry *dst, int timeout)
+{
+	unsigned long now;
+
+	now = jiffies;
+	dst->rate_tokens += now - dst->rate_last;
+	dst->rate_last = now;
+	if (dst->rate_tokens > XRLIM_BURST_FACTOR*timeout)
+        	dst->rate_tokens = XRLIM_BURST_FACTOR*timeout;
+	if (dst->rate_tokens >= timeout) {
+		dst->rate_tokens -= timeout;
+		return 1;
+	}
+	return 0; 
+}
+
+/*
+ *	Device notifier
+ */
+
+int register_inetaddr_notifier(struct notifier_block *nb)
+{
+	return notifier_chain_register(&inetaddr_chain, nb);
+}
+
+int unregister_inetaddr_notifier(struct notifier_block *nb)
+{
+	return notifier_chain_unregister(&inetaddr_chain,nb);
+}
+
+/**
+ * simple_strtoul - convert a string to an unsigned long
+ * @cp: The start of the string
+ * @endp: A pointer to the end of the parsed string will be placed here
+ * @base: The number base to use
+ */
+static kmem_cache_t *sk_cachep;
+unsigned long simple_strtoul(const char *cp,char **endp,unsigned int base)
+{
+	return 0;
+}
+
+void sk_free(struct sock *sk)
+{
+#ifdef CONFIG_FILTER
+	struct sk_filter *filter;
+#endif
+
+	if (sk->destruct)
+		sk->destruct(sk);
+
+#ifdef CONFIG_FILTER
+	filter = sk->filter;
+	if (filter) {
+		sk_filter_release(sk, filter);
+		sk->filter = NULL;
+	}
+#endif
+
+	if (atomic_read(&sk->omem_alloc))
+//		printk(KERN_DEBUG "sk_free: optmem leakage (%d bytes) detected.\n", atomic_read(&sk->omem_alloc));
+
+	kmem_cache_free(sk_cachep, sk);
+}
+/* 
+ * Write buffer destructor automatically called from kfree_skb. 
+ */
+void sock_wfree(struct sk_buff *skb)
+{
+	struct sock *sk = skb->sk;
+
+	/* In case it might be waiting for more memory. */
+	atomic_sub(skb->truesize, &sk->wmem_alloc);
+	if (!sk->use_write_queue)
+		sk->write_space(sk);
+	sock_put(sk);
+}
+
+/**
+ * kmem_cache_free - Deallocate an object
+ * @cachep: The cache the allocation was from.
+ * @objp: The previously allocated object.
+ *
+ * Free an object which was previously allocated from this
+ * cache.
+ */
+void kmem_cache_free (kmem_cache_t *cachep, void *objp)
+{
+
+}
+
+/* Process an incoming IP datagram fragment. */
+struct sk_buff *ip_defrag(struct sk_buff *skb)
+{
+	return NULL;
+}
+
+
+/* Keep head the same: replace data */
+int skb_linearize(struct sk_buff *skb, int gfp_mask)
+{
+
+}
+
+/* Generate a checksum for an outgoing IP datagram. */
+__inline__ void ip_send_check(struct iphdr *iph)
+{
+	iph->check = 0;
+	iph->check = ip_fast_csum((unsigned char *)iph, iph->ihl);
+}
+
+/**
+ * unregister_sysctl_table - unregister a sysctl table hierarchy
+ * @header: the header returned from register_sysctl_table
+ *
+ * Unregisters the sysctl table and all children. proc entries may not
+ * actually be removed until they are no longer used by anyone.
+ */
+void unregister_sysctl_table(struct ctl_table_header * header)
+{
+}
+
+void schedule(void)
+{
+
+}
+/**
+ * kmem_cache_destroy - delete a cache
+ * @cachep: the cache to destroy
+ *
+ * Remove a kmem_cache_t object from the slab cache.
+ * Returns 0 on success.
+ *
+ * It is expected this function will be called by a module when it is
+ * unloaded.  This will remove the cache completely, and avoid a duplicate
+ * cache being allocated each time a module is loaded and unloaded, if the
+ * module doesn't have persistent in-kernel storage across loads and unloads.
+ *
+ * The caller must guarantee that noone will allocate memory from the cache
+ * during the kmem_cache_destroy().
+ */
+int kmem_cache_destroy (kmem_cache_t * cachep)
+{
+	return 0;
+}
+
+struct ctl_table_header *register_sysctl_table(ctl_table * table, 
+					       int insert_at_head)
+{
+	return NULL;
+}
+
+static inline void free_area_pte(pmd_t * pmd, unsigned long address, unsigned long size)
+{
+	pte_t * pte;
+	unsigned long end;
+
+	if (pmd_none(*pmd))
+		return;
+	if (pmd_bad(*pmd)) {
+		pmd_ERROR(*pmd);
+		pmd_clear(pmd);
+		return;
+	}
+	pte = pte_offset(pmd, address);
+	address &= ~PMD_MASK;
+	end = address + size;
+	if (end > PMD_SIZE)
+		end = PMD_SIZE;
+	do {
+		pte_t page;
+		page = ptep_get_and_clear(pte);
+		address += PAGE_SIZE;
+		pte++;
+		if (pte_none(page))
+			continue;
+		if (pte_present(page)) {
+			struct page *ptpage = pte_page(page);
+			if (VALID_PAGE(ptpage) && (!PageReserved(ptpage)))
+				__free_page(ptpage);
+			continue;
+		}
+		printk(KERN_CRIT "Whee.. Swapped out page in kernel page table\n");
+	} while (address < end);
+}
+
+static inline void free_area_pmd(pgd_t * dir, unsigned long address, unsigned long size)
+{
+	pmd_t * pmd;
+	unsigned long end;
+
+	if (pgd_none(*dir))
+		return;
+	if (pgd_bad(*dir)) {
+		pgd_ERROR(*dir);
+		pgd_clear(dir);
+		return;
+	}
+	pmd = pmd_offset(dir, address);
+	address &= ~PGDIR_MASK;
+	end = address + size;
+	if (end > PGDIR_SIZE)
+		end = PGDIR_SIZE;
+	do {
+		free_area_pte(pmd, address, end - address);
+		address = (address + PMD_SIZE) & PMD_MASK;
+		pmd++;
+	} while (address < end);
+}
+
+void vmfree_area_pages(unsigned long address, unsigned long size)
+{
+	pgd_t * dir;
+	unsigned long end = address + size;
+
+	dir = pgd_offset_k(address);
+	flush_cache_all();
+	do {
+		free_area_pmd(dir, address, end - address);
+		address = (address + PGDIR_SIZE) & PGDIR_MASK;
+		dir++;
+	} while (address && (address < end));
+	flush_tlb_all();
+}
+
+inline int wake_up_process(struct task_struct * p)
+{
+	return 0;
+}
+
+void __free_pages(struct page *page, unsigned int order)
+{
+	
+}
+
+int netlink_unicast(struct sock *ssk, struct sk_buff *skb, u32 pid, int nonblock)
+{
+	return 1;
+
+}
+
+/*
+ *	Find the first device with a given source address.
+ */
+
+struct net_device * ip_dev_find(u32 addr)
+{
+	struct rt_key key;
+	struct fib_result res;
+	struct net_device *dev = NULL;
+
+	memset(&key, 0, sizeof(key));
+	key.dst = addr;
+#ifdef CONFIG_IP_MULTIPLE_TABLES
+	res.r = NULL;
+#endif
+
+	if (!local_table || local_table->tb_lookup(local_table, &key, &res)) {
+		return NULL;
+	}
+	if (res.type != RTN_LOCAL)
+		goto out;
+	dev = FIB_RES_DEV(res);
+	if (dev)
+		atomic_inc(&dev->refcnt);
+
+out:
+	fib_res_put(&res);
+	return dev;
+}
+
+/* Make private copy of skb with writable head and some headroom */
+
+struct sk_buff *
+skb_realloc_headroom(struct sk_buff *skb, unsigned int headroom)
+{
+	return NULL;
 }

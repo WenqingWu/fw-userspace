@@ -167,12 +167,14 @@ static inline struct proc_dir_entry *create_proc_info_entry(const char *name,
 static inline struct proc_dir_entry *proc_net_create(const char *name,
 	mode_t mode, get_info_t *get_info)
 {
-	return create_proc_info_entry(name,mode,proc_net,get_info);
+//	return create_proc_info_entry(name,mode,proc_net,get_info);
+	return NULL;
 }
 
 static inline void proc_net_remove(const char *name)
 {
-	remove_proc_entry(name,proc_net);
+//	remove_proc_entry(name,proc_net);
+	return;
 }
 
 #else

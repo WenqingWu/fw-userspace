@@ -16,7 +16,8 @@
 #ifndef _NET_IP_FIB_H
 #define _NET_IP_FIB_H
 
-#include <linux/config.h>
+#include "../linux/config.h"
+#include "../linux/types.h"
 
 struct kern_rta
 {

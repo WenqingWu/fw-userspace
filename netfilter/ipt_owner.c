@@ -8,6 +8,8 @@
 #include "../include/linux/file.h"
 #include "../include/net/sock.h"
 
+#include "../include/linux/sched.h"
+
 #include "../include/linux/netfilter_ipv4/ipt_owner.h"
 #include "../include/linux/netfilter_ipv4/ip_tables.h"
 
