@@ -17,6 +17,7 @@
 
 //extern unsigned char _ctype[];
 static unsigned char _ctype[];
+
 #define __ismask(x) (_ctype[(int)(unsigned char)(x)])
 
 #define isalnum(c)	((__ismask(c)&(_U|_L|_D)) != 0)
