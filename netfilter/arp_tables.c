@@ -30,24 +30,25 @@
 /*#define DEBUG_ARP_TABLES_USER*/
 
 #ifdef DEBUG_ARP_TABLES
-#define dprintf(format, args...)  printk(format , ## args)
+//#define dprintf(format, args...)  printk(format , ## args)
 #else
 #define dprintf(format, args...)
 #endif
 
 #ifdef DEBUG_ARP_TABLES_USER
-#define duprintf(format, args...) printk(format , ## args)
+//#define duprintf(format, args...) printk(format , ## args)
 #else
 #define duprintf(format, args...)
 #endif
 
 #ifdef CONFIG_NETFILTER_DEBUG
-#define ARP_NF_ASSERT(x)					\
-do {								\
-	if (!(x))						\
-		printk("ARP_NF_ASSERT: %s:%s:%u\n",		\
-		       __FUNCTION__, __FILE__, __LINE__);	\
-} while(0)
+#define ARP_NF_ASSERT(x)
+// #define ARP_NF_ASSERT(x)					\
+// do {								\
+// 	if (!(x))						\
+// 		printk("ARP_NF_ASSERT: %s:%s:%u\n",		\
+// 		       __FUNCTION__, __FILE__, __LINE__);	\
+// } while(0)
 #else
 #define ARP_NF_ASSERT(x)
 #endif
@@ -229,7 +230,7 @@ static unsigned int arpt_error(struct sk_buff **pskb,
 			       void *userinfo)
 {
 	if (net_ratelimit())
-		printk("arp_tables: error: '%s'\n", (char *)targinfo);
+//		printk("arp_tables: error: '%s'\n", (char *)targinfo);
 
 	return NF_DROP;
 }
@@ -428,8 +429,8 @@ static int mark_source_chains(struct arpt_table_info *newinfo, unsigned int vali
 				= (void *)arpt_get_target(e);
 
 			if (e->comefrom & (1 << NF_ARP_NUMHOOKS)) {
-				printk("arptables: loop hook %u pos %u %08X.\n",
-				       hook, pos, e->comefrom);
+				// printk("arptables: loop hook %u pos %u %08X.\n",
+				//        hook, pos, e->comefrom);
 				return 0;
 			}
 			e->comefrom

@@ -62,7 +62,8 @@
         "highuid.h": "c",
         "kernel_stat.h": "c",
         "mroute.h": "c",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "proc_fs.h": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }

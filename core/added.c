@@ -86,6 +86,14 @@
 
 #include "../include/linux/compiler.h"
 
+#include "../include/asm/string.h"
+#include "../include/asm/semaphore.h"
+
+
+#define net_ratelimit() 1   //temp
+
+unsigned long __supported_pte_mask = ~_PAGE_NX; 
+
 /* Size description struct for general caches. */
 typedef struct cache_sizes {
 	size_t		 cs_size;
@@ -255,7 +263,6 @@ typedef struct slab_s {
 	((void **)(((cpucache_t*)(cpucache))+1))
 #define cc_data(cachep) \
 	((cachep)->cpudata[smp_processor_id()])
-
 
 static inline void kmem_cache_free_one(kmem_cache_t *cachep, void *objp)
 {
@@ -1136,4 +1143,89 @@ void * kmalloc (size_t size, int flags)
 			 csizep->cs_dmacachep : csizep->cs_cachep, flags);
 	}
 	return NULL;
+}
+
+void * __vmalloc (unsigned long size, int gfp_mask, pgprot_t prot)
+{
+	
+}
+
+int ip_route_output_key(struct rtable **rp, const struct rt_key *key)
+{
+
+	return 0;
+}
+
+inline void * __memcpy(void * to, const void * from, size_t n)
+{	
+
+}
+
+struct proc_dir_entry *create_proc_entry(const char *name, mode_t mode,
+					 struct proc_dir_entry *parent)
+{
+	return NULL;
+}
+
+/*
+ * Remove a /proc entry and free it if it's not currently in use.
+ * If it is in use, we set the 'deleted' flag.
+ */
+void remove_proc_entry(const char *name, struct proc_dir_entry *parent)
+{
+
+}
+
+/**
+ * request_module - try to load a kernel module
+ * @module_name: Name of module
+ *
+ * Load a module using the user mode module loader. The function returns
+ * zero on success or a negative errno code on failure. Note that a
+ * successful module load does not mean the module did not then unload
+ * and exit on an error of its own. Callers must check that the service
+ * they requested is now available not blindly invoke it.
+ *
+ * If module auto-loading support is disabled then this function
+ * becomes a no-operation.
+ */
+int request_module(const char * module_name)
+{
+
+	return 0;
+}
+/*
+ * Perform the "down" function.  Return zero for semaphore acquired,
+ * return negative for signalled out of the function.
+ *
+ * If called from down, the return is ignored and the wait loop is
+ * not interruptible.  This means that a task waiting on a semaphore
+ * using "down()" cannot be killed until someone does an "up()" on
+ * the semaphore.
+ *
+ * If called from down_interruptible, the return value gets checked
+ * upon return.  If the return value is negative then the task continues
+ * with the negative value in the return register (it can be tested by
+ * the caller).
+ *
+ * Either form may be used in conjunction with "up()".
+ */
+
+void
+__down_failed(void)  /* special register calling convention */
+{
+
+}
+
+int
+__down_failed_interruptible(void) /* params in registers */
+{
+
+	return 0;
+}
+
+void
+__up_wakeup(void)
+{
+	
 }
