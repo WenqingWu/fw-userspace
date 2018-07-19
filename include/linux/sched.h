@@ -145,7 +145,9 @@ struct completion;
  * _adding_ to the beginning of the run-queue has
  * a separate lock).
  */
-extern rwlock_t tasklist_lock;
+//extern rwlock_t tasklist_lock;
+static rwlock_t tasklist_lock;
+
 extern spinlock_t runqueue_lock;
 extern spinlock_t mmlist_lock;
 
@@ -526,14 +528,16 @@ union task_union {
 	unsigned long stack[INIT_TASK_SIZE/sizeof(long)];
 };
 
-extern union task_union init_task_union;
+//extern union task_union init_task_union;
+static union task_union init_task_union;
 
 extern struct   mm_struct init_mm;
 extern struct task_struct *init_tasks[NR_CPUS];
 
 /* PID hashing. (shouldnt this be dynamic?) */
 #define PIDHASH_SZ (4096 >> 2)
-extern struct task_struct *pidhash[PIDHASH_SZ];
+//extern struct task_struct *pidhash[PIDHASH_SZ];
+static struct task_struct *pidhash[PIDHASH_SZ];
 
 #define pid_hashfn(x)	((((x) >> 8) ^ (x)) & (PIDHASH_SZ - 1))
 

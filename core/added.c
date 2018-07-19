@@ -1598,7 +1598,7 @@ static inline void free_area_pte(pmd_t * pmd, unsigned long address, unsigned lo
 				__free_page(ptpage);
 			continue;
 		}
-		printk(KERN_CRIT "Whee.. Swapped out page in kernel page table\n");
+//		printk(KERN_CRIT "Whee.. Swapped out page in kernel page table\n");
 	} while (address < end);
 }
 
