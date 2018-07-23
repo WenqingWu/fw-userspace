@@ -3,7 +3,7 @@ TOPDIR = $(shell /bin/pwd)
 
 CC = gcc
 CFLAGS = -Iinclude
-TARGET = main
+TARGET = fwtest
 
 # SRC = $(shell find . -name "*.c")
 # SRC = $(wildcard *.c ./netfilter/*.c ./core/*.c ./kernel/*.c)
