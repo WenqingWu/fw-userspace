@@ -18,4 +18,4 @@ $(TARGET):$(OBJ)
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 clean:
-	rm -f *.o netfilter/*.o core/*.o main
+	rm -f *.o netfilter/*.o core/*.o fwtest
