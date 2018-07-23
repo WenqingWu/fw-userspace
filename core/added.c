@@ -90,7 +90,6 @@
 #include "../include/asm/string.h"
 #include "../include/asm/semaphore.h"
 
-
 static struct notifier_block *inetaddr_chain;
 unsigned long max_mapnr;
 
@@ -1577,7 +1576,7 @@ static inline void free_area_pte(pmd_t * pmd, unsigned long address, unsigned lo
 	if (pmd_none(*pmd))
 		return;
 	if (pmd_bad(*pmd)) {
-		pmd_ERROR(*pmd);
+	//	pmd_ERROR(*pmd);
 		pmd_clear(pmd);
 		return;
 	}
@@ -1611,7 +1610,7 @@ static inline void free_area_pmd(pgd_t * dir, unsigned long address, unsigned lo
 	if (pgd_none(*dir))
 		return;
 	if (pgd_bad(*dir)) {
-		pgd_ERROR(*dir);
+	//	pgd_ERROR(*dir);
 		pgd_clear(dir);
 		return;
 	}
@@ -1661,6 +1660,7 @@ int netlink_unicast(struct sock *ssk, struct sk_buff *skb, u32 pid, int nonblock
 /*
  *	Find the first device with a given source address.
  */
+struct fib_table *local_table;
 
 struct net_device * ip_dev_find(u32 addr)
 {
@@ -1774,6 +1774,12 @@ struct sk_buff *skb_copy_expand(const struct sk_buff *skb,
 	return NULL;
 }
 
+/* Checksum skb data. */
+
+unsigned int skb_checksum(const struct sk_buff *skb, int offset, int len, unsigned int csum)
+{
+
+}
 
 /* Calculate csum in the case, when packet is misrouted.
  * If it failed by some reason, ignore and send skb with wrong

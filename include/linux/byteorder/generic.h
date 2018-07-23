@@ -146,7 +146,8 @@
  * Do the prototypes. Somebody might want to take the
  * address or some such sick thing..
  */
-#if defined(__KERNEL__) || (defined (__GLIBC__) && __GLIBC__ >= 2)
+//#if defined(__KERNEL__) || (defined (__GLIBC__) && __GLIBC__ >= 2)
+#if defined (__GLIBC__) && __GLIBC__ >= 2
 extern __u32			ntohl(__u32);
 extern __u32			htonl(__u32);
 #else
