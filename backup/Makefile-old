@@ -7,7 +7,7 @@ TARGET = main
 
 # SRC = $(shell find . -name "*.c")
 # SRC = $(wildcard *.c ./netfilter/*.c ./core/*.c ./kernel/*.c)
-SRC = $(wildcard *.c ./netfilter/*.c ./core/*.c)
+SRC = $(wildcard ./core/*.c ./netfilter/*.c *.c)
 
 OBJ = $(SRC:%.c=%.o) 
 
