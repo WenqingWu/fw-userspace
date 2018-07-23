@@ -1635,6 +1635,7 @@ static inline void free_area_pmd(pgd_t * dir, unsigned long address, unsigned lo
 void
 flush_tlb_all(void)
 {
+	return;
 }
 
 void vmfree_area_pages(unsigned long address, unsigned long size)
