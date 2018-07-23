@@ -24,7 +24,7 @@ MODULE_PARM(ports, "1-" __MODULE_STRING(MAX_PORTS) "i");
 #endif
 
 static int loose = 0;
-MODULE_PARM(loose, "i");
+MODULE_PARM(loose, "i");flush_tlb_all
 
 #if 0
 //#define DEBUGP printk

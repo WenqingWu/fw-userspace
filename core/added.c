@@ -1658,6 +1658,12 @@ static inline void free_area_pmd(pgd_t * dir, unsigned long address, unsigned lo
 	} while (address < end);
 }
 
+
+void
+flush_tlb_all(void)
+{
+}
+
 void vmfree_area_pages(unsigned long address, unsigned long size)
 {
 	pgd_t * dir;
@@ -1856,9 +1862,4 @@ void free_fib_info(struct fib_info *fi)
 int ip_fragment(struct sk_buff *skb, int (*output)(struct sk_buff*))
 {
 	return 0;
-}
-
-void
-flush_tlb_all(void)
-{
 }
