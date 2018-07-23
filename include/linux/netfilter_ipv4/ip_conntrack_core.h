@@ -5,15 +5,13 @@
 /* This header is used to share core functionality between the
    standalone connection tracking module, and the compatibility layer's use
    of connection tracking. */
-//extern unsigned int ip_conntrack_in(unsigned int hooknum,
-static unsigned int ip_conntrack_in(unsigned int hooknum,
+extern unsigned int ip_conntrack_in(unsigned int hooknum,
 				    struct sk_buff **pskb,
 				    const struct net_device *in,
 				    const struct net_device *out,
 				    int (*okfn)(struct sk_buff *));
 
-//extern int ip_conntrack_init(void);
-static int ip_conntrack_init(void);
+extern int ip_conntrack_init(void);
 extern void ip_conntrack_cleanup(void);
 
 struct ip_conntrack_protocol;
@@ -26,8 +24,7 @@ extern struct list_head protocol_list;
 extern struct ip_conntrack *icmp_error_track(struct sk_buff *skb,
 					     enum ip_conntrack_info *ctinfo,
 					     unsigned int hooknum);
-//extern int get_tuple(const struct iphdr *iph, size_t len,
-static int get_tuple(const struct iphdr *iph, size_t len,
+extern int get_tuple(const struct iphdr *iph, size_t len,
 		     struct ip_conntrack_tuple *tuple,
 		     struct ip_conntrack_protocol *protocol);
 
