@@ -91,6 +91,9 @@
 #include "../include/asm/semaphore.h"
 #include "../include/asm/pgtable.h"
 
+/* temp */
+extern unsigned char _ctype[];
+
 static struct notifier_block *inetaddr_chain;
 unsigned long max_mapnr;
 
@@ -1626,6 +1629,9 @@ static inline void free_area_pmd(pgd_t * dir, unsigned long address, unsigned lo
 		pmd++;
 	} while (address < end);
 }
+
+extern pml4_t init_level4_pgt[];
+#define __flush_tlb_all() __flush_tlb_global()
 
 void vmfree_area_pages(unsigned long address, unsigned long size)
 {
