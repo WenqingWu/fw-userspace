@@ -120,7 +120,6 @@ _L,_L,_L,_L,_L,_L,_L,_P,_L,_L,_L,_L,_L,_L,_L,_L};      /* 240-255 */
 pml4_t init_level4_pgt[] = {0};
 /* The 'big kernel lock' */
 spinlock_cacheline_t kernel_flag_cacheline = {SPIN_LOCK_UNLOCKED};
-#define __flush_tlb_all() __flush_tlb_global()
 
 
 static struct notifier_block *inetaddr_chain;
@@ -1856,5 +1855,10 @@ void free_fib_info(struct fib_info *fi)
 
 int ip_fragment(struct sk_buff *skb, int (*output)(struct sk_buff*))
 {
+	return 0;
+}
 
+void
+flush_tlb_all(void)
+{
 }
