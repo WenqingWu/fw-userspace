@@ -1,43 +1,21 @@
-CROSS_COMPILE =
-AS		= $(CROSS_COMPILE)as
-LD		= $(CROSS_COMPILE)ld
-CC		= $(CROSS_COMPILE)gcc
-CPP		= $(CC) -E
-AR		= $(CROSS_COMPILE)ar
-NM		= $(CROSS_COMPILE)nm
+VERSION = 2.4.20
+TOPDIR = $(shell /bin/pwd)
 
-STRIP		= $(CROSS_COMPILE)strip
-OBJCOPY		= $(CROSS_COMPILE)objcopy
-OBJDUMP		= $(CROSS_COMPILE)objdump
+CC = gcc
+CFLAGS = -Iinclude -fgnu89-inline
+TARGET = fwtest
 
-export AS LD CC CPP AR NM
-export STRIP OBJCOPY OBJDUMP
+# SRC = $(shell find . -name "*.c")
+# SRC = $(wildcard *.c ./netfilter/*.c ./core/*.c ./kernel/*.c)
+SRC = $(wildcard ./core/*.c ./netfilter/*.c *.c)
 
-#CFLAGS := -fno-pie -no-pie -Wall -Iinclude
-CFLAGS := -Wall -Iinclude
+OBJ = $(SRC:%.c=%.o) 
 
-LDFLAGS := 
+$(TARGET):$(OBJ)
+	$(CC) -o $(TARGET) $(OBJ)
 
-export CFLAGS LDFLAGS
-
-TOPDIR := $(shell pwd)
-export TOPDIR
-
-TARGET := netfilter-test
-
-
- obj-y += main.o
- obj-y += core/
- obj-y += netfilter/
-#  obj-y += kernel/
-
-all : 
-	make -C ./ -f $(TOPDIR)/Makefile.build
-	$(CC) $(LDFLAGS) -o $(TARGET) built-in.o
-
+%*.o:%*.c
+	$(CC) $(CFLAGS) -c $^ -o $@
 
 clean:
-	rm -f $(shell find -name "*.o")
-	rm -f $(shell find -name "*.d")
-	rm -f $(TARGET)
-.PHONY:all clean 
+	rm -f *.o netfilter/*.o core/*.o fwtest
