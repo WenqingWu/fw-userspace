@@ -89,6 +89,7 @@
 
 #include "../include/asm/string.h"
 #include "../include/asm/semaphore.h"
+#include "../include/asm/pgtable.h"
 
 static struct notifier_block *inetaddr_chain;
 unsigned long max_mapnr;
