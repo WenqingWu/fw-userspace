@@ -1638,6 +1638,9 @@ flush_tlb_all(void)
 	return;
 }
 
+/* temp */
+pml4_t init_level4_pgt[] = {0};
+
 void vmfree_area_pages(unsigned long address, unsigned long size)
 {
 	pgd_t * dir;
