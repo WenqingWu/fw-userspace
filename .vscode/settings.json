@@ -64,7 +64,8 @@
         "mroute.h": "c",
         "algorithm": "cpp",
         "proc_fs.h": "c",
-        "ip_fib.h": "c"
+        "ip_fib.h": "c",
+        "ctype.h": "c"
     },
     "C_Cpp.dimInactiveRegions": false
 }

@@ -1805,3 +1805,17 @@ struct sk_buff * skb_checksum_help(struct sk_buff *skb)
 void free_fib_info(struct fib_info *fi)
 {
 }
+
+/*
+ *	This IP datagram is too large to be sent in one piece.  Break it up into
+ *	smaller pieces (each of size equal to IP header plus
+ *	a block of the data of the original IP data part) that will yet fit in a
+ *	single device frame, and queue such a frame for sending.
+ *
+ *	Yes this is inefficient, feel free to submit a quicker one.
+ */
+
+int ip_fragment(struct sk_buff *skb, int (*output)(struct sk_buff*))
+{
+
+}
