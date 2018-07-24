@@ -1675,7 +1675,9 @@ __u32 secure_ip_id(__u32 daddr)
 	/*
 	 * Pick a random secret every REKEY_INTERVAL seconds.
 	 */
-	t = CURRENT_TIME;
+	struct timeval xtime_tmp;
+	//t = CURRENT_TIME;
+	t = xtime_tmp.tv_sec;
 	if (!rekey_time || (t - rekey_time) > REKEY_INTERVAL) {
 		rekey_time = t;
 		/* First word is overwritten below. */
@@ -1712,6 +1714,11 @@ static void ip_select_fb_ident(struct iphdr *iph)
 	iph->id = htons(salt & 0xFFFF);
 	ip_fallback_id = salt;
 	spin_unlock_bh(&ip_fb_id_lock);
+}
+/* Called with or without local BH being disabled. */
+struct inet_peer *inet_getpeer(__u32 daddr, int create)
+{
+	return NULL;
 }
 void rt_bind_peer(struct rtable *rt, int create)
 {
@@ -2487,7 +2494,7 @@ unsigned int skb_checksum(const struct sk_buff *skb, int offset, int len, unsign
 	for (i=0; i<skb_shinfo(skb)->nr_frags; i++) {
 		int end;
 
-		BUG_TRAP(start <= offset+len);
+	//	BUG_TRAP(start <= offset+len);
 
 		end = start + skb_shinfo(skb)->frags[i].size;
 		if ((copy = end-offset) > 0) {

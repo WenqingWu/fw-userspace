@@ -40,15 +40,19 @@ extern struct inet_peer **inet_peer_unused_tailp;
 /* can be called from BH context or outside */
 static inline void	inet_putpeer(struct inet_peer *p)
 {
-	spin_lock_bh(&inet_peer_unused_lock);
+	/* temp */
+	spinlock_t inet_peer_unused_lock_tmp;
+	struct inet_peer **inet_peer_unused_tailp_tmp;
+
+	spin_lock_bh(&inet_peer_unused_lock_tmp);
 	if (atomic_dec_and_test(&p->refcnt)) {
-		p->unused_prevp = inet_peer_unused_tailp;
+		p->unused_prevp = inet_peer_unused_tailp_tmp;
 		p->unused_next = NULL;
-		*inet_peer_unused_tailp = p;
-		inet_peer_unused_tailp = &p->unused_next;
+		*inet_peer_unused_tailp_tmp = p;
+		inet_peer_unused_tailp_tmp = &p->unused_next;
 		p->dtime = jiffies;
 	}
-	spin_unlock_bh(&inet_peer_unused_lock);
+	spin_unlock_bh(&inet_peer_unused_lock_tmp);
 }
 
 extern spinlock_t inet_peer_idlock;
