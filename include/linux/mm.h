@@ -323,8 +323,7 @@ typedef struct page {
 #define ZONE_SHIFT (BITS_PER_LONG - 8)
 
 struct zone_struct;
-//extern struct zone_struct *zone_table[];
-struct zone_struct *zone_table[] = {0};
+extern struct zone_struct *zone_table[];
 
 static inline zone_t *page_zone(struct page *page)
 {

@@ -51,8 +51,8 @@ static inline void	inet_putpeer(struct inet_peer *p)
 	spin_unlock_bh(&inet_peer_unused_lock);
 }
 
-//extern spinlock_t inet_peer_idlock;
-spinlock_t inet_peer_idlock = {0};
+extern spinlock_t inet_peer_idlock;
+
 
 /* can be called with or without local BH being disabled */
 static inline __u16	inet_getid(struct inet_peer *p)
