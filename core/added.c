@@ -92,6 +92,8 @@
 
 #include "../include/linux/spinlock.h"
 
+struct ip_mib ip_statistics[NR_CPUS*2];
+
 /* The 'big kernel lock' */
 spinlock_cacheline_t kernel_flag_cacheline = {SPIN_LOCK_UNLOCKED};
 
@@ -668,6 +670,16 @@ void __br_write_unlock (enum brlock_indices idx)
 /*
  *	Slab constructor for a skb head. 
  */ 
+/*
+ *	Options "fragmenting", just fill options not
+ *	allowed in fragments with NOOPs.
+ *	Simple and stupid 8), but the most efficient way.
+ */
+
+void ip_options_fragment(struct sk_buff * skb) 
+{
+	/* temp */
+}
 static inline void skb_headerinit(void *p, kmem_cache_t *cache, 
 				  unsigned long flags)
 {
@@ -1430,6 +1442,20 @@ static union {
 	char	__pad[SMP_CACHE_BYTES];
 } sockets_in_use[NR_CPUS];
 
+
+/**
+ *	iput	- put an inode 
+ *	@inode: inode to put
+ *
+ *	Puts an inode, dropping its usage count. If the inode use count hits
+ *	zero the inode is also then freed and may be destroyed.
+ */
+ 
+void iput(struct inode *inode)
+{
+	/* temp */
+}
+
 void sock_release(struct socket *sock)
 {
 	if (sock->ops) 
@@ -1687,6 +1713,22 @@ static void ip_select_fb_ident(struct iphdr *iph)
 	ip_fallback_id = salt;
 	spin_unlock_bh(&ip_fb_id_lock);
 }
+void rt_bind_peer(struct rtable *rt, int create)
+{
+	static spinlock_t rt_peer_lock = SPIN_LOCK_UNLOCKED;
+	struct inet_peer *peer;
+
+	peer = inet_getpeer(rt->rt_dst, create);
+
+	spin_lock_bh(&rt_peer_lock);
+	if (rt->peer == NULL) {
+		rt->peer = peer;
+		peer = NULL;
+	}
+	spin_unlock_bh(&rt_peer_lock);
+	if (peer)
+		inet_putpeer(peer);
+}
 void __ip_select_ident(struct iphdr *iph, struct dst_entry *dst)
 {
 	struct rtable *rt = (struct rtable *) dst;
@@ -1759,6 +1801,12 @@ void __ip_select_ident(struct iphdr *iph, struct dst_entry *dst)
 #ifdef CONFIG_NET_SCHED
 	new->tc_index = old->tc_index;
 #endif
+}
+/* Copy some data bits from skb to kernel buffer. */
+
+int skb_copy_bits(const struct sk_buff *skb, int offset, void *to, int len)
+{
+	return 0;
 }
 struct sk_buff *skb_copy(const struct sk_buff *skb, int gfp_mask)
 {
@@ -2197,6 +2245,7 @@ void vmfree_area_pages(unsigned long address, unsigned long size)
  * queue for its priority - Bhavesh Davda
  */
 static LIST_HEAD(runqueue_head);
+int nr_running;
 static inline void add_to_runqueue(struct task_struct * p)
 {
 	list_add_tail(&p->run_list, &runqueue_head);
@@ -2214,6 +2263,7 @@ static void reschedule_idle(struct task_struct * p)
 {
 	/* temp */
 }
+spinlock_t runqueue_lock = {0};
 static inline int try_to_wake_up(struct task_struct * p, int synchronous)
 {
 	unsigned long flags;
@@ -2285,8 +2335,19 @@ out:
 	fib_res_put(&res);
 	return dev;
 }
+struct sk_buff *pskb_copy(struct sk_buff *skb, int gfp_mask)
+{
+	return NULL;
+}
 
-/* Make private copy of skb with writable head and some headroom */
+struct sk_buff *skb_clone(struct sk_buff *skb, int gfp_mask)
+{
+		return NULL;
+}
+int pskb_expand_head(struct sk_buff *skb, int nhead, int ntail, int gfp_mask)
+{
+	return 0;
+}
 
 struct sk_buff *
 skb_realloc_headroom(struct sk_buff *skb, unsigned int headroom)
@@ -2455,7 +2516,7 @@ unsigned int skb_checksum(const struct sk_buff *skb, int offset, int len, unsign
 		for (list = skb_shinfo(skb)->frag_list; list; list=list->next) {
 			int end;
 
-			BUG_TRAP(start <= offset+len);
+//			BUG_TRAP(start <= offset+len);
 
 			end = start + list->len;
 			if ((copy = end-offset) > 0) {
