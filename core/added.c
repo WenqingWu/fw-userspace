@@ -69,7 +69,6 @@
 #include "../include/linux/major.h"
 #include "../include/linux/signal.h"
 #include "../include/linux/errno.h"
-#include "../include/linux/stat.h"
 #include "../include/linux/un.h"
 #include "../include/linux/fcntl.h"
 #include "../include/linux/termios.h"
@@ -91,9 +90,12 @@
 #include "../include/asm/semaphore.h"
 #include "../include/asm/pgtable.h"
 
+#include "../include/linux/spinlock.h"
+
 /* The 'big kernel lock' */
 spinlock_cacheline_t kernel_flag_cacheline = {SPIN_LOCK_UNLOCKED};
 
+struct proc_dir_entry *proc_sys_root;
 
 static struct notifier_block *inetaddr_chain;
 unsigned long max_mapnr;
@@ -502,8 +504,9 @@ static inline int ip_finish_output2(struct sk_buff *skb)
 	} else if (dst->neighbour)
 		return dst->neighbour->output(skb);
 
-	if (net_ratelimit())
+	if (net_ratelimit()){
 //		printk(KERN_DEBUG "ip_finish_output2: No header cache and no neighbour!\n");
+	}
 	kfree_skb(skb);
 	return -EINVAL;
 }
@@ -1322,13 +1325,78 @@ void __out_of_line_bug(int line)
 void netlink_broadcast(struct sock *ssk, struct sk_buff *skb, u32 pid,
 		       u32 group, int allocation)
 {
-
+	/* temp */
 }
 
+static __inline__ struct sk_buff *skb_head_from_pool(void)
+{
+	struct sk_buff_head *list = &skb_head_pool[smp_processor_id()].list;
+
+	if (skb_queue_len(list)) {
+		struct sk_buff *skb;
+		unsigned long flags;
+
+		local_irq_save(flags);
+		skb = __skb_dequeue(list);
+		local_irq_restore(flags);
+		return skb;
+	}
+	return NULL;
+}
 struct sk_buff *alloc_skb(unsigned int size,int gfp_mask)
 {
-	return NULL;
+		struct sk_buff *skb;
+	u8 *data;
 
+	if (in_interrupt() && (gfp_mask & __GFP_WAIT)) {
+		static int count = 0;
+		if (++count < 5) {
+			// printk(KERN_ERR "alloc_skb called nonatomically "
+			//        "from interrupt %p\n", NET_CALLER(size));
+ 			BUG();
+		}
+		gfp_mask &= ~__GFP_WAIT;
+	}
+
+	/* Get the HEAD */
+	skb = skb_head_from_pool();
+	if (skb == NULL) {
+		skb = kmem_cache_alloc(skbuff_head_cache, gfp_mask & ~__GFP_DMA);
+		if (skb == NULL)
+			goto nohead;
+	}
+
+	/* Get the DATA. Size must match skb_add_mtu(). */
+	size = SKB_DATA_ALIGN(size);
+	data = kmalloc(size + sizeof(struct skb_shared_info), gfp_mask);
+	if (data == NULL)
+		goto nodata;
+
+	/* XXX: does not include slab overhead */ 
+	skb->truesize = size + sizeof(struct sk_buff);
+
+	/* Load the data pointers. */
+	skb->head = data;
+	skb->data = data;
+	skb->tail = data;
+	skb->end = data + size;
+
+	/* Set up other state */
+	skb->len = 0;
+	skb->cloned = 0;
+	skb->data_len = 0;
+
+	atomic_set(&skb->users, 1); 
+	atomic_set(&(skb_shinfo(skb)->dataref), 1);
+	skb_shinfo(skb)->nr_frags = 0;
+	skb_shinfo(skb)->frag_list = NULL;
+	return skb;
+
+nodata:
+	skb_head_to_pool(skb);
+nohead:
+	/* temp */
+	return NULL;
 }
 
 /*
@@ -1341,8 +1409,8 @@ struct sk_buff *alloc_skb(unsigned int size,int gfp_mask)
 struct sock *
 netlink_kernel_create(int unit, void (*input)(struct sock *sk, int len))
 {
+	/* temp */
 	return NULL;
-
 }
 
 /**
@@ -1353,15 +1421,119 @@ netlink_kernel_create(int unit, void (*input)(struct sock *sk, int len))
  *	callback, and the inode is then released if the socket is bound to
  *	an inode not a file. 
  */
- 
+ /*
+ *	Statistics counters of the socket lists
+ */
+
+static union {
+	int	counter;
+	char	__pad[SMP_CACHE_BYTES];
+} sockets_in_use[NR_CPUS];
+
 void sock_release(struct socket *sock)
 {
+	if (sock->ops) 
+		sock->ops->release(sock);
 
+	if (sock->fasync_list) {
+//		printk(KERN_ERR "sock_release: fasync list not empty!\n");
+	}
+
+	sockets_in_use[smp_processor_id()].counter--;
+	if (!sock->file) {
+		iput(sock->inode);
+		return;
+	}
+	sock->file=NULL;
 }
 
+/* Initialize both explicitly - let's try to have them in the same cache line */
+spinlock_t timerlist_lock = SPIN_LOCK_UNLOCKED;
+static unsigned long timer_jiffies;
+static struct list_head * run_timer_list_running;
+
+/*
+ * Event timer code
+ */
+#define TVN_BITS 6
+#define TVR_BITS 8
+#define TVN_SIZE (1 << TVN_BITS)
+#define TVR_SIZE (1 << TVR_BITS)
+#define TVN_MASK (TVN_SIZE - 1)
+#define TVR_MASK (TVR_SIZE - 1)
+
+struct timer_vec {
+	int index;
+	struct list_head vec[TVN_SIZE];
+};
+
+struct timer_vec_root {
+	int index;
+	struct list_head vec[TVR_SIZE];
+};
+
+static struct timer_vec tv5;
+static struct timer_vec tv4;
+static struct timer_vec tv3;
+static struct timer_vec tv2;
+static struct timer_vec_root tv1;
+
+
+static inline void internal_add_timer(struct timer_list *timer)
+{
+	/*
+	 * must be cli-ed when calling this
+	 */
+	unsigned long expires = timer->expires;
+	unsigned long idx = expires - timer_jiffies;
+	struct list_head * vec;
+
+	if (run_timer_list_running)
+		vec = run_timer_list_running;
+	else if (idx < TVR_SIZE) {
+		int i = expires & TVR_MASK;
+		vec = tv1.vec + i;
+	} else if (idx < 1 << (TVR_BITS + TVN_BITS)) {
+		int i = (expires >> TVR_BITS) & TVN_MASK;
+		vec = tv2.vec + i;
+	} else if (idx < 1 << (TVR_BITS + 2 * TVN_BITS)) {
+		int i = (expires >> (TVR_BITS + TVN_BITS)) & TVN_MASK;
+		vec =  tv3.vec + i;
+	} else if (idx < 1 << (TVR_BITS + 3 * TVN_BITS)) {
+		int i = (expires >> (TVR_BITS + 2 * TVN_BITS)) & TVN_MASK;
+		vec = tv4.vec + i;
+	} else if ((signed long) idx < 0) {
+		/* can happen if you add a timer with expires == jiffies,
+		 * or you set a timer to go off in the past
+		 */
+		vec = tv1.vec + tv1.index;
+	} else if (idx <= 0xffffffffUL) {
+		int i = (expires >> (TVR_BITS + 3 * TVN_BITS)) & TVN_MASK;
+		vec = tv5.vec + i;
+	} else {
+		/* Can only get here on architectures with 64-bit jiffies */
+		INIT_LIST_HEAD(&timer->list);
+		return;
+	}
+	/*
+	 * Timers are FIFO!
+	 */
+	list_add(&timer->list, vec->prev);
+}
 void add_timer(struct timer_list *timer)
 {
+	unsigned long flags;
 
+	spin_lock_irqsave(&timerlist_lock, flags);
+	if (timer_pending(timer))
+		goto bug;
+	internal_add_timer(timer);
+	spin_unlock_irqrestore(&timerlist_lock, flags);
+	return;
+bug:
+	spin_unlock_irqrestore(&timerlist_lock, flags);
+	// printk("bug: kernel timer added twice at %p.\n",
+	// 		__builtin_return_address(0));
 }
 
 /* skbuff.c
@@ -1372,14 +1544,169 @@ void add_timer(struct timer_list *timer)
 
 int ___pskb_trim(struct sk_buff *skb, unsigned int len, int realloc)
 {
+	/* temp */
 	return 0;
 }
 
-/* net/ipv4/route.c
+/* net/ipv4/route.c */
+/*
+ * This function is the exported kernel interface.  It returns some
+ * number of good random numbers, suitable for seeding TCP sequence
+ * numbers, etc.
  */
+static struct entropy_store *random_state; /* The default global store */
+static struct entropy_store *sec_random_state; /* secondary store */
+#define EXTRACT_ENTROPY_SECONDARY	2
+
+static ssize_t extract_entropy(struct entropy_store *r, void * buf,
+			       size_t nbytes, int flags)
+{
+	/* temp */
+	return 0;
+}
+void get_random_bytes(void *buf, int nbytes)
+{
+	if (sec_random_state)  
+		extract_entropy(sec_random_state, (char *) buf, nbytes, 
+				EXTRACT_ENTROPY_SECONDARY);
+	else if (random_state)
+		extract_entropy(random_state, (char *) buf, nbytes, 0);
+	else {
+		// printk(KERN_NOTICE "get_random_bytes called before "
+		// 		   "random driver initialization\n");
+	}
+}
+
+/*  The code below is shamelessly stolen from secure_tcp_sequence_number().
+ *  All blames to Andrey V. Savochkin <saw@msu.ru>.
+ */
+
+/* This should not be decreased so low that ISNs wrap too fast. */
+#define REKEY_INTERVAL	300
+#define F(x, y, z) ((z) ^ ((x) & ((y) ^ (z))))
+#define G(x, y, z) (((x) & (y)) + (((x) ^ (y)) & (z)))
+#define H(x, y, z) ((x) ^ (y) ^ (z))
+
+/*
+ * The generic round function.  The application is so specific that
+ * we don't bother protecting all the arguments with parens, as is generally
+ * good macro practice, in favor of extra legibility.
+ * Rotation is separate from addition to prevent recomputation
+ */
+#define ROUND(f, a, b, c, d, x, s)	\
+	(a += f(b, c, d) + x, a = (a << s) | (a >> (32-s)))
+#define K1 0
+#define K2 013240474631UL
+#define K3 015666365641UL
+
+/*
+ * Basic cut-down MD4 transform.  Returns only 32 bits of result.
+ */
+static __u32 halfMD4Transform (__u32 const buf[4], __u32 const in[8])
+{
+	__u32	a = buf[0], b = buf[1], c = buf[2], d = buf[3];
+
+	/* Round 1 */
+	ROUND(F, a, b, c, d, in[0] + K1,  3);
+	ROUND(F, d, a, b, c, in[1] + K1,  7);
+	ROUND(F, c, d, a, b, in[2] + K1, 11);
+	ROUND(F, b, c, d, a, in[3] + K1, 19);
+	ROUND(F, a, b, c, d, in[4] + K1,  3);
+	ROUND(F, d, a, b, c, in[5] + K1,  7);
+	ROUND(F, c, d, a, b, in[6] + K1, 11);
+	ROUND(F, b, c, d, a, in[7] + K1, 19);
+
+	/* Round 2 */
+	ROUND(G, a, b, c, d, in[1] + K2,  3);
+	ROUND(G, d, a, b, c, in[3] + K2,  5);
+	ROUND(G, c, d, a, b, in[5] + K2,  9);
+	ROUND(G, b, c, d, a, in[7] + K2, 13);
+	ROUND(G, a, b, c, d, in[0] + K2,  3);
+	ROUND(G, d, a, b, c, in[2] + K2,  5);
+	ROUND(G, c, d, a, b, in[4] + K2,  9);
+	ROUND(G, b, c, d, a, in[6] + K2, 13);
+
+	/* Round 3 */
+	ROUND(H, a, b, c, d, in[3] + K3,  3);
+	ROUND(H, d, a, b, c, in[7] + K3,  9);
+	ROUND(H, c, d, a, b, in[2] + K3, 11);
+	ROUND(H, b, c, d, a, in[6] + K3, 15);
+	ROUND(H, a, b, c, d, in[1] + K3,  3);
+	ROUND(H, d, a, b, c, in[5] + K3,  9);
+	ROUND(H, c, d, a, b, in[0] + K3, 11);
+	ROUND(H, b, c, d, a, in[4] + K3, 15);
+
+	return buf[1] + b;	/* "most hashed" word */
+	/* Alternative: return sum of all words? */
+}
+
+__u32 secure_ip_id(__u32 daddr)
+{
+	static time_t	rekey_time;
+	static __u32	secret[12];
+	time_t		t;
+
+	/*
+	 * Pick a random secret every REKEY_INTERVAL seconds.
+	 */
+	t = CURRENT_TIME;
+	if (!rekey_time || (t - rekey_time) > REKEY_INTERVAL) {
+		rekey_time = t;
+		/* First word is overwritten below. */
+		get_random_bytes(secret+1, sizeof(secret)-4);
+	}
+
+	/*
+	 *  Pick a unique starting offset for each IP destination.
+	 *  Note that the words are placed into the first words to be
+	 *  mixed in with the halfMD4.  This is because the starting
+	 *  vector is also a random secret (at secret+8), and further
+	 *  hashing fixed data into it isn't going to improve anything,
+	 *  so we should get started with the variable data.
+	 */
+	secret[0]=daddr;
+
+	return halfMD4Transform(secret+8, secret);
+}
+/*
+ * Peer allocation may fail only in serious out-of-memory conditions.  However
+ * we still can generate some output.
+ * Random ID selection looks a bit dangerous because we have no chances to
+ * select ID being unique in a reasonable period of time.
+ * But broken packet identifier may be better than no packet at all.
+ */
+static void ip_select_fb_ident(struct iphdr *iph)
+{
+	static spinlock_t ip_fb_id_lock = SPIN_LOCK_UNLOCKED;
+	static u32 ip_fallback_id;
+	u32 salt;
+
+	spin_lock_bh(&ip_fb_id_lock);
+	salt = secure_ip_id(ip_fallback_id ^ iph->daddr);
+	iph->id = htons(salt & 0xFFFF);
+	ip_fallback_id = salt;
+	spin_unlock_bh(&ip_fb_id_lock);
+}
 void __ip_select_ident(struct iphdr *iph, struct dst_entry *dst)
 {
-	
+	struct rtable *rt = (struct rtable *) dst;
+
+	if (rt) {
+		if (rt->peer == NULL)
+			rt_bind_peer(rt, 1);
+
+		/* If peer is attached to destination, it is never detached,
+		   so that we need not to grab a lock to dereference it.
+		 */
+		if (rt->peer) {
+			iph->id = htons(inet_getid(rt->peer));
+			return;
+		}
+	} else{
+//		printk(KERN_DEBUG "rt_bind_peer(0) @%p\n", NET_CALLER(iph));
+	}
+
+	ip_select_fb_ident(iph);
 }
 
 /**
@@ -1398,10 +1725,66 @@ void __ip_select_ident(struct iphdr *iph, struct dst_entry *dst)
  *	function is not recommended for use in circumstances when only
  *	header is going to be modified. Use pskb_copy() instead.
  */
- 
+ static void copy_skb_header(struct sk_buff *new, const struct sk_buff *old)
+{
+	/*
+	 *	Shift between the two data areas in bytes
+	 */
+	unsigned long offset = new->data - old->data;
+
+	new->list=NULL;
+	new->sk=NULL;
+	new->dev=old->dev;
+	new->priority=old->priority;
+	new->protocol=old->protocol;
+	new->dst=dst_clone(old->dst);
+	new->h.raw=old->h.raw+offset;
+	new->nh.raw=old->nh.raw+offset;
+	new->mac.raw=old->mac.raw+offset;
+	memcpy(new->cb, old->cb, sizeof(old->cb));
+	atomic_set(&new->users, 1);
+	new->pkt_type=old->pkt_type;
+	new->stamp=old->stamp;
+	new->destructor = NULL;
+	new->security=old->security;
+#ifdef CONFIG_NETFILTER
+	new->nfmark=old->nfmark;
+	new->nfcache=old->nfcache;
+	new->nfct=old->nfct;
+	nf_conntrack_get(new->nfct);
+#ifdef CONFIG_NETFILTER_DEBUG
+	new->nf_debug=old->nf_debug;
+#endif
+#endif
+#ifdef CONFIG_NET_SCHED
+	new->tc_index = old->tc_index;
+#endif
+}
 struct sk_buff *skb_copy(const struct sk_buff *skb, int gfp_mask)
 {
-	return NULL;
+	struct sk_buff *n;
+	int headerlen = skb->data-skb->head;
+
+	/*
+	 *	Allocate the copy buffer
+	 */
+	n=alloc_skb(skb->end - skb->head + skb->data_len, gfp_mask);
+	if(n==NULL)
+		return NULL;
+
+	/* Set the data pointer */
+	skb_reserve(n,headerlen);
+	/* Set the tail pointer and length */
+	skb_put(n,skb->len);
+	n->csum = skb->csum;
+	n->ip_summed = skb->ip_summed;
+
+	if (skb_copy_bits(skb, -headerlen, n->head, headerlen+skb->len))
+		BUG();
+
+	copy_skb_header(n, skb);
+
+	return n;
 }
 /*
  *	Check transmit rate limitation for given message.
@@ -1458,9 +1841,35 @@ int unregister_inetaddr_notifier(struct notifier_block *nb)
  * @base: The number base to use
  */
 static kmem_cache_t *sk_cachep;
+/**
+ * simple_strtoul - convert a string to an unsigned long
+ * @cp: The start of the string
+ * @endp: A pointer to the end of the parsed string will be placed here
+ * @base: The number base to use
+ */
 unsigned long simple_strtoul(const char *cp,char **endp,unsigned int base)
 {
-	return 0;
+	unsigned long result = 0,value;
+
+	if (!base) {
+		base = 10;
+		if (*cp == '0') {
+			base = 8;
+			cp++;
+			if ((*cp == 'x') && isxdigit(cp[1])) {
+				cp++;
+				base = 16;
+			}
+		}
+	}
+	while (isxdigit(*cp) &&
+	       (value = isdigit(*cp) ? *cp-'0' : toupper(*cp)-'A'+10) < base) {
+		result = result*base + value;
+		cp++;
+	}
+	if (endp)
+		*endp = (char *)cp;
+	return result;
 }
 
 void sk_free(struct sock *sk)
@@ -1480,8 +1889,9 @@ void sk_free(struct sock *sk)
 	}
 #endif
 
-	if (atomic_read(&sk->omem_alloc))
+	if (atomic_read(&sk->omem_alloc)){
 //		printk(KERN_DEBUG "sk_free: optmem leakage (%d bytes) detected.\n", atomic_read(&sk->omem_alloc));
+	}
 
 	kmem_cache_free(sk_cachep, sk);
 }
@@ -1509,12 +1919,22 @@ void sock_wfree(struct sk_buff *skb)
  */
 void kmem_cache_free (kmem_cache_t *cachep, void *objp)
 {
+	unsigned long flags;
+#if DEBUG
+	CHECK_PAGE(virt_to_page(objp));
+	if (cachep != GET_PAGE_CACHE(virt_to_page(objp)))
+		BUG();
+#endif
 
+	local_irq_save(flags);
+	__kmem_cache_free(cachep, objp);
+	local_irq_restore(flags);
 }
 
 /* Process an incoming IP datagram fragment. */
 struct sk_buff *ip_defrag(struct sk_buff *skb)
 {
+	/* temp */
 	return NULL;
 }
 
@@ -1522,7 +1942,55 @@ struct sk_buff *ip_defrag(struct sk_buff *skb)
 /* Keep head the same: replace data */
 int skb_linearize(struct sk_buff *skb, int gfp_mask)
 {
+	unsigned int size;
+	u8 *data;
+	long offset;
+	int headerlen = skb->data - skb->head;
+	int expand = (skb->tail+skb->data_len) - skb->end;
 
+	if (skb_shared(skb))
+		BUG();
+
+	if (expand <= 0)
+		expand = 0;
+
+	size = (skb->end - skb->head + expand);
+	size = SKB_DATA_ALIGN(size);
+	data = kmalloc(size + sizeof(struct skb_shared_info), gfp_mask);
+	if (data == NULL)
+		return -ENOMEM;
+
+	/* Copy entire thing */
+	if (skb_copy_bits(skb, -headerlen, data, headerlen+skb->len))
+		BUG();
+
+	/* Offset between the two in bytes */
+	offset = data - skb->head;
+
+	/* Free old data. */
+	skb_release_data(skb);
+
+	skb->head = data;
+	skb->end  = data + size;
+
+	/* Set up new pointers */
+	skb->h.raw += offset;
+	skb->nh.raw += offset;
+	skb->mac.raw += offset;
+	skb->tail += offset;
+	skb->data += offset;
+
+	/* Set up shinfo */
+	atomic_set(&(skb_shinfo(skb)->dataref), 1);
+	skb_shinfo(skb)->nr_frags = 0;
+	skb_shinfo(skb)->frag_list = NULL;
+
+	/* We are no longer a clone, even if we were. */
+	skb->cloned = 0;
+
+	skb->tail += skb->data_len;
+	skb->data_len = 0;
+	return 0;
 }
 
 /* Generate a checksum for an outgoing IP datagram. */
@@ -1532,6 +2000,36 @@ __inline__ void ip_send_check(struct iphdr *iph)
 	iph->check = ip_fast_csum((unsigned char *)iph, iph->ihl);
 }
 
+
+/*
+ * Unregister a /proc sysctl table and any subdirectories.
+ */
+static void unregister_proc_table(ctl_table * table, struct proc_dir_entry *root)
+{
+	struct proc_dir_entry *de;
+	for (; table->ctl_name; table++) {
+		if (!(de = table->de))
+			continue;
+		if (de->mode & S_IFDIR) {
+			if (!table->child) {
+//				printk (KERN_ALERT "Help - malformed sysctl tree on free\n");
+				continue;
+			}
+			unregister_proc_table(table->child, de);
+
+			/* Don't unregister directories which still have entries.. */
+			if (de->subdir)
+				continue;
+		}
+
+		/* Don't unregister proc entries that are still being used.. */
+		if (atomic_read(&de->count))
+			continue;
+
+		table->de = NULL;
+		remove_proc_entry(table->procname, root);
+	}
+}
 /**
  * unregister_sysctl_table - unregister a sysctl table hierarchy
  * @header: the header returned from register_sysctl_table
@@ -1541,11 +2039,16 @@ __inline__ void ip_send_check(struct iphdr *iph)
  */
 void unregister_sysctl_table(struct ctl_table_header * header)
 {
+	list_del(&header->ctl_entry);
+#ifdef CONFIG_PROC_FS
+	unregister_proc_table(header->ctl_table, proc_sys_root);
+#endif
+	kfree(header);
 }
 
 void schedule(void)
 {
-
+	/* temp */
 }
 /**
  * kmem_cache_destroy - delete a cache
@@ -1564,13 +2067,38 @@ void schedule(void)
  */
 int kmem_cache_destroy (kmem_cache_t * cachep)
 {
+	/* temp */
 	return 0;
 }
+
+/* Scan the sysctl entries in table and add them all into /proc */
+static void register_proc_table(ctl_table * table, struct proc_dir_entry *root)
+{
+	/* may not be used*/
+}
+
+static ctl_table root_table[] = {0};       /* temp */
+static struct ctl_table_header root_table_header =
+	{ root_table, LIST_HEAD_INIT(root_table_header.ctl_entry) };
+
 
 struct ctl_table_header *register_sysctl_table(ctl_table * table, 
 					       int insert_at_head)
 {
-	return NULL;
+		struct ctl_table_header *tmp;
+	tmp = kmalloc(sizeof(struct ctl_table_header), GFP_KERNEL);
+	if (!tmp)
+		return NULL;
+	tmp->ctl_table = table;
+	INIT_LIST_HEAD(&tmp->ctl_entry);
+	if (insert_at_head)
+		list_add(&tmp->ctl_entry, &root_table_header.ctl_entry);
+	else
+		list_add_tail(&tmp->ctl_entry, &root_table_header.ctl_entry);
+#ifdef CONFIG_PROC_FS
+	register_proc_table(table, proc_sys_root);
+#endif
+	return tmp;
 }
 
 static inline void free_area_pte(pmd_t * pmd, unsigned long address, unsigned long size)
@@ -1656,20 +2184,75 @@ void vmfree_area_pages(unsigned long address, unsigned long size)
 	flush_tlb_all();
 }
 
-inline int wake_up_process(struct task_struct * p)
+
+/*
+ * Careful!
+ *
+ * This has to add the process to the _end_ of the 
+ * run-queue, not the beginning. The goodness value will
+ * determine whether this process will run next. This is
+ * important to get SCHED_FIFO and SCHED_RR right, where
+ * a process that is either pre-empted or its time slice
+ * has expired, should be moved to the tail of the run 
+ * queue for its priority - Bhavesh Davda
+ */
+static LIST_HEAD(runqueue_head);
+static inline void add_to_runqueue(struct task_struct * p)
 {
-	return 0;
+	list_add_tail(&p->run_list, &runqueue_head);
+	nr_running++;
+}
+/*
+ * Wake up a process. Put it on the run-queue if it's not
+ * already there.  The "current" process is always on the
+ * run-queue (except when the actual re-schedule is in
+ * progress), and as such you're allowed to do the simpler
+ * "current->state = TASK_RUNNING" to mark yourself runnable
+ * without the overhead of this.
+ */
+static void reschedule_idle(struct task_struct * p)
+{
+	/* temp */
+}
+static inline int try_to_wake_up(struct task_struct * p, int synchronous)
+{
+	unsigned long flags;
+	int success = 0;
+
+	/*
+	 * We want the common case fall through straight, thus the goto.
+	 */
+	spin_lock_irqsave(&runqueue_lock, flags);
+	p->state = TASK_RUNNING;
+	if (task_on_runqueue(p))
+		goto out;
+	add_to_runqueue(p);
+	if (!synchronous || !(p->cpus_allowed & (1 << smp_processor_id())))
+		reschedule_idle(p);
+	success = 1;
+out:
+	spin_unlock_irqrestore(&runqueue_lock, flags);
+	return success;
 }
 
+inline int wake_up_process(struct task_struct * p)
+{
+	return try_to_wake_up(p, 0);
+}
+
+static void __free_pages_ok (struct page *page, unsigned int order)
+{
+
+}
 void __free_pages(struct page *page, unsigned int order)
 {
-	
+	if (!PageReserved(page) && put_page_testzero(page))
+	__free_pages_ok(page, order);	
 }
 
 int netlink_unicast(struct sock *ssk, struct sk_buff *skb, u32 pid, int nonblock)
 {
 	return 1;
-
 }
 
 /*
@@ -1708,6 +2291,18 @@ out:
 struct sk_buff *
 skb_realloc_headroom(struct sk_buff *skb, unsigned int headroom)
 {
+	struct sk_buff *skb2;
+	int delta = headroom - skb_headroom(skb);
+
+	if (delta <= 0)
+		return pskb_copy(skb, GFP_ATOMIC);
+
+	skb2 = skb_clone(skb, GFP_ATOMIC);
+	if (skb2 == NULL ||
+	    !pskb_expand_head(skb2, SKB_DATA_ALIGN(delta), 0, GFP_ATOMIC))
+		return skb2;
+
+	kfree_skb(skb2);
 	return NULL;
 }
 
@@ -1721,7 +2316,7 @@ skb_realloc_headroom(struct sk_buff *skb, unsigned int headroom)
  */
 void * kmem_cache_alloc (kmem_cache_t *cachep, int flags)
 {
-
+	
 }
 
 /**
@@ -1779,21 +2374,109 @@ kmem_cache_create (const char *name, size_t size, size_t offset,
  *	You must pass %GFP_ATOMIC as the allocation priority if this function
  *	is called from an interrupt.
  */
- 
 
 struct sk_buff *skb_copy_expand(const struct sk_buff *skb,
 				int newheadroom,
 				int newtailroom,
 				int gfp_mask)
 {
-	return NULL;
+	struct sk_buff *n;
+
+	/*
+	 *	Allocate the copy buffer
+	 */
+ 	 
+	n=alloc_skb(newheadroom + skb->len + newtailroom,
+		    gfp_mask);
+	if(n==NULL)
+		return NULL;
+
+	skb_reserve(n,newheadroom);
+
+	/* Set the tail pointer and length */
+	skb_put(n,skb->len);
+
+	/* Copy the data only. */
+	if (skb_copy_bits(skb, 0, n->data, skb->len))
+		BUG();
+
+	copy_skb_header(n, skb);
+	return n;
 }
 
 /* Checksum skb data. */
 
 unsigned int skb_checksum(const struct sk_buff *skb, int offset, int len, unsigned int csum)
 {
+	int i, copy;
+	int start = skb->len - skb->data_len;
+	int pos = 0;
 
+	/* Checksum header. */
+	if ((copy = start-offset) > 0) {
+		if (copy > len)
+			copy = len;
+		csum = csum_partial(skb->data+offset, copy, csum);
+		if ((len -= copy) == 0)
+			return csum;
+		offset += copy;
+		pos = copy;
+	}
+
+	for (i=0; i<skb_shinfo(skb)->nr_frags; i++) {
+		int end;
+
+		BUG_TRAP(start <= offset+len);
+
+		end = start + skb_shinfo(skb)->frags[i].size;
+		if ((copy = end-offset) > 0) {
+			unsigned int csum2;
+			u8 *vaddr;
+			skb_frag_t *frag = &skb_shinfo(skb)->frags[i];
+
+			if (copy > len)
+				copy = len;
+			vaddr = kmap_skb_frag(frag);
+			csum2 = csum_partial(vaddr + frag->page_offset +
+					     offset-start, copy, 0);
+			kunmap_skb_frag(vaddr);
+			csum = csum_block_add(csum, csum2, pos);
+			if (!(len -= copy))
+				return csum;
+			offset += copy;
+			pos += copy;
+		}
+		start = end;
+	}
+
+	if (skb_shinfo(skb)->frag_list) {
+		struct sk_buff *list;
+
+		for (list = skb_shinfo(skb)->frag_list; list; list=list->next) {
+			int end;
+
+			BUG_TRAP(start <= offset+len);
+
+			end = start + list->len;
+			if ((copy = end-offset) > 0) {
+				unsigned int csum2;
+				if (copy > len)
+					copy = len;
+				csum2 = skb_checksum(list, offset-start, copy, 0);
+				csum = csum_block_add(csum, csum2, pos);
+				if ((len -= copy) == 0)
+					return csum;
+				offset += copy;
+				pos += copy;
+			}
+			start = end;
+		}
+	}
+	if (len == 0)
+		return csum;
+
+	BUG();
+	return csum;
 }
 
 /* Calculate csum in the case, when packet is misrouted.
@@ -1822,9 +2505,50 @@ struct sk_buff * skb_checksum_help(struct sk_buff *skb)
 }
 
 /* Release a nexthop info record */
+#define for_fib_info() { struct fib_info *fi; \
+	for (fi = fib_info_list; fi; fi = fi->fib_next)
+
+#define endfor_fib_info() }
+
+#ifdef CONFIG_IP_ROUTE_MULTIPATH
+
+static spinlock_t fib_multipath_lock = SPIN_LOCK_UNLOCKED;
+
+#define for_nexthops(fi) { int nhsel; const struct fib_nh * nh; \
+for (nhsel=0, nh = (fi)->fib_nh; nhsel < (fi)->fib_nhs; nh++, nhsel++)
+
+#define change_nexthops(fi) { int nhsel; struct fib_nh * nh; \
+for (nhsel=0, nh = (struct fib_nh*)((fi)->fib_nh); nhsel < (fi)->fib_nhs; nh++, nhsel++)
+
+#else /* CONFIG_IP_ROUTE_MULTIPATH */
+
+/* Hope, that gcc will optimize it to get rid of dummy loop */
+
+#define for_nexthops(fi) { int nhsel=0; const struct fib_nh * nh = (fi)->fib_nh; \
+for (nhsel=0; nhsel < 1; nhsel++)
+
+#define change_nexthops(fi) { int nhsel=0; struct fib_nh * nh = (struct fib_nh*)((fi)->fib_nh); \
+for (nhsel=0; nhsel < 1; nhsel++)
+
+#endif /* CONFIG_IP_ROUTE_MULTIPATH */
+
+#define endfor_nexthops(fi) }
+
+int fib_info_cnt;
 
 void free_fib_info(struct fib_info *fi)
 {
+	if (fi->fib_dead == 0) {
+//	printk("Freeing alive fib_info %p\n", fi);
+	return;
+	}
+	change_nexthops(fi) {
+		if (nh->nh_dev)
+			dev_put(nh->nh_dev);
+		nh->nh_dev = NULL;
+	} endfor_nexthops(fi);
+	fib_info_cnt--;
+	kfree(fi);
 }
 
 /*
@@ -1838,5 +2562,161 @@ void free_fib_info(struct fib_info *fi)
 
 int ip_fragment(struct sk_buff *skb, int (*output)(struct sk_buff*))
 {
-	return 0;
+	struct iphdr *iph;
+	int raw = 0;
+	int ptr;
+	struct net_device *dev;
+	struct sk_buff *skb2;
+	unsigned int mtu, hlen, left, len; 
+	int offset;
+	int not_last_frag;
+	struct rtable *rt = (struct rtable*)skb->dst;
+	int err = 0;
+
+	dev = rt->u.dst.dev;
+
+	/*
+	 *	Point into the IP datagram header.
+	 */
+
+	iph = skb->nh.iph;
+
+	/*
+	 *	Setup starting values.
+	 */
+
+	hlen = iph->ihl * 4;
+	left = skb->len - hlen;		/* Space per frame */
+	mtu = rt->u.dst.pmtu - hlen;	/* Size of data space */
+	ptr = raw + hlen;		/* Where to start from */
+
+	/*
+	 *	Fragment the datagram.
+	 */
+
+	offset = (ntohs(iph->frag_off) & IP_OFFSET) << 3;
+	not_last_frag = iph->frag_off & htons(IP_MF);
+
+	/*
+	 *	Keep copying data until we run out.
+	 */
+
+	while(left > 0)	{
+		len = left;
+		/* IF: it doesn't fit, use 'mtu' - the data space left */
+		if (len > mtu)
+			len = mtu;
+		/* IF: we are not sending upto and including the packet end
+		   then align the next start on an eight byte boundary */
+		if (len < left)	{
+			len &= ~7;
+		}
+		/*
+		 *	Allocate buffer.
+		 */
+
+		if ((skb2 = alloc_skb(len+hlen+dev->hard_header_len+15,GFP_ATOMIC)) == NULL) {
+	//		NETDEBUG(printk(KERN_INFO "IP: frag: no memory for new fragment!\n"));
+			err = -ENOMEM;
+			goto fail;
+		}
+
+		/*
+		 *	Set up data on packet
+		 */
+
+		skb2->pkt_type = skb->pkt_type;
+		skb2->priority = skb->priority;
+		skb_reserve(skb2, (dev->hard_header_len+15)&~15);
+		skb_put(skb2, len + hlen);
+		skb2->nh.raw = skb2->data;
+		skb2->h.raw = skb2->data + hlen;
+		skb2->protocol = skb->protocol;
+		skb2->security = skb->security;
+
+		/*
+		 *	Charge the memory for the fragment to any owner
+		 *	it might possess
+		 */
+
+		if (skb->sk)
+			skb_set_owner_w(skb2, skb->sk);
+		skb2->dst = dst_clone(skb->dst);
+		skb2->dev = skb->dev;
+
+		/*
+		 *	Copy the packet header into the new buffer.
+		 */
+
+		memcpy(skb2->nh.raw, skb->data, hlen);
+
+		/*
+		 *	Copy a block of the IP datagram.
+		 */
+		if (skb_copy_bits(skb, ptr, skb2->h.raw, len))
+			BUG();
+		left -= len;
+
+		/*
+		 *	Fill in the new header fields.
+		 */
+		iph = skb2->nh.iph;
+		iph->frag_off = htons((offset >> 3));
+
+		/* ANK: dirty, but effective trick. Upgrade options only if
+		 * the segment to be fragmented was THE FIRST (otherwise,
+		 * options are already fixed) and make it ONCE
+		 * on the initial skb, so that all the following fragments
+		 * will inherit fixed options.
+		 */
+		if (offset == 0)
+			ip_options_fragment(skb);
+
+		/* Copy the flags to each fragment. */
+		IPCB(skb2)->flags = IPCB(skb)->flags;
+
+		/*
+		 *	Added AC : If we are fragmenting a fragment that's not the
+		 *		   last fragment then keep MF on each bit
+		 */
+		if (left > 0 || not_last_frag)
+			iph->frag_off |= htons(IP_MF);
+		ptr += len;
+		offset += len;
+
+#ifdef CONFIG_NET_SCHED
+		skb2->tc_index = skb->tc_index;
+#endif
+#ifdef CONFIG_NETFILTER
+		skb2->nfmark = skb->nfmark;
+		/* Connection association is same as pre-frag packet */
+		skb2->nfct = skb->nfct;
+		nf_conntrack_get(skb2->nfct);
+#ifdef CONFIG_NETFILTER_DEBUG
+		skb2->nf_debug = skb->nf_debug;
+#endif
+#endif
+
+		/*
+		 *	Put this fragment into the sending queue.
+		 */
+
+		IP_INC_STATS(IpFragCreates);
+
+		iph->tot_len = htons(len + hlen);
+
+		ip_send_check(iph);
+
+		err = output(skb2);
+		if (err)
+			goto fail;
+	}
+	kfree_skb(skb);
+	IP_INC_STATS(IpFragOKs);
+	return err;
+
+fail:
+	kfree_skb(skb); 
+	IP_INC_STATS(IpFragFails);
+	return err;
 }

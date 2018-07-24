@@ -2,7 +2,7 @@ VERSION = 2.4.20
 TOPDIR = $(shell /bin/pwd)
 
 CC = gcc
-CFLAGS = -Iinclude -fgnu89-inline
+CFLAGS = -Iinclude -fgnu89-inline -Wgnu-designator
 TARGET = fwtest
 
 # SRC = $(shell find . -name "*.c")
