@@ -94,6 +94,11 @@
 
 struct ip_mib ip_statistics[NR_CPUS*2];
 
+zone_t *zone_table[MAX_NR_ZONES*MAX_NR_NODES];
+
+/* Exported for inet_getid inline function.  */
+spinlock_t inet_peer_idlock = SPIN_LOCK_UNLOCKED;
+
 /* The 'big kernel lock' */
 spinlock_cacheline_t kernel_flag_cacheline = {SPIN_LOCK_UNLOCKED};
 
