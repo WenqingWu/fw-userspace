@@ -1209,6 +1209,16 @@ static inline int alloc_area_pte (pte_t * pte, unsigned long address,
 	} while (address < end);
 	return 0;
 }
+/*
+ * Allocate the page table directory.
+ *
+ * We've already handled the fast-path in-line, and we own the
+ * page table lock.
+ */
+pte_t *pte_alloc(struct mm_struct *mm, pmd_t *pmd, unsigned long address)
+{
+	return NULL;
+}
 static inline int alloc_area_pmd(pmd_t * pmd, unsigned long address, unsigned long size, int gfp_mask, pgprot_t prot)
 {
 	unsigned long end;
