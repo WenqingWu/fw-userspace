@@ -1230,29 +1230,8 @@ static inline int alloc_area_pmd(pmd_t * pmd, unsigned long address, unsigned lo
 }
 pmd_t *__pmd_alloc(struct mm_struct *mm, pgd_t *pgd, unsigned long address)
 {
-	pmd_t *new;
-
-	/* "fast" allocation can happen without dropping the lock.. */
-	new = pmd_alloc_one_fast(mm, address);
-	if (!new) {
-		spin_unlock(&mm->page_table_lock);
-		new = pmd_alloc_one(mm, address);
-		spin_lock(&mm->page_table_lock);
-		if (!new)
-			return NULL;
-
-		/*
-		 * Because we dropped the lock, we should re-check the
-		 * entry, as somebody else could have populated it..
-		 */
-		if (!pgd_none(*pgd)) {
-			pmd_free(new);
-			goto out;
-		}
-	}
-	pgd_populate(mm, pgd, new);
-out:
-	return pmd_offset(pgd, address);
+	/* temp  */
+	return NULL;
 }
 
 inline int vmalloc_area_pages (unsigned long address, unsigned long size,
