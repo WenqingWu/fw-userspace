@@ -226,7 +226,8 @@ typedef struct{
 	unsigned short	udp_checksum		PACKED;
 } udp_pkt_t;
 
-
+/* temp  */
+/*
 typedef struct {
 	unsigned char	ver_inet_hdr_length	PACKED;
 	unsigned char	service_type		PACKED;
@@ -239,18 +240,39 @@ typedef struct {
 	unsigned long	ip_src_address		PACKED;
 	unsigned long	ip_dst_address		PACKED;
 } ip_pkt_t;
+*/
+typedef struct {
+	unsigned char	ver_inet_hdr_length	;
+	unsigned char	service_type		;
+	unsigned short	total_length		PACKED;
+	unsigned short	identifier		PACKED;
+	unsigned short	flags_frag_offset	PACKED;
+	unsigned char	ttl			;
+	unsigned char	protocol		;
+	unsigned short	hdr_checksum		PACKED;
+	unsigned long	ip_src_address		PACKED;
+	unsigned long	ip_dst_address		PACKED;
+} ip_pkt_t;
 
-
+/*
 typedef struct {
         unsigned char           signature[8]    PACKED;
         unsigned char           request_reply   PACKED;
         unsigned char           id              PACKED;
         unsigned char           reserved[6]     PACKED;
 } wp_mgmt_t;
+*/
+typedef struct {
+        unsigned char           signature[8]    ;
+        unsigned char           request_reply   ;
+        unsigned char           id              ;
+        unsigned char           reserved[6]     ;
+} wp_mgmt_t;
+
 
 /*************************************************************************
  Data Structure for if_send  statistics
-*************************************************************************/  
+************************************************************************ */  
 typedef struct if_send_stat{
 	unsigned long if_send_entry;
 	unsigned long if_send_skb_null;
