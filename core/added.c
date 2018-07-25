@@ -1174,9 +1174,99 @@ void * kmalloc (size_t size, int flags)
 	return NULL;
 }
 
+static inline int alloc_area_pte (pte_t * pte, unsigned long address,
+			unsigned long size, int gfp_mask, pgprot_t prot)
+{
+	unsigned long end;
+
+	address &= ~PMD_MASK;
+	end = address + size;
+	if (end > PMD_SIZE)
+		end = PMD_SIZE;
+	do {
+		struct page * page;
+		spin_unlock(&init_mm.page_table_lock);
+		page = alloc_page(gfp_mask);
+		spin_lock(&init_mm.page_table_lock);
+		if (!pte_none(*pte))
+			printk(KERN_ERR "alloc_area_pte: page already exists\n");
+		if (!page)
+			return -ENOMEM;
+		set_pte(pte, mk_pte(page, prot));
+		address += PAGE_SIZE;
+		pte++;
+	} while (address < end);
+	return 0;
+}
+static inline int alloc_area_pmd(pmd_t * pmd, unsigned long address, unsigned long size, int gfp_mask, pgprot_t prot)
+{
+	unsigned long end;
+
+	address &= ~PGDIR_MASK;
+	end = address + size;
+	if (end > PGDIR_SIZE)
+		end = PGDIR_SIZE;
+	do {
+		pte_t * pte = pte_alloc(&init_mm, pmd, address);
+		if (!pte)
+			return -ENOMEM;
+		if (alloc_area_pte(pte, address, end - address, gfp_mask, prot))
+			return -ENOMEM;
+		address = (address + PMD_SIZE) & PMD_MASK;
+		pmd++;
+	} while (address < end);
+	return 0;
+}
+inline int vmalloc_area_pages (unsigned long address, unsigned long size,
+                               int gfp_mask, pgprot_t prot)
+{
+	pgd_t * dir;
+	unsigned long end = address + size;
+	int ret;
+
+	dir = pgd_offset_k(address);
+	spin_lock(&init_mm.page_table_lock);
+	do {
+		pmd_t *pmd;
+		
+		pmd = pmd_alloc(&init_mm, dir, address);
+		ret = -ENOMEM;
+		if (!pmd)
+			break;
+
+		ret = -ENOMEM;
+		if (alloc_area_pmd(pmd, address, end - address, gfp_mask, prot))
+			break;
+
+		address = (address + PGDIR_SIZE) & PGDIR_MASK;
+		dir++;
+
+		ret = 0;
+	} while (address && (address < end));
+	spin_unlock(&init_mm.page_table_lock);
+	flush_cache_all();
+	return ret;
+}
+
 void * __vmalloc (unsigned long size, int gfp_mask, pgprot_t prot)
 {
-	
+	void * addr;
+	struct vm_struct *area;
+
+	size = PAGE_ALIGN(size);
+	if (!size || (size >> PAGE_SHIFT) > num_physpages) {
+		BUG();
+		return NULL;
+	}
+	area = get_vm_area(size, VM_ALLOC);
+	if (!area)
+		return NULL;
+	addr = area->addr;
+	if (vmalloc_area_pages(VMALLOC_VMADDR(addr), size, gfp_mask, prot)) {
+		vfree(addr);
+		return NULL;
+	}
+	return addr;
 }
 
 int ip_route_output_key(struct rtable **rp, const struct rt_key *key)
