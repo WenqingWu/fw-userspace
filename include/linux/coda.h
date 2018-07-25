@@ -59,20 +59,22 @@ Mellon the rights to redistribute these changes without encumbrance.
 #ifndef _CODA_HEADER_
 #define _CODA_HEADER_
 
+#include "types.h"
+#include "time.h"
 
 
-/* Catch new _KERNEL defn for NetBSD and DJGPP/__CYGWIN32__ */
-#if defined(__NetBSD__) || \
-  ((defined(DJGPP) || defined(__CYGWIN32__)) && !defined(KERNEL))
-#include <sys/types.h>
-#endif 
+// /* Catch new _KERNEL defn for NetBSD and DJGPP/__CYGWIN32__ */
+// #if defined(__NetBSD__) || \
+//   ((defined(DJGPP) || defined(__CYGWIN32__)) && !defined(KERNEL))
+// #include <sys/types.h>
+// #endif 
 
 #ifndef CODA_MAXSYMLINKS
 #define CODA_MAXSYMLINKS 10
 #endif
 
 #if defined(DJGPP) || defined(__CYGWIN32__)
-#ifdef KERNEL
+//#ifdef KERNEL
 typedef unsigned long u_long;
 typedef unsigned int u_int;
 typedef unsigned short u_short;
@@ -91,26 +93,26 @@ struct timespec {
         long       ts_sec;
         long       ts_nsec;
 };
-#else  /* DJGPP but not KERNEL */
-#include <sys/time.h>
-typedef unsigned long long u_quad_t;
-#endif /* !KERNEL */
+// #else  /* DJGPP but not KERNEL */
+// #include <sys/time.h>
+// typedef unsigned long long u_quad_t;
+// #endif /* !KERNEL */
 #endif /* !DJGPP */
 
 
-#if defined(__linux__)
+//#if defined(__linux__)
 #define cdev_t u_quad_t
-#ifndef __KERNEL__
-#if !defined(_UQUAD_T_) && (!defined(__GLIBC__) || __GLIBC__ < 2)
-#define _UQUAD_T_ 1
+//#ifndef __KERNEL__
+// #if !defined(_UQUAD_T_) && (!defined(__GLIBC__) || __GLIBC__ < 2)
+// #define _UQUAD_T_ 1
+// typedef unsigned long long u_quad_t;
+// #endif
+//#else /*__KERNEL__ */
 typedef unsigned long long u_quad_t;
-#endif
-#else /*__KERNEL__ */
-typedef unsigned long long u_quad_t;
-#endif /* __KERNEL__ */
-#else
-#define cdev_t dev_t
-#endif
+//#endif /* __KERNEL__ */
+// #else
+// #define cdev_t dev_t
+// #endif
 
 #ifdef __CYGWIN32__
 struct timespec {
