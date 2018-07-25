@@ -39,7 +39,7 @@ do { \
  * so we only need to worry about other
  * CPU's.
  */
-extern __inline__ __attribute__ ((__gnu_inline__)) void lock_kernel(void)
+extern __inline__ void lock_kernel(void)
 {
 #if 1
 	if (!++current->lock_depth)
@@ -55,7 +55,7 @@ extern __inline__ __attribute__ ((__gnu_inline__)) void lock_kernel(void)
 #endif
 }
 
-extern __inline__ __attribute__ ((__gnu_inline__)) void unlock_kernel(void)
+extern __inline__ void unlock_kernel(void)
 {
 	if (current->lock_depth < 0)
 		out_of_line_bug();
