@@ -282,6 +282,15 @@ typedef struct slab_s {
 #define cc_data(cachep) \
 	((cachep)->cpudata[smp_processor_id()])
 
+/*
+ * This can be refined. Currently, tries to do round robin, instead
+ * should do concentratic circle search, starting from current node.
+ */
+struct page * _alloc_pages(unsigned int gfp_mask, unsigned int order)
+{
+	return NULL;
+}
+
 static inline void kmem_cache_free_one(kmem_cache_t *cachep, void *objp)
 {
 	slab_t* slabp;
@@ -1174,6 +1183,8 @@ void * kmalloc (size_t size, int flags)
 	return NULL;
 }
 
+/* temp */
+struct mm_struct init_mm = {0};
 static inline int alloc_area_pte (pte_t * pte, unsigned long address,
 			unsigned long size, int gfp_mask, pgprot_t prot)
 {
@@ -1189,7 +1200,7 @@ static inline int alloc_area_pte (pte_t * pte, unsigned long address,
 		page = alloc_page(gfp_mask);
 		spin_lock(&init_mm.page_table_lock);
 		if (!pte_none(*pte))
-			printk(KERN_ERR "alloc_area_pte: page already exists\n");
+//			printk(KERN_ERR "alloc_area_pte: page already exists\n");
 		if (!page)
 			return -ENOMEM;
 		set_pte(pte, mk_pte(page, prot));
@@ -1217,6 +1228,33 @@ static inline int alloc_area_pmd(pmd_t * pmd, unsigned long address, unsigned lo
 	} while (address < end);
 	return 0;
 }
+pmd_t *__pmd_alloc(struct mm_struct *mm, pgd_t *pgd, unsigned long address)
+{
+	pmd_t *new;
+
+	/* "fast" allocation can happen without dropping the lock.. */
+	new = pmd_alloc_one_fast(mm, address);
+	if (!new) {
+		spin_unlock(&mm->page_table_lock);
+		new = pmd_alloc_one(mm, address);
+		spin_lock(&mm->page_table_lock);
+		if (!new)
+			return NULL;
+
+		/*
+		 * Because we dropped the lock, we should re-check the
+		 * entry, as somebody else could have populated it..
+		 */
+		if (!pgd_none(*pgd)) {
+			pmd_free(new);
+			goto out;
+		}
+	}
+	pgd_populate(mm, pgd, new);
+out:
+	return pmd_offset(pgd, address);
+}
+
 inline int vmalloc_area_pages (unsigned long address, unsigned long size,
                                int gfp_mask, pgprot_t prot)
 {
@@ -1247,7 +1285,41 @@ inline int vmalloc_area_pages (unsigned long address, unsigned long size,
 	flush_cache_all();
 	return ret;
 }
+struct vm_struct * get_vm_area(unsigned long size, unsigned long flags)
+{
+	unsigned long addr;
+	struct vm_struct **p, *tmp, *area;
 
+	area = (struct vm_struct *) kmalloc(sizeof(*area), GFP_KERNEL);
+	if (!area)
+		return NULL;
+	size += PAGE_SIZE;
+	if(!size)
+		return NULL;
+	addr = VMALLOC_START;
+	write_lock(&vmlist_lock);
+	for (p = &vmlist; (tmp = *p) ; p = &tmp->next) {
+		if ((size + addr) < addr)
+			goto out;
+		if (size + addr <= (unsigned long) tmp->addr)
+			break;
+		addr = tmp->size + (unsigned long) tmp->addr;
+		if (addr > VMALLOC_END-size)
+			goto out;
+	}
+	area->flags = flags;
+	area->addr = (void *)addr;
+	area->size = size;
+	area->next = *p;
+	*p = area;
+	write_unlock(&vmlist_lock);
+	return area;
+
+out:
+	write_unlock(&vmlist_lock);
+	kfree(area);
+	return NULL;
+}
 void * __vmalloc (unsigned long size, int gfp_mask, pgprot_t prot)
 {
 	void * addr;
