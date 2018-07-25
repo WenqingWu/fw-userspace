@@ -1332,18 +1332,28 @@ void * __vmalloc (unsigned long size, int gfp_mask, pgprot_t prot)
 
 int ip_route_output_key(struct rtable **rp, const struct rt_key *key)
 {
-
+	/* temp */
 	return 0;
 }
 
-inline void * __memcpy(void * to, const void * from, size_t n)
-{	
+void *__memcpy(void *dest, const void *src, size_t n)
+{
+	long d0, d1, d2;
+	asm volatile(
+		"rep ; movsq\n\t"
+		"movq %4,%%rcx\n\t"
+		"rep ; movsb\n\t"
+		: "=&c" (d0), "=&D" (d1), "=&S" (d2)
+		: "0" (n >> 3), "g" (n & 7), "1" (dest), "2" (src)
+		: "memory");
 
+	return dest;
 }
 
 struct proc_dir_entry *create_proc_entry(const char *name, mode_t mode,
 					 struct proc_dir_entry *parent)
 {
+	/* temp */
 	return NULL;
 }
 
@@ -1353,7 +1363,7 @@ struct proc_dir_entry *create_proc_entry(const char *name, mode_t mode,
  */
 void remove_proc_entry(const char *name, struct proc_dir_entry *parent)
 {
-
+	/* temp */
 }
 
 /**
@@ -1371,7 +1381,7 @@ void remove_proc_entry(const char *name, struct proc_dir_entry *parent)
  */
 int request_module(const char * module_name)
 {
-
+    /* no need for user-level application */
 	return 0;
 }
 /*
@@ -1394,19 +1404,21 @@ int request_module(const char * module_name)
 void
 __down_failed(void)  /* special register calling convention */
 {
-
+	/* kernel function*/
 }
 
 int
 __down_failed_interruptible(void) /* params in registers */
 {
-
+	/* kernel function*/
+	
 	return 0;
 }
 
 void
 __up_wakeup(void)
 {
+	/* kernel function*/
 	
 }
 
@@ -1443,7 +1455,22 @@ int net_ratelimit(void)
  
 int netdev_finish_unregister(struct net_device *dev)
 {
+	// BUG_TRAP(dev->ip_ptr==NULL);
+	// BUG_TRAP(dev->ip6_ptr==NULL);
+	// BUG_TRAP(dev->dn_ptr==NULL);
 
+	if (!dev->deadbeaf) {
+//		printk(KERN_ERR "Freeing alive device %p, %s\n", dev, dev->name);
+		return 0;
+	}
+// #ifdef NET_REFCNT_DEBUG
+// 	printk(KERN_DEBUG "netdev_finish_unregister: %s%s.\n", dev->name,
+// 	       (dev->features & NETIF_F_DYNALLOC)?"":", old style");
+// #endif
+	if (dev->destructor)
+		dev->destructor(dev);
+	if (dev->features & NETIF_F_DYNALLOC)
+		kfree(dev);
 	return 0;
 }
 /**
@@ -1464,6 +1491,7 @@ void skb_over_panic(struct sk_buff *skb, int sz, void *here)
 
 int del_timer(struct timer_list * timer)
 {
+	/* temp */
 	return 1;
 }
 
