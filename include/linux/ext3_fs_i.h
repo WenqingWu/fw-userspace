@@ -17,6 +17,7 @@
 #define _LINUX_EXT3_FS_I
 
 #include "rwsem.h"
+#include "types.h"
 
 /*
  * second extended file system inode data in memory

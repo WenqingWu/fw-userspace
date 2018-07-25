@@ -8,7 +8,7 @@
 #include "posix_types.h"
 #include "../asm/types.h"
 
-#ifndef __KERNEL_STRICT_NAMES
+//#ifndef __KERNEL_STRICT_NAMES
 
 typedef __kernel_fd_set		fd_set;
 typedef __kernel_dev_t		dev_t;
@@ -27,11 +27,11 @@ typedef __kernel_gid32_t	gid_t;
 typedef __kernel_uid16_t        uid16_t;
 typedef __kernel_gid16_t        gid16_t;
 
-#ifdef CONFIG_UID16
+//#ifdef CONFIG_UID16
 /* This is defined by include/asm-{arch}/posix_types.h */
 typedef __kernel_old_uid_t	old_uid_t;
 typedef __kernel_old_gid_t	old_gid_t;
-#endif /* CONFIG_UID16 */
+//#endif /* CONFIG_UID16 */
 
 /* libc5 includes this file to define uid_t, thus uid_t can never change
  * when it is included by non-kernel code
@@ -41,9 +41,9 @@ typedef __kernel_old_gid_t	old_gid_t;
 // typedef __kernel_gid_t		gid_t;
 // #endif /* __KERNEL__ */
 
-#if defined(__GNUC__)
+//#if defined(__GNUC__)
 typedef __kernel_loff_t		loff_t;
-#endif
+//#endif
 
 /*
  * The following typedefs are also protected by individual ifdefs for
@@ -107,13 +107,13 @@ typedef		__u8		uint8_t;
 typedef		__u16		uint16_t;
 typedef		__u32		uint32_t;
 
-#if defined(__GNUC__) && !defined(__STRICT_ANSI__)
+//#if defined(__GNUC__) && !defined(__STRICT_ANSI__)
 typedef		__u64		uint64_t;
 typedef		__u64		u_int64_t;
 typedef		__s64		int64_t;
-#endif
+//#endif
 
-#endif /* __KERNEL_STRICT_NAMES */
+//#endif /* __KERNEL_STRICT_NAMES */
 
 /*
  * Below are truly Linux-specific types that should never collide with
