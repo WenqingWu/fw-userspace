@@ -345,6 +345,7 @@ static unsigned int nf_iterate(struct list_head *head,
 			       struct list_head **i,
 			       int (*okfn)(struct sk_buff *))
 {
+	printf("nf_iterate start:\n");
 	for (*i = (*i)->next; *i != head; *i = (*i)->next) {
 		struct nf_hook_ops *elem = (struct nf_hook_ops *)*i;
 		switch (elem->hook(hook, skb, indev, outdev, okfn)) {
@@ -370,6 +371,7 @@ static unsigned int nf_iterate(struct list_head *head,
 				elem->hook, hook);
 #endif
 		}
+		printf("nf_iterate switch finished.\n");
 	}
 	return NF_ACCEPT;
 }
