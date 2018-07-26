@@ -92,6 +92,8 @@
 
 #include "../include/linux/spinlock.h"
 
+irq_cpustat_t irq_stat[NR_CPUS] ____cacheline_aligned;			/* defined in asm/hardirq.h */
+
 struct ip_mib ip_statistics[NR_CPUS*2];
 
 zone_t *zone_table[MAX_NR_ZONES*MAX_NR_NODES];

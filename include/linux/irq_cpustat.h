@@ -19,8 +19,7 @@
  * definitions instead of differing sets for each arch.
  */
 
-//extern irq_cpustat_t irq_stat[];			/* defined in asm/hardirq.h */
-irq_cpustat_t irq_stat[NR_CPUS] ____cacheline_aligned;			/* defined in asm/hardirq.h */
+extern irq_cpustat_t irq_stat[];			/* defined in asm/hardirq.h */
 
 #ifdef CONFIG_SMP
 #define __IRQ_STAT(cpu, member)	(irq_stat[cpu].member)
