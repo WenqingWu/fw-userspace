@@ -10,7 +10,7 @@
 #include "kernel.h"
 
 /*
- * self code
+ * self code， copy from "kernel.h"
  */
 #define INT_MAX		((int)(~0U>>1))
 #define INT_MIN		(-INT_MAX - 1)
