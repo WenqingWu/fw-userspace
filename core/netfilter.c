@@ -25,6 +25,8 @@
 #include "../include/net/route.h"
 #include "../include/linux/ip.h"
 
+#include <stdio.h>
+
 /* #define __KERNEL_SYSCALLS__ */
 #include "../include/linux/unistd.h"
 
