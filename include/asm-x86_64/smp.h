@@ -79,8 +79,8 @@ extern void smp_store_cpu_info(int id);		/* Store per CPU info (like the initial
  * so this is correct in the x86 case.
  */
 
-//#define smp_processor_id() read_pda(cpunumber)
-#define smp_processor_id() 0
+//#define smp_processor_id() read_pda(cpunumber) 
+#define smp_processor_id() 0  /* the assembly code in read_pda() is unable to execute in new kernel*/
 
 #define stack_smp_processor_id() (stack_current()->processor)
 

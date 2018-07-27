@@ -92,7 +92,7 @@
 
 #include "../include/linux/spinlock.h"
 
-irq_cpustat_t irq_stat[NR_CPUS] ____cacheline_aligned;			/* defined in asm/hardirq.h */
+irq_cpustat_t irq_stat[NR_CPUS] ____cacheline_aligned;			/* irq_cpustat_t is defined in asm/hardirq.h  */
 
 struct ip_mib ip_statistics[NR_CPUS*2];
 
