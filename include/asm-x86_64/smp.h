@@ -48,11 +48,14 @@ extern void zap_low_mappings (void);
  * This simplifies scheduling and IPI sending and
  * compresses data structures.
  */
-extern inline int cpu_logical_map(int cpu)
+//extern inline int cpu_logical_map(int cpu)
+static inline int cpu_logical_map(int cpu)
 {
 	return cpu;
 }
-extern inline int cpu_number_map(int cpu)
+//extern inline int cpu_number_map(int cpu)
+static inline int cpu_number_map(int cpu)
+
 {
 	return cpu;
 }
