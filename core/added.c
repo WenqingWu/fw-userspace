@@ -1407,13 +1407,14 @@ void
 __down_failed(void)  /* special register calling convention */
 {
 	/* kernel function*/
+	//implement in arch/alpha/kernel/semaphore.c
 }
 
 int
 __down_failed_interruptible(void) /* params in registers */
 {
 	/* kernel function*/
-	
+	//implement in arch/alpha/kernel/semaphore.c
 	return 0;
 }
 
@@ -1421,7 +1422,7 @@ void
 __up_wakeup(void)
 {
 	/* kernel function*/
-	
+	//implement in arch/alpha/kernel/semaphore.c
 }
 
 void __write_lock_failed(void)
@@ -1757,6 +1758,7 @@ bug:
 int ___pskb_trim(struct sk_buff *skb, unsigned int len, int realloc)
 {
 	/* temp */
+	//net/core/skbuff.c
 	return 0;
 }
 
@@ -1774,6 +1776,7 @@ static ssize_t extract_entropy(struct entropy_store *r, void * buf,
 			       size_t nbytes, int flags)
 {
 	/* temp */
+	// drivers/char/random.c
 	return 0;
 }
 void get_random_bytes(void *buf, int nbytes)
@@ -2290,6 +2293,7 @@ void unregister_sysctl_table(struct ctl_table_header * header)
 void schedule(void)
 {
 	/* temp */
+	// ????
 }
 /**
  * kmem_cache_destroy - delete a cache
@@ -2309,6 +2313,8 @@ void schedule(void)
 int kmem_cache_destroy (kmem_cache_t * cachep)
 {
 	/* temp */
+
+	//  mm/slab.c
 	return 0;
 }
 
@@ -2316,6 +2322,8 @@ int kmem_cache_destroy (kmem_cache_t * cachep)
 static void register_proc_table(ctl_table * table, struct proc_dir_entry *root)
 {
 	/* may not be used*/
+
+	//kernel/sysctl.c
 }
 
 static ctl_table root_table[] = {0};       /* temp */
@@ -2570,7 +2578,7 @@ skb_realloc_headroom(struct sk_buff *skb, unsigned int headroom)
  */
 void * kmem_cache_alloc (kmem_cache_t *cachep, int flags)
 {
-	
+	//mm/slab.c
 }
 
 /**
@@ -2606,6 +2614,8 @@ kmem_cache_create (const char *name, size_t size, size_t offset,
 	unsigned long flags, void (*ctor)(void*, kmem_cache_t *, unsigned long),
 	void (*dtor)(void*, kmem_cache_t *, unsigned long))
 {
+
+	// mm/slab.c
 	return NULL;
 
 }
